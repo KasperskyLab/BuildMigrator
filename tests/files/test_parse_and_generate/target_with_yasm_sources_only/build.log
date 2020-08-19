@@ -1,0 +1,6 @@
+yasm -fwin32 -m x86 ../source/yasm1.asm -o yasm1.obj
+yasm -fwin32 -m x86 ../source/yasm2.asm -o yasm2.obj
+cl /nologo -c ..\source\main.c /Fomain.obj
+link /nologo main.obj /OUT:main.exe
+link /nologo yasm1.obj /OUT:yasm1.exe
+link /nologo yasm2.obj /OUT:yasm2.exe

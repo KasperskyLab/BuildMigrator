@@ -1,0 +1,3 @@
+gcc -I../include/a -I../include/b -I../include/c -I../include/d -L../lib -la -lb -lc -ld ../source/test1.cpp -o test1
+gcc -I../include/a -I../include/b -I../include/c -I../include/d -L../lib -la -lb -lc -ld ../source/test2.cpp -o test2
+gcc -I../include/a -I../include/b -I../include/c -I../include/d -L../lib -la -lb -lc -ld ../source/test3.cpp -o test3

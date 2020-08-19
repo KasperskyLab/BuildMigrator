@@ -1,0 +1,8 @@
+g++ -o library.o -c ../source/library.cpp
+g++ -o main.o -c ../source/main.cpp
+gcc -shared -lm library.o -o libutils.so.2.0.0
+ln -s libutils.so.2.0.0 libutils.so.2
+ln -s libutils.so.2.0.0 libutils.so
+ln -s libutils.so libutils.so.1.9.1
+cp libutils.so libs/libutils.so
+gcc -L. -lutils main.o -o app

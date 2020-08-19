@@ -1,0 +1,4 @@
+gcc -o a.o -c ../source/a.cpp
+ar cr liba.a ../source/1.o
+gcc -shared -o libb.so 2.o
+gcc -shared -o libc.so -L. -lb a.o ./dir/3.o

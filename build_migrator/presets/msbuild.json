@@ -1,0 +1,8 @@
+{
+    "platform": "windows",
+    "log_type": "msbuild",
+    "parsers": [
+        "build_log_parser",
+        "msbuild"
+    ]
+}

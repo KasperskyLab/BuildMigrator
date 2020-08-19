@@ -1,0 +1,4 @@
+gcc -c "-DVALUES1={ \"1.a\", \"2.b\", \"3.c\" }" -o test1.o ../source/test1.cpp
+gcc -c -DVALUES2=\{\ "1.a",\ "2.b",\ "3.c"\ \} -o test2.o ../source/test2.cpp
+gcc -c -DVALUES3=\{\ \"1.a\",\ \"2.b\",\ \"3.c\"\ \} -o test3.o ../source/test3.cpp
+gcc test1.o test2.o test3.o -shared -o libtest.so

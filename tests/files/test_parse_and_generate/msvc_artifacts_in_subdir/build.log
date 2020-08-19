@@ -1,0 +1,3 @@
+cl.exe /c /nologo /Fotmp\foo.c.obj ..\source\foo.c
+link.exe /OUT:out\foo.dll /DLL tmp\foo.c.obj
+lib.exe /OUT:out\sfoo.lib /NOLOGO tmp\foo.c.obj

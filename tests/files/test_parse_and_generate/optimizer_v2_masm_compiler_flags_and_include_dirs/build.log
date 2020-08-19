@@ -1,0 +1,7 @@
+ml /c -DMASM=1 /Iinclude_a /Iinclude_b -DF1 ../source/masm1.asm /Fomasm1.obj
+ml /c -DMASM=1 /Iinclude_a /I. -DF2 ../source/masm2.asm /Fomasm2.obj
+
+cl /c ../source/c1.c /Foc1.obj
+
+link.exe /DLL /OUT:./shared.dll masm1.obj c1.obj
+link.exe /OUT:./app.exe masm2.obj

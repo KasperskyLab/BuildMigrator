@@ -1,0 +1,2 @@
+ar cr liba.a a.o
+gcc -shared -Wl,-soname,libb.so.2 -o libb.so.2.0.1 b.o

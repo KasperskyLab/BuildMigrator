@@ -1,0 +1,8 @@
+1    execve("gcc", ["gcc", "-c", "@cwd@/source/object.c", "-o", "object.o"], [/* 2 vars */]) = 0
+2    execve("ar", ["ar", "r", "liblib.a", "object.o"], [/* 2 vars */]) = 0
+
+4    chdir("@cwd@/build/extract") = 0
+4    execve("ar", ["ar", "x", "../liblib.a"], [/* 2 vars */]) = 0
+
+6    chdir("@cwd@/build/") = 0
+6    execve("ar", ["ar", "r", "libresult.a", "extract/object.o"], [/* 2 vars */]) = 0

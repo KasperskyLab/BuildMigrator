@@ -1,0 +1,9 @@
+mc  -h generated -r generated ..\source\manifest.mc
+
+cl /c /I. /DA=1 ..\source\common1.cpp /Fo"common1_a.obj"
+cl /c /I. /DA=1 ..\source\common2.cpp /Fo"common2_a.obj"
+cl /c /I. /DB=1 ..\source\common1.cpp /Fo"common1_b.obj"
+cl /c /I. /DB=1 ..\source\common2.cpp /Fo"common2_b.obj"
+
+cl ..\source\a.cpp /link common1_a.obj common2_a.obj /OUT:a.exe
+cl ..\source\b.cpp /link common1_b.obj common2_b.obj /OUT:b.exe

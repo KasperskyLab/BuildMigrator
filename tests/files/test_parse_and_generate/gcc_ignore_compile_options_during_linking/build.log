@@ -1,0 +1,2 @@
+gcc -fPIC -fPIE ../source/main.c -c -o main.o
+gcc -fpic -fpie -pie -Wa,--noexecstack -fno-rtti -DFLAG=VALUE main.o -o test

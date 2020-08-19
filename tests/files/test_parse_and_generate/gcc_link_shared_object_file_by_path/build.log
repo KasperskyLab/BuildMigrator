@@ -1,0 +1,6 @@
+gcc -fPIC -shared ../source/foo.c -o libfoo.so.1.2.3
+ln -s libfoo.so.1.2.3 libfoo.so.1
+ln -s libfoo.so.1.2.3 libfoo.so
+
+gcc -c ../source/main.c -o main.o 
+gcc -o main main.o -L. libfoo.so

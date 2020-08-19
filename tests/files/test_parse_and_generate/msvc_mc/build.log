@@ -1,0 +1,4 @@
+mc  -h generated -r generated ..\source\manifest.mc
+cl /c /I. ..\source\main.cpp /Fomain.obj
+rc generated\manifest.rc /fomanifest.res
+link /OUT:main.exe main.obj manifest.res

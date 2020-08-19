@@ -1,0 +1,7 @@
+cl.exe -c -DMODE=1 /GR- ../source/test.cpp /Fotest1.obj
+cl.exe -c -DMODE=2 ../source/test.cpp /Fotest2.obj
+cl.exe -c -DMODE=2 -I../source ../source/test.cpp /Fotest3.obj
+cl.exe -c -DCMODE=1 ../source/test.c /Fotest_c_1.obj
+cl.exe -c -DCMODE=2 ../source/test.c /Fotest_c_2.obj
+link.exe /DLL /OUT:./test1.dll test1.obj test2.obj test_c_1.obj
+link.exe /DLL /OUT:./test2.dll test3.obj test_c_1.obj test_c_2.obj

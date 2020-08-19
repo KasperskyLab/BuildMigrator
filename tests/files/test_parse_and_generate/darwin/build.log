@@ -1,0 +1,13 @@
+clang -arch i386 -o foo.o -c -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.12/MacOSX10.12.sdk -mmacosx-version-min=10.9 -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.12/MacOSX10.12.sdk -mmacosx-version-min=10.9  -arch i386  -O3 -DNDEBUG -Wall -fno-common -pthread -g -fPIC  -UNDEBUG -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DHAVE_SYSCALL=1 -D_PR_PTHREADS -UHAVE_CVAR_BUILT_ON_SEM -I../source ../source/foo.c
+
+libtool -static -o lib/libfoo1.a foo.o
+
+ar cr lib/libfoo2.a ./foo.o
+
+clang -MMD -MF bar.c.o.d -DDARWIN -DNDEBUG -I../source -fasm-blocks -mpascal-strings -O2 -gdwarf-2 -arch i386 -Wno-error -fPIC -fno-common -pipe -Werror -Wall -Wno-array-bounds -Wno-unevaluated-expression -Wno-parentheses-equality -Qunused-arguments -Wshadow  -c ../source/bar.c -o ./bar.c.o
+
+clang -arch i386 -dynamiclib -compatibility_version 1 -current_version 1 -all_load -install_name @executable_path/libbar.dylib -headerpad_max_install_names -o lib/libbar.dylib ./bar.c.o -stdlib=libc++ -stdlib=libc++ -exported_symbols_list libbar.def -Wl,-search_paths_first -Wl,-headerpad_max_install_names -arch i386  -Llib -lfoo1
+
+clang++ -MMD -MF main.o.d -DNDEBUG -I../source -fasm-blocks -mpascal-strings -O2 -gdwarf-2 -arch i386 -Wno-error -std=c++0x -fPIC -fno-common -pipe -Werror -Wall -Wno-array-bounds -Wno-unevaluated-expression -Wno-parentheses-equality -Qunused-arguments -Wshadow  -c ../source/main.cpp -o main.o
+
+clang -Wl,-dead_strip -arch i386 -Llib -o bin/test main.o lib/libfoo1.a lib/libbar.dylib -lfoo2

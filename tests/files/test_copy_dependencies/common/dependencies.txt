@@ -1,0 +1,12 @@
+@source_dir@/Dir/a.c
+@source_dir@/B.CPP
+@source_dir@/does-not-exist
+@source_dir@/non-empty-include/foo.h
+@source_dir@/empty-include
+@source_dir@/non-empty-include
+@build_dir@/liba.so
+@build_dir@/DoesNotExist
+@build_dir@/Resources/RESOURCE.BIN
+@build_dir@/NonEmptyInclude/Bar.hpp
+@build_dir@/EmptyInclude
+@build_dir@/NonEmptyInclude

@@ -1,0 +1,65 @@
+Microsoft (R) Build Engine version 14.0.25420.1
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Building the projects in this solution one at a time. To enable parallel build, please add the "/m" switch.
+Build started 01.04.2020 17:12:09.
+Project "@cwd@\source\libjson_vs140_default.sln" on node 1 (Build target(s)).
+ValidateSolutionConfiguration:
+  Building solution configuration "Release|Win32".
+Project "@cwd@\source\libjson_vs140_default.sln" (1) is building "@cwd@\source\libjson_md_nounicode.vcxproj" (2) on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "@cwd@\build\Release\default\".
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory. [@cwd@\source\libjson_md_nounicode.vcxproj]
+  Creating directory "@cwd@\build\lib\default\".
+  Creating directory "@cwd@\build\Release\default\libjson_.12A6BBB1.tlog\".
+InitializeBuildStatus:
+  Creating "@cwd@\build\Release\default\libjson_.12A6BBB1.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  CL.exe /c /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include" /I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include" /I"C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D NDEBUG /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"@cwd@\build\Release\default\\" /Fd"@cwd@\build\Release\default\json_vc71_libmd.pdb" /Gd /TP /analyze- /errorReport:queue /Zc:threadSafeInit- _internal\Source\internalJSONNode.cpp _internal\Source\JSONAllocator.cpp
+  internalJSONNode.cpp
+  JSONAllocator.cpp
+Lib:
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"@cwd@\build\lib\default\libjsonmd.lib" /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\lib" /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\lib" /LIBPATH:"C:\Program Files (x86)\Windows Kits\10\lib\10.0.10240.0\ucrt\x86" /LIBPATH:"C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x86" /NOLOGO /LTCG @cwd@\build\Release\default\internalJSONNode.obj
+  @cwd@\build\Release\default\JSONAllocator.obj
+  libjson_md_nounicode.vcxproj -> @cwd@\build\lib\default\libjsonmd.lib
+FinalizeBuildStatus:
+  Deleting file "@cwd@\build\Release\default\libjson_.12A6BBB1.tlog\unsuccessfulbuild".
+  Touching "@cwd@\build\Release\default\libjson_.12A6BBB1.tlog\libjson_md_default.lastbuildstate".
+Done Building Project "@cwd@\source\libjson_md_nounicode.vcxproj" (default targets).
+Project "@cwd@\source\libjson_vs140_default.sln" (1) is building "@cwd@\source\libjson_nounicode.vcxproj" (3) on node 1 (default targets).
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory. [@cwd@\source\libjson_nounicode.vcxproj]
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (@cwd@\build\Release\default\) contains files shared from another project (libjson_md_default.vcxproj).  This can lead to incorrect clean and rebuild behavior. [@cwd@\source\libjson_nounicode.vcxproj]
+  Creating directory "@cwd@\build\Release\default\libjson_.E473C1D6.tlog\".
+InitializeBuildStatus:
+  Creating "@cwd@\build\Release\default\libjson_.E473C1D6.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  CL.exe /c /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include" /I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include" /I"C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D NDEBUG /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"@cwd@\build\Release\default\\" /Fd"@cwd@\build\Release\default\json_vc71_libmt.pdb" /Gd /TP /analyze- /errorReport:queue /Zc:threadSafeInit- _internal\Source\internalJSONNode.cpp _internal\Source\JSONAllocator.cpp
+  internalJSONNode.cpp
+  JSONAllocator.cpp
+Lib:
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"@cwd@\build\lib\default\libjsonmt.lib" /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\lib" /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\lib" /LIBPATH:"C:\Program Files (x86)\Windows Kits\10\lib\10.0.10240.0\ucrt\x86" /LIBPATH:"C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x86" /NOLOGO /LTCG @cwd@\build\Release\default\internalJSONNode.obj
+  @cwd@\build\Release\default\JSONAllocator.obj
+  libjson_nounicode.vcxproj -> @cwd@\build\lib\default\libjsonmt.lib
+FinalizeBuildStatus:
+  Deleting file "@cwd@\build\Release\default\libjson_.E473C1D6.tlog\unsuccessfulbuild".
+  Touching "@cwd@\build\Release\default\libjson_.E473C1D6.tlog\libjson_mt_default.lastbuildstate".
+Done Building Project "@cwd@\source\libjson_nounicode.vcxproj" (default targets).
+Done Building Project "@cwd@\source\libjson_vs140_default.sln" (Build target(s)).
+
+Build succeeded.
+
+"@cwd@\source\libjson_vs140_default.sln" (Build target) (1) ->
+"@cwd@\source\libjson_md_nounicode.vcxproj" (default target) (2) ->
+(PrepareForBuild target) -> 
+  C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory. [@cwd@\source\libjson_md_nounicode.vcxproj]
+
+
+"@cwd@\source\libjson_vs140_default.sln" (Build target) (1) ->
+"@cwd@\source\libjson_nounicode.vcxproj" (default target) (3) ->
+  C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory. [@cwd@\source\libjson_nounicode.vcxproj]
+  C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (@cwd@\build\Release\default\) contains files shared from another project (libjson_md_default.vcxproj).  This can lead to incorrect clean and rebuild behavior. [@cwd@\source\libjson_nounicode.vcxproj]
+
+    3 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:10.55

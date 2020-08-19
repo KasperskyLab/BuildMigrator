@@ -1,0 +1,7 @@
+rc.exe /DF1 /DRC=1 /Iinclude_a ..\source\rc1.rc /forc1.res
+RC.EXE /DF2 /DRC=1 /I. /Iinclude_a ..\source\rc2.rc /forc2.res
+
+cl.exe /c ..\source\c1.c /Foc1.obj
+
+link.exe /DLL /NOENTRY /OUT:./shared.dll rc1.res
+link.exe /OUT:./app.exe rc2.res c1.obj

@@ -1,0 +1,4 @@
+link /subsystem:console /out:response_file_not_found.exe @file_not_found.rsp
+cl /c @cl.rsp
+cl /c /EHsc ..\source\main.c /Fomain.obj @file_not_found.rsp
+link /subsystem:console /out:main.exe foo.obj main.obj

@@ -1,0 +1,18 @@
+cl.exe -c ..\source\dllmain.cpp /Fo"dllmain.obj"
+cl.exe -c ..\source\libtest.cpp /Fo"libtest.obj"
+cl.exe -c ..\source\test.cpp /Fo"test.obj"
+cl.exe -c ..\source\lib.cpp /Fo"lib.obj"
+cl.exe -c ..\source\main.cpp /Fo"main.obj"
+
+link.exe /DLL /OUT:"impl\libtest\libtest.dll" libtest.obj
+link.exe /DLL /OUT:"impl\test\test.dll" test.obj
+
+lib.exe /out:libtest.lib dllmain.obj impl\libtest\libtest.lib
+link.exe /DLL /OUT:test.dll dllmain.obj impl\test\test.lib
+
+lib.exe /out:lib.lib lib.obj
+lib.exe /out:impl/lib.lib lib.obj
+link.exe /DLL /OUT:test\lib.dll lib.obj impl/lib.lib
+
+link.exe /OUT:app.exe main.obj
+link.exe /OUT:test\app.exe main.obj

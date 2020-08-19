@@ -1,0 +1,26 @@
+     1>Project "@cwd@\solution.sln" on node 1 (BuildAll target(s)).
+     1>Project "@cwd@\solution.sln" (1) is building "@cwd@\source\compile.vcxproj" (2) on node 1 (default targets).
+     2>PrepareForBuild:
+         I'm preparing for build!
+       InitializeBuildStatus:
+         I'm initializing build status!
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.12.25827\bin\HostX64\x64\CL.exe /c /I. /Z7 /nologo /W3 /WX- /diagnostics:classic /MP /Ox /Ob2 /Oi /Ot /Oy /D NDEBUG /GF /Gm- /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR- /Fo"..\build\obj\\" /Fd"..\build\obj\\" /Gd /TP /wd4351 /wd4355 /wd4800 /wd4251 /wd4275 /wd4244 /wd4267 /errorReport:queue file1.cpp file2.cpp file3.cpp
+     2>ClCompile:
+         file1.cpp
+         file2.cpp
+         file3.cpp
+     1>Project "@cwd@\solution.sln" (1) is building "@cwd@\build\lib.vcxproj" (3) on node 1 (default targets).
+     3>Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.12.25827\bin\HostX64\x64\Lib.exe /OUT:"out_static.lib" /NOLOGO /MACHINE:X64 obj\file1.obj
+         obj\file2.obj
+         lib.vcxproj -> @cwd@\build\out_static.lib
+       FinalizeBuildStatus:
+         Deleting file "build\\lib.tlog\unsuccessfulbuild".
+         Touching "build\\lib.tlog\lib.lastbuildstate".
+     1>Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.12.25827\bin\HostX64\x64\Lib.exe /OUT:"build\out_static2.lib" /NOLOGO /MACHINE:X64 build\obj\file3.obj
+     1>Project "@cwd@\solution.sln" (1) is building "@cwd@\build\link.vcxproj" (4) on node 1 (default targets).
+     4>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.12.25827\bin\HostX64\x64\link.exe /ERRORREPORT:QUEUE /OUT:"out.exe" /NOLOGO /DEBUG /PDB:"out.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"out.lib" /MACHINE:X64 /SubSystem:Console,"5.02" obj\file1.obj
+         obj\file2.obj

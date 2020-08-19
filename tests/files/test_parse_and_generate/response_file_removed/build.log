@@ -1,0 +1,6 @@
+echo ../source/main.cpp > in1.rsp
+echo ../source/extra.cpp >> in1.rsp
+gcc -o main1 @in1.rsp
+echo ../source/main.cpp > in2.rsp
+echo ../source/extra.cpp >> in2.rsp
+gcc -o main2 @in2.rsp

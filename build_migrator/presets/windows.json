@@ -1,0 +1,30 @@
+{
+    "platform": "windows",
+    "parsers": [
+        "msvc_cl",
+        "msvc_lib",
+        "msvc_link",
+        "msvc_mc",
+        "msvc_ml",
+        "msvc_rc",
+        "nasm",
+        "yasm"
+    ],
+    "delete_flags": [
+        "^[-/]Z[Ii7f]$",
+        "(?i)^[-/]nologo",
+        "^[-/]O[12x]$",
+        "^[-/]DNDEBUG$",
+        "(?i)^[-/]debug$",
+        "^[-/]Fd",
+        "^[-/]arch:IA32$",
+        "^-m(32|64)$",
+        "(?i)^[-/]machine:",
+        "(?i)^[-/]pdb:",
+        "^[-/]T[CP]$",
+        "^[-/]MP$",
+        "^-g$",
+        "^-Fcv8$",
+        "^-dcv8$"
+    ]
+}

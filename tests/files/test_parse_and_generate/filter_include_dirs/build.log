@@ -1,0 +1,3 @@
+gcc -Iinclude ../source/1.c -o a
+gcc -I/usr/include ../source/2.c -o b
+g++ -Ia/b/c/include ../source/3.cpp -o c

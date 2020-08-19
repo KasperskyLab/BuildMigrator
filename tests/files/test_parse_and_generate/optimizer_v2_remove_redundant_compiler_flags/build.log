@@ -1,0 +1,2 @@
+gcc -shared ../source/a.c -o liba.so
+gcc -DA=B -Iinclude -fno-rtti -m32 -pthread -Wl,-z,relro,-z,now -shared a.o -o libtest.so

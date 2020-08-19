@@ -1,0 +1,19 @@
+yasm -p nasm -r nasm -fwin32 -m x86 -DAAAAAAAAAAA -DBBBBBBBBBBBB -DCCCCCCCCCCC -g cv8 ../source/yasm1.asm -o yasm1.obj
+yasm -p nasm -r nasm -fwin32 -m x86 -g cv8 ../source/yasm2.asm -o yasm2.obj
+
+nasm -fwin32 -DAAAAAAAAAAA -DBBBBBBBBBBBB -DCCCCCCCCCCC -g -F cv8 ../source/nasm1.asm -o nasm1.obj
+nasm -fwin32 -g -F cv8 ../source/nasm2.asm -o nasm2.obj
+
+ml /c -DAAAAAAAAAAA -DBBBBBBBBBBBB -DCCCCCCCCCCC /Zi /Zf ../source/masm1.asm /Fomasm1.obj
+ml /c /Zi /Zf ../source/masm2.asm /Fomasm2.obj
+
+cl /c -DAAAAAAAAAAA -DBBBBBBBBBBBB -DCCCCCCCCCCC /GR- /Z7  ../source/foo1.c /Fofoo1.obj
+cl /c /GR- /Z7 ../source/foo2.c /Fofoo2.obj
+
+cl /c -DAAAAAAAAAAA -DBBBBBBBBBBBB -DCCCCCCCCCCC /GR- /Z7 ../source/bar1.cpp /Fobar1.obj
+cl /c /GR- /Z7 ../source/bar2.cpp /Fobar2.obj
+
+rc -DAAAAAAAAAAA -DBBBBBBBBBBBB -DCCCCCCCCCCC /w -l409 ..\source\resource1.rc /foresource1.res
+rc /w -l409 -g511 ..\source\resource2.rc /foresource2.res
+
+link.exe /DLL /OUT:./test.dll yasm1.obj yasm2.obj nasm1.obj nasm2.obj masm1.obj masm2.obj foo1.obj foo2.obj bar1.obj bar2.obj resource1.res resource2.res

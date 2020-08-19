@@ -1,0 +1,9 @@
+cl.exe /nologo /c "-DMSG_A=\"a\"" ../source/a.cpp /Fo"a.obj"
+
+cl.exe /nologo /c ../source/b.cpp /Fo"b.obj"
+lib.exe b.obj /OUT:b.lib
+
+cl.exe /nologo ../source/main.cpp a.obj b.lib /link /DLL /OUT:a1.dll
+cl.exe /nologo ../source/main.cpp /LD /Fe"a2.dll" /link a.obj b.lib
+cl.exe /nologo ../source/main.cpp /Fe"a3.exe" b.lib /link a.obj
+cl.exe /nologo ../source/main.cpp a.obj /link /OUT:a4.exe b.lib

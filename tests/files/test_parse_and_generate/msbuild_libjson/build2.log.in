@@ -1,0 +1,71 @@
+Microsoft (R) Build Engine version 14.0.25420.1
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Building the projects in this solution one at a time. To enable parallel build, please add the "/m" switch.
+Build started 02.04.2020 15:50:05.
+Project "@cwd@\source\libjson_vs140_unicode.sln" on node 1 (Build target(s)).
+ValidateSolutionConfiguration:
+  Building solution configuration "Release|Win32".
+Project "@cwd@\source\libjson_vs140_unicode.sln" (1) is building "@cwd@\source\libjson.vcxproj" (2) on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "@cwd@\build\Release\unicode\".
+  Creating directory "@cwd@\build\lib\unicode\".
+  Creating directory "@cwd@\build\Release\unicode\libjson_.153A6FE5.tlog\".
+InitializeBuildStatus:
+  Creating "@cwd@\build\Release\unicode\libjson_.153A6FE5.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  CL.exe /c /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include" /I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include" /I"C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D NDEBUG /D JSON_UNICODE /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"@cwd@\build\Release\unicode\\" /Fd"@cwd@\build\Release\unicode\json_vc71_libmt.pdb" /Gd /TP /analyze- /errorReport:queue /Zc:threadSafeInit- /arch:IA32 _internal\Source\internalJSONNode.cpp _internal\Source\JSONAllocator.cpp
+  internalJSONNode.cpp
+  JSONAllocator.cpp
+_internal\Source\JSONAllocator.cpp(464): warning C4333: '>>': right shift by too large amount, data loss [@cwd@\source\libjson.vcxproj]
+Lib:
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"@cwd@\build\lib\unicode\libjsonmt.lib" /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\lib" /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\lib" /LIBPATH:"C:\Program Files (x86)\Windows Kits\10\lib\10.0.10240.0\ucrt\x86" /LIBPATH:"C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x86" /NOLOGO /LTCG @cwd@\build\Release\unicode\internalJSONNode.obj
+  @cwd@\build\Release\unicode\JSONAllocator.obj
+  libjson.vcxproj -> @cwd@\build\lib\unicode\libjsonmt.lib
+FinalizeBuildStatus:
+  Deleting file "@cwd@\build\Release\unicode\libjson_.153A6FE5.tlog\unsuccessfulbuild".
+  Touching "@cwd@\build\Release\unicode\libjson_.153A6FE5.tlog\libjson_mt_unicode.lastbuildstate".
+Done Building Project "@cwd@\source\libjson.vcxproj" (default targets).
+Project "@cwd@\source\libjson_vs140_unicode.sln" (1) is building "@cwd@\source\libjson_md.vcxproj" (3) on node 1 (default targets).
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (@cwd@\build\Release\unicode\) contains files shared from another project (libjson_mt_unicode.vcxproj).  This can lead to incorrect clean and rebuild behavior. [@cwd@\source\libjson_md.vcxproj]
+  Creating directory "@cwd@\build\Release\unicode\libjson_.4F621AB3.tlog\".
+InitializeBuildStatus:
+  Creating "@cwd@\build\Release\unicode\libjson_.4F621AB3.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  CL.exe /c /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include" /I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include" /I"C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D NDEBUG /D JSON_UNICODE /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"@cwd@\build\Release\unicode\\" /Fd"@cwd@\build\Release\unicode\json_vc71_libmd.pdb" /Gd /TP /analyze- /errorReport:queue /Zc:threadSafeInit- _internal\Source\internalJSONNode.cpp _internal\Source\JSONAllocator.cpp
+  internalJSONNode.cpp
+  JSONAllocator.cpp
+_internal\Source\JSONAllocator.cpp(464): warning C4333: '>>': right shift by too large amount, data loss [@cwd@\source\libjson_md.vcxproj]
+Lib:
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"@cwd@\build\lib\unicode\libjsonmd.lib" /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\lib" /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\lib" /LIBPATH:"C:\Program Files (x86)\Windows Kits\10\lib\10.0.10240.0\ucrt\x86" /LIBPATH:"C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x86" /NOLOGO /LTCG @cwd@\build\Release\unicode\internalJSONNode.obj
+  @cwd@\build\Release\unicode\JSONAllocator.obj
+  libjson_md.vcxproj -> @cwd@\build\lib\unicode\libjsonmd.lib
+FinalizeBuildStatus:
+  Deleting file "@cwd@\build\Release\unicode\libjson_.4F621AB3.tlog\unsuccessfulbuild".
+  Touching "@cwd@\build\Release\unicode\libjson_.4F621AB3.tlog\libjson_md_unicode.lastbuildstate".
+Done Building Project "@cwd@\source\libjson_md.vcxproj" (default targets).
+Done Building Project "@cwd@\source\libjson_vs140_unicode.sln" (Build target(s)).
+
+Build succeeded.
+
+"@cwd@\source\libjson_vs140_unicode.sln" (Build target) (1) ->
+"@cwd@\source\libjson.vcxproj" (default target) (2) ->
+(ClCompile target) -> 
+  _internal\Source\JSONWorker.cpp(464): warning C4333: '>>': right shift by too large amount, data loss [@cwd@\source\libjson.vcxproj]
+
+
+"@cwd@\source\libjson_vs140_unicode.sln" (Build target) (1) ->
+"@cwd@\source\libjson_md.vcxproj" (default target) (3) ->
+(PrepareForBuild target) -> 
+  C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (@cwd@\build\Release\unicode\) contains files shared from another project (libjson_mt_unicode.vcxproj).  This can lead to incorrect clean and rebuild behavior. [@cwd@\source\libjson_md.vcxproj]
+
+
+"@cwd@\source\libjson_vs140_unicode.sln" (Build target) (1) ->
+"@cwd@\source\libjson_md.vcxproj" (default target) (3) ->
+(ClCompile target) -> 
+  _internal\Source\JSONWorker.cpp(464): warning C4333: '>>': right shift by too large amount, data loss [@cwd@\source\libjson_md.vcxproj]
+
+    3 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:10.70

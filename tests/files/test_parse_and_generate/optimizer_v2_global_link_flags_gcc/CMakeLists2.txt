@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(PROJECT C)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+include(extensions)
+
+set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
+
+add_executable(app ${SOURCE_DIR}/1.c)
+target_link_options(app PRIVATE -static-libgcc -Wl,-z,now -Wl,-z,relro)
+target_link_libraries(app PRIVATE m Threads::Threads)
+
+add_library(shared SHARED ${SOURCE_DIR}/2.c)
+target_link_options(shared PRIVATE -static-libgcc -Wl,-z,now -Wl,-z,relro)
+target_link_libraries(shared PRIVATE m Threads::Threads)
+
+add_library(extra.static STATIC ${SOURCE_DIR}/3.c)
+set_target_properties(extra.static PROPERTIES OUTPUT_NAME extra)

@@ -1,0 +1,13 @@
+cl.exe -c -DMODE=1 /GR- ../source/test1.cpp /Fotest11.obj
+cl.exe -c -DMODE=1 /GR- ../source/test2.cpp /Fotest21.obj
+cl.exe -c -DMODE=2 ../source/test1.cpp /Fotest12.obj
+cl.exe -c -DMODE=2 ../source/test2.cpp /Fotest22.obj
+cl.exe -c -DMODE=2 -I../source ../source/test1.cpp /Fotest13.obj
+cl.exe -c -DMODE=2 -I../source ../source/test2.cpp /Fotest23.obj
+cl.exe -c -DCMODE=1 ../source/test1.c /Fotest_c_11.obj
+cl.exe -c -DCMODE=1 ../source/test2.c /Fotest_c_21.obj
+cl.exe -c -DCMODE=2 ../source/test1.c /Fotest_c_12.obj
+cl.exe -c -DCMODE=2 ../source/test2.c /Fotest_c_22.obj
+link.exe /DLL /OUT:./test1.dll test11.obj test21.obj test12.obj test22.obj test_c_11.obj test_c_21.obj
+link.exe /DLL /OUT:./test2.dll test13.obj test23.obj test_c_11.obj test_c_21.obj test_c_12.obj test_c_22.obj
+link.exe /DLL /OUT:./test3.dll test11.obj test21.obj test_c_11.obj test_c_12.obj

@@ -1,0 +1,4 @@
+cl /c /EHsc ..\source\main.cpp /Fomain.obj
+echo main.obj > in.rsp
+link /subsystem:console /out:main.exe @in.rsp && rmdir abc && link /subsystem:console /out:main.exe @in.rsp && echo test
+

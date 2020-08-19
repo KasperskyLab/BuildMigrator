@@ -1,0 +1,6 @@
+gcc -c ../source/foo.c -o foo.o
+objcopy --remove-section=.somesection.* --globalize-symbols=symbols_foo.txt --redefine-sym abc=def foo.o foo_modified.o
+gcc -c ../source/bar.c -o bar.o
+objcopy --remove-section=.somesection.* --globalize-symbols=symbols_bar.txt --redefine-sym abc=def bar.o bar_modified.o
+
+gcc -o main ../source/main.c foo_modified.o bar_modified.o

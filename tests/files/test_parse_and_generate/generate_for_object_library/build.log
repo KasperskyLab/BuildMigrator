@@ -1,0 +1,2 @@
+cl /c ..\source\a.cpp b.cpp /Fo"out\\"
+link /out:app.exe out\a.obj out\b.obj

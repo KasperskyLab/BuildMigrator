@@ -1,0 +1,2 @@
+gcc -o cap-ng.o -c ../source/cap-ng.c
+gcc -shared -fPIC -DPIC cap-ng.o -g -O2 -Wl,-z -Wl,relro -Wl,-soname -Wl,libcap-ng.so.0 -o libcap-ng.so.0.0.0

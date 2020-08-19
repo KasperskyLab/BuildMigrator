@@ -1,0 +1,14 @@
+2    chdir("lib.dir") = 0
+2    vfork() = 3
+3    execve("gcc", ["gcc", "-c", "../../source/lib.c", "-o", "lib.o"], [/* 2 vars */] <unfinished ...>
+2    chdir("..") = 0
+2    clone(<unfinished ...>
+3    <... execve resumed> ) = 0
+2    <... clone resumed>) = 4
+3    exit_group(0)                     = ?
+3    +++ exited with 0 +++
+4    execve("ar", ["ar", "r", "liblib.a", "lib.dir/lib.o", "main.dir/main.o"], [/* 2 vars */]) = 0
+4    exit_group(0)                     = ?
+4    +++ exited with 0 +++
+2    exit_group(0)                     = ?
+2    +++ exited with 0 +++

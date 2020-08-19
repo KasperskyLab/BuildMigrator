@@ -1,0 +1,5 @@
+gcc -o foo.o -c -DA=B -DFOO -DA=B -Ii1 -Ii1 ../source/foo.c
+g++ -o bar.o -c -DA=B -DBAR -DA=B -Ii2 ../source/bar.cpp
+gcc -o baz.o -c -DA=B -DBAZ -DA=B -Ii1 -Ii2 -Ii1 -Ii2 ../source/baz.c
+
+gcc -shared -o libtest.so foo.o bar.o baz.o

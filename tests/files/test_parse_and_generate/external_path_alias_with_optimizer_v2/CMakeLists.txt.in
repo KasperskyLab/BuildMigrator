@@ -1,0 +1,26 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(PROJECT CXX)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+include(extensions)
+
+set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
+set(external_include_dir
+    @cwd@/external/include
+)
+set(external_lib
+    @cwd@/external/lib/libexternal.a
+)
+include_directories(${external_include_dir})
+link_libraries(${external_lib})
+
+add_library(main_cpp_1 OBJECT ${SOURCE_DIR}/main.cpp)
+target_compile_options(main_cpp_1 PRIVATE -DFOO)
+
+add_executable(main_foo ${SOURCE_DIR}/common.cpp $<TARGET_OBJECTS:main_cpp_1>)
+
+add_library(main_cpp_2 OBJECT ${SOURCE_DIR}/main.cpp)
+target_compile_options(main_cpp_2 PRIVATE -DBAR)
+
+add_executable(main_bar ${SOURCE_DIR}/common.cpp $<TARGET_OBJECTS:main_cpp_2>)

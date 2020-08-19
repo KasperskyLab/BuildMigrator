@@ -1,0 +1,5 @@
+gcc -shared ../source/a.c -o liba.so
+g++ -shared ../source/b.cpp -o out/libb.so
+
+g++ -c ../source/c.cpp -o c.o
+ar qc out/libc.a c.o

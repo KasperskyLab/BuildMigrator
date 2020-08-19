@@ -1,0 +1,4 @@
+gcc -c ../source/main.c
+gcc ../source/main.c
+make: Entering directory 'libs'
+gcc -shared ../../source/main.c

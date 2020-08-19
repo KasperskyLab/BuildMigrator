@@ -1,0 +1,34 @@
+yasm -p nasm -r nasm -fwin32 -m x86 -DF1=1 -DYASM=1 -DNOT_C=1 -DNOT_CXX=1 -DF2=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_RC=1 -g cv8 -Iinclude/yasm1 -Iinclude/yasm2 -Iinclude ../source/yasm1.asm -o yasm1.obj
+yasm -p nasm -r nasm -fwin32 -m x86 -DF1=1 -DYASM=1 -DNOT_C=1 -DNOT_CXX=1 -DF2=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_RC=1 -DF6=1 -g cv8 -Iinclude/yasm1 -Iinclude/yasm2 -Iinclude ../source/yasm2.asm -o yasm2.obj
+yasm -p nasm -r nasm -fwin32 -m x86 -DF1=1 -DYASM=1 -DNOT_C=1 -DNOT_CXX=1 -DF2=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_RC=1 -DF3=1 -DF4=1 -DF5=1 -g cv8 -Iinclude/yasm1 -Iinclude/yasm2 -Iinclude ../source/yasm3.asm -o yasm3.obj
+
+nasm -fwin32 -DNASM=1 -DF2=1 -DF1=1 -DNOT_C=1 -DNOT_CXX=1 -DNOT_YASM=1 -DNOT_MASM=1 -DNOT_RC=1 -g -F cv8 -Iinclude -Iinclude/nasm ../source/nasm1.asm -o nasm1.obj
+nasm -fwin32 -DNASM=1 -DF2=1 -DF1=1 -DNOT_C=1 -DNOT_CXX=1 -DNOT_YASM=1 -DNOT_MASM=1 -DNOT_RC=1 -DF7=1 -g -F cv8 -Iinclude -Iinclude/nasm ../source/nasm2.asm -o nasm2.obj
+nasm -fwin32 -DNASM=1 -DF2=1 -DF1=1 -DNOT_C=1 -DNOT_CXX=1 -DNOT_YASM=1 -DNOT_MASM=1 -DNOT_RC=1 -DF3=1 -DF4=1 -DF5=1 -g -F cv8 -Iinclude -Iinclude/nasm ../source/nasm3.asm -o nasm3.obj
+
+ml /c -DNOT_C=1 -DNOT_CXX=1 -DNOT_YASM=1 -DNOT_NASM=1 -DMASM=1 -DNOT_RC=1 -DF1=1 -DF2=1 /Zi /Zf /Iinclude /Iinclude/masm ../source/masm1.asm /Fomasm1.obj
+ml /c -DNOT_C=1 -DNOT_CXX=1 -DNOT_YASM=1 -DNOT_NASM=1 -DMASM=1 -DNOT_RC=1 -DF1=1 -DF2=1 -DF8=1 /Zi /Zf /Iinclude /Iinclude/masm ../source/masm2.asm /Fomasm2.obj
+ml /c -DNOT_C=1 -DNOT_CXX=1 -DNOT_YASM=1 -DNOT_NASM=1 -DMASM=1 -DNOT_RC=1 -DF1=1 -DF2=1 -DF3=1 -DF4=1 -DF5=1 /Zi /Zf /Iinclude /Iinclude/masm ../source/masm3.asm /Fomasm3.obj
+
+cl /c -DNOT_CXX=1 -DF1=1 -DF2=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_YASM=1 -DNOT_RC=1 -DC=1 /GR- /Z7 /Iinclude /Iinclude/c ../source/foo1.c /Fofoo1.obj
+cl /c -DNOT_CXX=1 -DF1=1 -DF2=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_YASM=1 -DNOT_RC=1 -DC=1 -DF9=1 /GR- /Z7 /Iinclude /Iinclude/c ../source/foo2.c /Fofoo2.obj
+cl /c -DNOT_CXX=1 -DF1=1 -DF2=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_YASM=1 -DNOT_RC=1 -DC=1 /GR- /Z7 /Iinclude /Iinclude/c ../source/foo3.c /Fofoo3.obj
+cl /c -DNOT_CXX=1 -DF1=1 -DF2=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_YASM=1 -DNOT_RC=1 -DF3=1 -DF4=1 -DF5=1 -DC=1 /GR- /Z7 /Iinclude /Iinclude/c ../source/foo4.c /Fofoo4.obj
+
+cl /c -DCXX=1 -DNOT_C=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_YASM=1 -DNOT_RC=1 -DF1=1 -DF2=1 /GR- /Z7 /Iinclude /Iinclude/cpp ../source/bar1.cpp /Fobar1.obj
+cl /c -DCXX=1 -DNOT_C=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_YASM=1 -DNOT_RC=1 -DF1=1 -DF2=1 -DF0=1 /GR- /Z7 /Iinclude /Iinclude/cpp ../source/bar2.cpp /Fobar2.obj
+cl /c -DCXX=1 -DNOT_C=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_YASM=1 -DNOT_RC=1 -DF1=1 -DF2=1 /GR- /Z7 /Iinclude /Iinclude/cpp ../source/bar3.cpp /Fobar3.obj
+cl /c -DCXX=1 -DNOT_C=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_YASM=1 -DNOT_RC=1 -DF1=1 -DF2=1 -DF3=1 -DF4=1 -DF5=1 /GR- /Z7 /Iinclude /Iinclude/cpp ../source/bar4.cpp /Fobar4.obj
+
+rc /dRC=1 /dNOT_C=1 /dNOT_NASM=1 /dNOT_MASM=1 /dNOT_YASM=1 /dNOT_CXX=1 -DF1=1 -DF2=1 /w -l409 /Iinclude /Iinclude/rc ..\source\resource1.rc /foresource1.res
+rc /dRC=1 /dNOT_C=1 /dNOT_NASM=1 /dNOT_MASM=1 /dNOT_YASM=1 /dNOT_CXX=1 -DF1=1 -DF2=1 /uNOT_C /w -l409 -g511 /Iinclude /Iinclude/rc ..\source\resource2.rc /foresource2.res
+rc /dRC=1 /dNOT_C=1 /dNOT_NASM=1 /dNOT_MASM=1 /dNOT_YASM=1 /dNOT_CXX=1 -DF1=1 -DF2=1 -DF3=1 -DF4=1 -DF5=1 /w -l409 /Iinclude /Iinclude/rc ..\source\resource3.rc /foresource3.res
+
+link.exe /MACHINE:X86 /LTCG /DLL /OUT:./lib1.dll foo1.obj yasm1.obj resource1.res
+link.exe /MACHINE:X86 /LTCG /GUARD:CF /OPT:REF /OPT:ICF /PROFILE /DLL /OUT:./lib2.dll foo2.obj masm1.obj
+
+lib.exe /MACHINE:X86 /LTCG /OUT:./lib3.lib foo3.obj bar1.obj nasm1.obj
+lib.exe /MACHINE:X86 /LTCG /WX /OUT:./lib4.lib foo4.obj bar2.obj nasm2.obj yasm2.obj masm2.obj
+
+link.exe /MACHINE:X86 /LTCG /DYNAMICBASE /NXCOMPAT /OUT:./prog1.exe bar3.obj nasm3.obj masm3.obj resource2.res
+link.exe /MACHINE:X86 /LTCG /DYNAMICBASE /NXCOMPAT /PROFILE /GUARD:CF /SUBSYSTEM:CONSOLE /OUT:./prog2.exe resource3.res bar4.obj yasm3.obj

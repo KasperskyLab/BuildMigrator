@@ -1,0 +1,2 @@
+gcc -c ../source/a.c -o a.o
+gcc -c ../source/b.c -o b.o

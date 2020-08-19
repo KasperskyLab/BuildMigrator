@@ -1,0 +1,6 @@
+make: Entering directory 'tmp'
+gcc -c -Wall -Werror -fpic ../../source/foo.c -o foo.o
+make: Leaving directory '.'
+make: Entering directory 'bin'
+gcc -shared -o libfoo.so ../tmp/foo.o
+make: Leaving directory '.'

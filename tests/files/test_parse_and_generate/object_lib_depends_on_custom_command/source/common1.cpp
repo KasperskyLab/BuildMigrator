@@ -1,0 +1,1 @@
+#include "generated/manifest.h"

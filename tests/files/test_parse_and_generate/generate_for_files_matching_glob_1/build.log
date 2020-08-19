@@ -1,0 +1,4 @@
+gcc -o bin/app_a.exe ../source/main_a.c
+gcc -o bin/app_b.exe ../source/main_b.c
+gcc ../source/dllmain_a.c -o lib/lib_a.dll -shared
+gcc ../source/dllmain_b.c -o lib/lib_b.dll -shared

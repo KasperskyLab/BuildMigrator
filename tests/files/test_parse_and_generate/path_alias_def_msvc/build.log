@@ -1,0 +1,2 @@
+cl -c /Fomain.obj source/main.cpp
+link /nologo /dll /implib:main.lib /out:main.dll /def:..\external\main.def main.obj

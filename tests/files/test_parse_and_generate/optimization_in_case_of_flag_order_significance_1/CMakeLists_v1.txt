@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.8)
+
+project(PROJECT C)
+
+include(cmake_framework)
+include(compiler_config)
+include(system)
+fix_asm_flags()
+find_thread_library()
+
+set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
+set(COMPILE_FLAGS "" CACHE STRING "")
+set(LINK_FLAGS "-Wl,-z -Wl,-z,now" CACHE STRING "")
+set(INCLUDE_DIRS "" CACHE STRING "")
+
+add_executable(a ${SOURCE_DIR}/a.c)
+# result: -Wl,-z -Wl,-z,now -Wl,relro
+# expected: -Wl,-z -Wl,relro -Wl,-z,now
+set_target_properties(a PROPERTIES LINK_FLAGS "${LINK_FLAGS} -Wl,relro")
+target_compile_options(a PRIVATE ${COMPILE_FLAGS})
+target_include_directories(a PRIVATE ${INCLUDE_DIRS})
+
+add_executable(b ${SOURCE_DIR}/b.c)
+# result: -Wl,-z -Wl,-z,now -Wl,noexecstack
+# expected: -Wl,-z,now -Wl,-z -Wl,noexecstack
+set_target_properties(b PROPERTIES LINK_FLAGS "${LINK_FLAGS} -Wl,noexecstack")
+target_compile_options(b PRIVATE ${COMPILE_FLAGS})
+target_include_directories(b PRIVATE ${INCLUDE_DIRS})

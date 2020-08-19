@@ -1,0 +1,4 @@
+g++ -o impl.o -c ../source/impl.cpp
+ar cr libimpl1.a impl.o
+
+g++ -shared -lm -z noexecstack -Wl,-z,defs -L. -o libimpl.so -Wl,--whole-archive libimpl1.a

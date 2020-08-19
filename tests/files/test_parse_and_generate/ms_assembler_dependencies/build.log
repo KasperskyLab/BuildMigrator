@@ -1,0 +1,3 @@
+ML.EXE /Fomain_asm.obj /c /Iinclude ../source/main.asm
+CL.EXE -c ..\source\main.c /Fomain.obj
+LINK.EXE main_asm.obj main.obj /OUT:app.exe

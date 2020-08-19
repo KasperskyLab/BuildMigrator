@@ -1,0 +1,3 @@
+gcc -c -m32 -Iinclude ../source/main.S -o main_asm.o
+gcc -c -m32 ../source/main.c -o main.o
+gcc -m32 main_asm.o main.o -o app

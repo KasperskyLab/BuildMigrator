@@ -1,0 +1,16 @@
+cl.exe -c ../source/test.cpp /Fotest.obj
+# This warning message is from compiler
+cl : -c ../source/test.cpp -DTHIS_SHOULD_NOT_BE_ADDED  /Fotest.obj
+
+# This warning message is from lib.exe
+lib : test.obj /out:this_lib_should_not_be_added.lib 
+
+
+rc.exe /fo app.res /I include ..\source\version.rc
+# This warning message is from rc compiler
+rc : /fo app.res /I include ..\source\version.rc -DTHIS_SHOULD_NOT_BE_ADDED
+
+
+link.exe /nologo /IMPLIB:./test.dll.lib /DLL /OUT:./test.dll app.res test.obj
+# This warning message is from linker
+link: /DLL /OUT:./test.dll this_lib_should_not_be_added.lib

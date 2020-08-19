@@ -1,0 +1,2 @@
+gcc -c -DFOO=1 -unknown-compile-flag ../source/foo.c -o foo.o
+gcc -unknown-link-flag -shared -o libfoo.so foo.o

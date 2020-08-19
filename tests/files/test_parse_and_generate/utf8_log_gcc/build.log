@@ -1,0 +1,3 @@
+gcc -c ../source/foo.c -o foo_объект.o
+gcc -shared -o libfoo.so foo_объект.o
+ar qc libfoo.a foo_объект.o

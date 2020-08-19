@@ -1,0 +1,2 @@
+1    execve("gcc", ["gcc", "-c", "-DANGLE_PRELOADED_D3DCOMPILER_MODULE_NAMES={ \"d3dcompiler_47.dll\", \"d3dcompiler_46.dll\", \"d3dcompiler_43.dll\" }", "-o", "test.o", "../source/test.cpp"], [/* 2 vars */]) = 0
+1    execve("gcc", ["gcc", "test.o", "-shared", "-o", "libtest.so"], [/* 2 vars */]) = 0

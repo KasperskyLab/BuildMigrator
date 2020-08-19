@@ -1,0 +1,7 @@
+gcc -c -o shared/a.o ../source/a.c
+gcc -c -o shared/b.o ../source/b.c
+gcc -shared -o libsh1.so shared/a.o shared/b.o
+gcc -shared -Wl,-z,relro -o libsh2.so shared/a.o shared/b.o
+gcc -c -DSTATIC -o static/a.o ../source/a.c
+gcc -c -DSTATIC -o static/b.o ../source/b.c
+ar rc libst.a static/a.o static/b.o

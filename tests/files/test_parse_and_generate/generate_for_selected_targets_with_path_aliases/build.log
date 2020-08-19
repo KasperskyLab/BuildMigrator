@@ -1,0 +1,7 @@
+ln -f ../sqlite_src/sqlite.h ./sqlite_include/sqlite.h
+
+gcc -o a.o -Isqlite_include -c ../source/a.c
+gcc -o b.o -Isqlite_include -c ../source/b.c
+
+ar cr liba.a a.o
+gcc -shared -Wl,-soname,libb.so.2 -o libb.so.2.0.1 b.o

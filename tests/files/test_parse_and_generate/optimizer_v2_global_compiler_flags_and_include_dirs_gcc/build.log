@@ -1,0 +1,12 @@
+gcc -c ../source/c2.c -I. -Iinclude_a/ -DGCC=1 -DF2 -o c2.o
+
+gcc -c ../source/cpp1.cpp -Iinclude_b/ -Iinclude_a -DGCC=1 -DF3 -o cpp1.o
+
+gcc -c -Iinclude_a -DGCC=1 -DF5 ../source/gasm1.S -o gasm1.o
+gcc -c -Iinclude_b -Iinclude_a -DGCC=1 -DF6 ../source/gasm2.S -o gasm2.o
+
+gcc -c ../source/c3.c -Iinclude_a -DGCC=1 -DF7 -o c3.o
+
+gcc -shared ../source/c1.c -Iinclude_b -I./include_a -DGCC=1 -DF1 cpp1.o gasm1.o -o libshared.so
+gcc c2.o ../source/cpp2.cpp -I./include_a/ -I. -DGCC=1 -DF4 gasm2.o -o app1
+gcc c3.o -I. -o app2

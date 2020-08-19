@@ -1,0 +1,15 @@
+clang-cl.exe -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -fmsc-version=1911 -m32 /DWIN32=1 /DMODE_A /utf-8 /TP /c -I. -Ia ..\source\a.cpp /Fo"a.obj"
+clang-cl.exe -msse4.2 -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0  -fmsc-version=1911 -m32 /DWIN32=1 /DMODE_B /utf-8 /TC -I. -Ib_c /c ..\source\b.c /Fo"b.obj"
+clang-cl.exe -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0  -fmsc-version=1911 -m32 /DWIN32=1 /DMODE_C /utf-8 /TP -I. /arch:AVX2 -Ib_c -Ic /c ..\source\c.cpp /Fo"c.obj"
+clang-cl.exe -msse4.2 -mpclmul -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -fmsc-version=1911 -m32 /DWIN32=1 /utf-8 /TP /GR- -I. /c ..\source\d.cpp /Fo"d.obj"
+
+nasm.exe -DNASM -fwin32 -DASM -Ixasm/ -o nasm.o ..\source\nasm.asm
+
+yasm.exe -DYASM -fwin32 -DASM -m x86 -Ixasm/ -o yasm.o ..\source\yasm.asm
+
+ml.exe /Fomasm.obj -DMASM -DASM /safeseh /c /Imasm ..\source\masm.asm
+
+rc.exe /nologo -DRC=1 /I rc /foresource.res ..\source\resource.rc
+
+lld-link.exe /lib /llvmlibthin a.obj b.obj c.obj nasm.o /OUT:foo.lib
+lld-link.exe /MACHINE:X86 /SAFESEH ws2_32.lib delayimp.lib yasm.o masm.obj d.obj foo.lib resource.res /DLL /OUT:bar.dll

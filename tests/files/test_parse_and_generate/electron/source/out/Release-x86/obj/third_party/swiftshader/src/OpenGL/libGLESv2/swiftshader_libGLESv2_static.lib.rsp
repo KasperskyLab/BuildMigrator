@@ -1,0 +1,4 @@
+obj/third_party/swiftshader/src/OpenGL/libGLESv2/swiftshader_libGLESv2_static/SharedLibrary.obj
+obj/third_party/swiftshader/src/OpenGL/libGLESv2/swiftshader_libGLESv2_static/libGLESv2.obj
+obj/third_party/swiftshader/src/OpenGL/libGLESv2/swiftshader_libGLESv2_static/libGLESv3.obj
+obj/third_party/swiftshader/src/OpenGL/libGLESv2/swiftshader_libGLESv2_static/main.obj

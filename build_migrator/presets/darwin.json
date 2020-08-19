@@ -1,0 +1,19 @@
+{
+    "platform": "darwin",
+    "parsers": [
+        "clang_gcc",
+        "gnu_ar",
+        "gnu_cp_ln_mv",
+        "libtool"
+    ],
+    "delete_flags": [
+        "^-m(32|64)$",
+        "^-O[123sg]$",
+        "^-DNDEBUG$",
+        "^-x c",
+        "^--sysroot",
+        "^-isysroot",
+        "^-mmacosx-version",
+        "^-arch"
+    ]
+}

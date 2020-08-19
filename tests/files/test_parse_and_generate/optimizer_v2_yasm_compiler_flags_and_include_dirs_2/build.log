@@ -1,0 +1,8 @@
+yasm.exe -fwin32 -DF1 -Iinclude_a ../source/yasm1.asm -DYASM=1 -o yasm1.obj
+yasm.exe -fwin32 -DF2 -Iinclude_a -Iinclude_b ../source/yasm2.asm -DYASM=1 -o yasm2.obj
+yasm.exe -fwin32 -DCOMMON -Iinclude_a -I. ../source/yasm3.asm -DYASM=1 -o yasm3.obj
+yasm.exe -fwin32 -DCOMMON -Iinclude_a -I. ../source/yasm4.asm -DYASM=1 -o yasm4.obj
+
+link.exe /DLL /OUT:./shared.dll yasm1.obj
+link.exe /OUT:./app1.exe yasm2.obj
+link.exe /OUT:./app2.exe c2.obj yasm3.obj yasm4.obj

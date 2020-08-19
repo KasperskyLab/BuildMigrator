@@ -1,0 +1,2 @@
+gcc -UA -DA=1 -UA -o a ../source/a.c
+gcc -UA -o b ../source/b.c

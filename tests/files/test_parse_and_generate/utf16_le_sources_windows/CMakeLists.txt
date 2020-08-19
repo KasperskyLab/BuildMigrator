@@ -1,0 +1,26 @@
+cmake_minimum_required(VERSION 3.8)
+
+project(PROJECT C)
+enable_language(RC)
+
+include(cmake_framework)
+include(compiler_config)
+include(system)
+fix_asm_flags()
+find_thread_library()
+
+set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
+set(COMPILE_FLAGS "" CACHE STRING "")
+set(LINK_FLAGS "" CACHE STRING "")
+set(INCLUDE_DIRS "" CACHE STRING "")
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/include/resource.h ${CMAKE_CURRENT_BINARY_DIR}/include/resource.h COPYONLY)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/version.h ${CMAKE_CURRENT_BINARY_DIR}/version.h COPYONLY)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/1.bmp ${CMAKE_CURRENT_BINARY_DIR}/1.bmp COPYONLY)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/myfont.fnt ${CMAKE_CURRENT_BINARY_DIR}/myfont.fnt COPYONLY)
+
+set_source_files_properties(${SOURCE_DIR}/version.rc PROPERTIES INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR}/include)
+add_executable(app ${SOURCE_DIR}/version.rc ${SOURCE_DIR}/main.c)
+set_target_properties(app PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
+target_compile_options(app PRIVATE ${COMPILE_FLAGS})
+target_include_directories(app PRIVATE ${INCLUDE_DIRS})

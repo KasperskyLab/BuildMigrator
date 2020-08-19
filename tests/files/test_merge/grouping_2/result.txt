@@ -1,0 +1,89 @@
+project(test)
+if(NOT (F1 OR F2 OR F3))
+    message(FATAL_ERROR "Current toolchain is not supported by this project [ ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_SIZEOF_VOID_P} ${CMAKE_C_COMPILER_ID} ${CMAKE_CXX_COMPILER_ID} ]")
+endif()
+if(F1)
+    enable_language(RC)
+endif()
+
+include(a)
+if(F1)
+    include(b)
+endif()
+c()
+
+set(v1 1)
+if(F1)
+    set(v2 2)
+    set(v3 3)
+endif()
+func()
+
+if(F1)
+    set(v4 111)
+endif()
+if(F2)
+    set(v4 222)
+endif()
+if(F3)
+    set(v4 333)
+endif()
+if(v4)
+    func2(${v4})
+endif()
+
+if(F1)
+    target(t1
+        1.cpp 2.cpp 3.cpp
+    )
+    target_prop(t1 a)
+    target_prop(t1 b)
+    target_prop(t1 c)
+endif()
+
+if(F2)
+    func4()
+endif()
+
+if(F1 OR F2)
+    target(t2
+        4.cpp
+        5.cpp
+    )
+endif()
+if(F1)
+    target_prop(t2 a)
+endif()
+if(F1 OR F2)
+    target_prop(t2 b)
+endif()
+if(F1)
+    target_prop(t2 c)
+endif()
+
+if(F2)
+    target_prop(t2 d)
+endif()
+
+if(F1 OR F2)
+    target(t3
+        6.cpp
+        7.cpp
+    )
+endif()
+if(F1)
+    target_prop(t3 a)
+    target_prop(t3 b)
+endif()
+if(F1 OR F2)
+    target_prop(t3 c)
+endif()
+if(F3)
+    target(t4
+        8.cpp
+        9.cpp
+    )
+    target_prop(t4 f)
+
+    func10()
+endif()

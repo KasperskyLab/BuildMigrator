@@ -1,0 +1,2 @@
+gcc -IF:\3rd_party\include ..\source\1.c -o a.exe
+g++ -Ia\b\c\include ..\source\2.cpp -o b.exe

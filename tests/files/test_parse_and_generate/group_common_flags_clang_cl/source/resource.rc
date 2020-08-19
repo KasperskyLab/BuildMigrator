@@ -1,0 +1,4 @@
+#include "file.h"
+#ifndef RC
+    #error RC
+#endif

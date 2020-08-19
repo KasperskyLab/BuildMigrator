@@ -1,0 +1,6 @@
+ninja: Entering directory 'tmp'
+[1/2] gcc -c -Wall -Werror -fpic ../../source/foo.c -o foo.o
+ninja: Leaving directory '.'
+ninja: Entering directory 'bin'
+[2/2] gcc -shared -o libfoo.so ../tmp/foo.o
+ninja: Leaving directory '.'

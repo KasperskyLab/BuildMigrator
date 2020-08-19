@@ -1,0 +1,7 @@
+gcc -c ../source/1.c -o 1.o
+gcc -c ../source/2.c -o 2.o
+gcc -c ../source/3.c -o 3.o
+
+gcc -shared -L. -lm -pthread -static-libgcc -Wl,-z,now -Wl,-z,relro 1.o -o libshared1.so
+gcc -shared -L. -lm -lrt -pthread -Wl,-z,now -Wl,-z,relro 2.o -o libshared2.so
+gcc 3.o -o app

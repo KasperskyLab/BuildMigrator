@@ -1,0 +1,6 @@
+gcc -I../external/include ../source/main.cpp -DFOO -c -o main_foo.o
+gcc -I../external/include ../source/main.cpp -DBAR -c -o main_bar.o
+gcc -I../external/include ../source/common.cpp -c -o common.o
+
+gcc main_foo.o common.o -L../external/lib -lexternal -o main_foo
+gcc main_bar.o common.o -L../external/lib -lexternal -o main_bar

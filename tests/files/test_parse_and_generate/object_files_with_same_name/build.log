@@ -1,0 +1,4 @@
+gcc -c ../source/foo.c -o foo.o
+gcc -c -DSTATIC ../source/foo.c -o foo.ao
+gcc -shared foo.o -o libfoo.so
+ar qc libfoo.a foo.ao

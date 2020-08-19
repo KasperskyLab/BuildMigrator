@@ -1,0 +1,4 @@
+if 1 || true; then gcc -I. ../source/main.cpp -o main1; gcc -I. ../source/main.cpp -o main2 ; else gcc -I. ../source/main.cpp -o main3 ;fi
+rm stamp.tmp && gcc -I. ../source/main.cpp -o main4 && (cd ../source && touch ../build/stamp.tmp && gcc -I../build main.cpp -o ../build/main5) && pushd .. && gcc -Ibuild source/main.cpp -o build/main6 && popd
+make: Entering directory '../build'
+rm stamp.tmp && gcc -I. ../source/main.cpp -o main7 || pushd .. && gcc -Ibuild source/main.cpp -o build/main8 && popd || (cd ../source && touch ../build/stamp.tmp && gcc -I../build main.cpp -o ../build/main9)

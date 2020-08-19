@@ -1,0 +1,7 @@
+nasm.exe -fwin32 -DF1 -DNASM=1 -Iinclude_a ../source/nasm1.asm -o nasm1.obj
+nasm.exe -fwin32 -DF2 -DNASM=1 -Iinclude_b -Iinclude_a ../source/nasm2.asm -o nasm2.obj
+
+cl.exe /c ..\source\c1.c /Foc1.obj
+
+link.exe /DLL /OUT:./shared.dll nasm1.obj c1.obj
+link.exe /OUT:./app.exe nasm2.obj

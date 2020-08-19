@@ -1,0 +1,9 @@
+cl /c ..\source\1.c /Fo1.obj
+cl /c ..\source\2.c /Fo2.obj
+cl /c ..\source\3.c /Fo3.obj
+
+lib.exe /MACHINE:X86 /LTCG /WX /OUT:common.lib 2.obj
+
+link.exe /MACHINE:X86 /LTCG /WX comctl32.lib gdi32.lib uuid.lib ws2_32.lib delayimp.lib /DLL /OUT:shared.dll 1.obj common.lib
+
+link.exe /MACHINE:X86 /LTCG /WX comctl32.lib gdi32.lib uuid.lib ws2_32.lib delayimp.lib /OUT:app.exe 3.obj common.lib

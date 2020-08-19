@@ -1,0 +1,10 @@
+cl /c /EHsc ..\source\foo.c /Fofoo.obj
+cl /c /EHsc ..\source\main.c /Fomain.obj
+make: Entering directory 'shared'
+link /implib:libfoo.lib /out:libfoo.dll ..\foo.obj
+make: Leaving directory '.'
+make: Entering directory 'static'
+lib /out:libfoo.lib ../foo.obj
+link /subsystem:console /out:main_static.exe ..\foo.obj libfoo.lib
+make: Leaving directory '.'
+link /subsystem:console /out:main.exe main.obj shared\libfoo.lib

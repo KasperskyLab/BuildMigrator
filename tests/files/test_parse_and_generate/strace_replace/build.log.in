@@ -1,0 +1,3 @@
+1    execve("where-is-gcc", ["where-is-gcc", "-c", "@cwd@/source/incorrect-path.c", "-o", "f.o"], [/* 2 vars */]) = 0
+1    execve("ar", ["ar", "r", "libf.a", "f.o"], [/* 2 vars */]) = 0
+1    execve("not-ar", ["not-ar", "r", "libf2.a", "f.o"], [/* 2 vars */]) = 0

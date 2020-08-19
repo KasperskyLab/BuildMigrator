@@ -1,0 +1,4 @@
+gcc -o bin/1.exe ../source/main_a.c
+gcc -o bin/[0-9].exe ../source/main_b.c
+gcc ../source/dllmain_a.c -o lib/1.dll -shared
+gcc ../source/dllmain_b.c -o lib/[0-9].dll -shared

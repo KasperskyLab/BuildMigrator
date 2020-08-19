@@ -1,0 +1,3 @@
+clang -arch i386 -o foo.mm.o -c -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.12/MacOSX10.12.sdk -mmacosx-version-min=10.9 -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.12/MacOSX10.12.sdk -mmacosx-version-min=10.9  -arch i386  -O3 -DNDEBUG -Wall -fno-common -pthread -g -fPIC  -UNDEBUG -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DHAVE_SYSCALL=1 -D_PR_PTHREADS -UHAVE_CVAR_BUILT_ON_SEM -I../source -I. ../source/foo.mm
+
+libtool -static -o lib/libfoo.a foo.mm.o

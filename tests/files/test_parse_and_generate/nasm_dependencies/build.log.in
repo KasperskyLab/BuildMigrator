@@ -1,0 +1,3 @@
+nasm -DA=B -P @cwd@\build\setup.asm -f win32 -I @cwd@\build\include\ ../source/main.asm -o main_asm.obj
+cl -c ..\source\main.c /Fomain.obj
+link main_asm.obj main.obj /OUT:app.exe

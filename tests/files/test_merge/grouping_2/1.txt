@@ -1,0 +1,40 @@
+# F1
+project(test)
+enable_language(RC)
+
+include(a)
+include(b)
+c()
+
+set(v1 1)
+set(v2 2)
+set(v3 3)
+func()
+
+set(v4 111)
+if(v4)
+    func2(${v4})
+endif()
+
+target(t1
+    1.cpp 2.cpp 3.cpp
+)
+target_prop(t1 a)
+target_prop(t1 b)
+target_prop(t1 c)
+
+target(t2
+    4.cpp
+    5.cpp
+)
+target_prop(t2 a)
+target_prop(t2 b)
+target_prop(t2 c)
+
+target(t3
+    6.cpp
+    7.cpp
+)
+target_prop(t3 a)
+target_prop(t3 b)
+target_prop(t3 c)

@@ -1,0 +1,6 @@
+make: Entering directory 'lib'
+gcc -c -Wall -Werror -fpic ../../source/foo.c -o foo.o
+gcc -shared -o libfoo.so foo.o
+ar rcs libfoo.a foo.o
+make: Leaving directory '.'
+gcc -Llib -Wall -o main ../source/main.c -lfoo

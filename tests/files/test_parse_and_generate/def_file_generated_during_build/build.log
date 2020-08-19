@@ -1,0 +1,7 @@
+cl.exe /c /Iinclude ..\source\1.c -DTEST=1 /Fo1.obj
+echo line1 > C:\temp\1.def
+echo line2 >> C:\temp\1.def
+echo line3 > X:\a\b\c\2.tmp
+echo line4 >> X:\a\b\c\2.tmp
+link /nologo /dll /out:test1.dll /def:C:\temp\1.def 1.obj
+link /nologo /dll /out:test2.dll /def:X:\a\b\c\2.tmp 1.obj

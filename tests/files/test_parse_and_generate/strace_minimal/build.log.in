@@ -1,0 +1,35 @@
+333  chdir( <unfinished ...>
+1    chdir("CMakeFiles") = 0
+1    chdir( "doesntexist") = -1
+1    chdir("lib.dir" ) = 0
+1    vfork() = 2
+2    execve("gcc", ["gcc", "-c", "@cwd@/source/doesntexist.c, "-o", "lib.o"], [/* 2 vars */]) = -1
+1    vfork(  ) = 3
+1    chdir( <unfinished ...>
+2    chdir("..") = 0
+2    exit_group(0)                     = ?
+2    +++ exited with 0 +++
+3    execve("gcc", ["gcc", "-c", "@cwd@/source/lib.c", "-o", "lib.o"], [/* 2 vars */] <unfinished ...>
+1    <... chdir resumed> "../main.dir") = 0
+1    clone() = 2
+2    execve( "gcc", <unfinished ...>
+1    arch_prctl(ARCH_SET_FS, 0x7f79fe510840) = 0
+2    <... execve resumed> ["gcc", "-c", "../../../source/main.cpp", "-o", "main.o"], [/* 2 vars */]) = 0
+2    exit_group(0)                     = ?
+1    chdir("@cwd@/build") = 0
+333  <... chdir resumed> "." ) = 333
+333  execve( <unfinished ...>
+1    clone( <unfinished ...>
+2    +++ exited with 0 +++
+3    <... execve resumed> ) = 0
+1    <... clone resumed> ) = 4
+3    exit_group(0)                     = ?
+3    +++ exited with 0 +++
+4    chdir("CMakeFiles") = 0
+4    execve("ar", ["ar", "r", "../liblib.a", "lib.dir/lib.o", "@cwd@/build/CMakeFiles/main.dir/main.o"], [/* 2 vars */]) = 0
+4    execve("/bin/cp", ["cp", "../liblib.a", "../libcopy.a"], 0x7fffc357d650 /* 3 vars */) = 0
+4    exit_group(0)                     = ?
+4    +++ exited with 0 +++
+1    execve("gcc", ["gcc", "libcopy.a", "CMakeFiles/main.dir/main.o", "-o", "main"], [/* 2 vars */]) = 0
+1    exit_group(0)                     = ?
+1    +++ exited with 0 +++

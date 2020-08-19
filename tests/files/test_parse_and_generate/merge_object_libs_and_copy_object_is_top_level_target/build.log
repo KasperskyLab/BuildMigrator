@@ -1,0 +1,14 @@
+gcc -c ../source/a.c -o a.o
+gcc -c ../source/b.c -o b.o
+
+gcc -c ../source/a.c -DFOO -o a_foo.o
+gcc -c ../source/b.c -DFOO -o b_foo.o
+
+ln -s a.o a1.o
+ln -s a1.o a2.o
+ln -s a2.o a3.o
+
+
+gcc -shared a.o b.o -o liba.so
+gcc -shared a_foo.o b_foo.o -o liba_foo.so
+gcc -shared a_foo.o b_foo.o a.o b.o -o liba_mixed.so

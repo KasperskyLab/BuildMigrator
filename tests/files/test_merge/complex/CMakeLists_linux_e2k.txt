@@ -1,0 +1,97 @@
+# CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k"
+cmake_minimum_required(VERSION 3.8)
+
+project(icu LANGUAGES C CXX VERSION 58.2)
+
+include(cmake_framework)
+include(compiler_config)
+include(system)
+fix_asm_flags()
+find_thread_library()
+
+set(ICU_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
+add_compile_options(
+    -ffunction-sections
+    -fdata-sections
+    -DU_HAVE_ELF_H=1
+    -DU_HAVE_ATOMIC=1
+    -DU_HAVE_STRTOD_L=1
+    -DU_ATTRIBUTE_DEPRECATED=
+)
+include_directories(${ICU_SOURCE_DIR}/common)
+
+set(copy_prebuilt_artifacts_DIR linux_e2k/prebuilt)
+set(copy_prebuilt_artifacts_DEST ${CMAKE_CURRENT_BINARY_DIR})
+file(GLOB_RECURSE _files RELATIVE ${CMAKE_CURRENT_LIST_DIR}/${copy_prebuilt_artifacts_DIR} ${copy_prebuilt_artifacts_DIR}/*)
+foreach(_f ${_files})
+    configure_file(${copy_prebuilt_artifacts_DIR}/${_f} ${copy_prebuilt_artifacts_DEST}/${_f} COPYONLY)
+endforeach()
+
+find_program(ICU_ICUPKG icupkg)
+if(NOT ICU_ICUPKG)
+    message(FATAL_ERROR "icupkg not found")
+endif()
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    COMMAND
+        ${CMAKE_COMMAND} -E env
+        ${ICU_ICUPKG} -d ${CMAKE_CURRENT_BINARY_DIR}/data/out/build/icudt58l --list -x * ${ICU_SOURCE_DIR}/data/in/icudt58l.dat -o ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    VERBATIM
+)
+add_custom_target(data_out_tmp_icudata_lst DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst)
+
+find_program(ICU_PKGDATA pkgdata)
+if(NOT ICU_PKGDATA)
+    message(FATAL_ERROR "pkgdata not found")
+endif()
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lib/libicudata.a
+    COMMAND
+        ${CMAKE_COMMAND} -E env
+        ${ICU_PKGDATA} -O ${CMAKE_CURRENT_BINARY_DIR}/data/icupkg.inc -q -c -s ${CMAKE_CURRENT_BINARY_DIR}/data/out/build/icudt58l -d ${CMAKE_CURRENT_BINARY_DIR}/lib -e icudt58 -T ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp -p icudt58l -m static -r 58.2 -L icudata ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    DEPENDS
+        ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    VERBATIM
+)
+add_custom_target(icudata.static DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/lib/libicudata.a)
+
+add_library(icui18n.static
+    ${ICU_SOURCE_DIR}/i18n/ucln_in.cpp
+    ${ICU_SOURCE_DIR}/i18n/decimfmt.cpp
+    ${ICU_SOURCE_DIR}/i18n/decContext.c
+    ${ICU_SOURCE_DIR}/i18n/decimfmtimpl.cpp
+)
+target_compile_options(icui18n.static PRIVATE -DU_I18N_IMPLEMENTATION)
+target_include_directories(icui18n.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+set_target_properties(icui18n.static PROPERTIES OUTPUT_NAME icui18n)
+
+add_library(icuio.static
+    ${ICU_SOURCE_DIR}/io/locbund.cpp
+    ${ICU_SOURCE_DIR}/io/ufile.c
+    ${ICU_SOURCE_DIR}/io/ucln_io.cpp
+)
+target_compile_options(icuio.static PRIVATE -DU_IO_IMPLEMENTATION)
+target_include_directories(icuio.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+set_target_properties(icuio.static PROPERTIES OUTPUT_NAME icuio)
+
+add_library(icutu.static
+    ${ICU_SOURCE_DIR}/tools/toolutil/filestrm.c
+    ${ICU_SOURCE_DIR}/tools/toolutil/ucm.c
+    ${ICU_SOURCE_DIR}/tools/toolutil/ucln_tu.cpp
+)
+target_compile_options(icutu.static PRIVATE
+    -DUNISTR_FROM_CHAR_EXPLICIT=explicit
+    -DUNISTR_FROM_STRING_EXPLICIT=explicit
+    -DU_TOOLUTIL_IMPLEMENTATION
+)
+target_include_directories(icutu.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+set_target_properties(icutu.static PROPERTIES OUTPUT_NAME icutu)
+
+add_library(icuuc.static
+    ${ICU_SOURCE_DIR}/common/ucnv.c
+    ${ICU_SOURCE_DIR}/common/resbund.cpp
+    ${ICU_SOURCE_DIR}/common/unistr_case_locale.cpp
+    ${ICU_SOURCE_DIR}/common/uniset.cpp
+)
+target_compile_options(icuuc.static PRIVATE -DU_COMMON_IMPLEMENTATION)
+set_target_properties(icuuc.static PROPERTIES OUTPUT_NAME icuuc)

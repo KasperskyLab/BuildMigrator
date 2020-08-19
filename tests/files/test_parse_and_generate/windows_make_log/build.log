@@ -1,0 +1,3 @@
+g++ -c -DTEST1=\"test1\" "-DTEST2=\"test2\" " -o main.obj ../source/main.cpp
+
+g++ -o test.exe main.obj

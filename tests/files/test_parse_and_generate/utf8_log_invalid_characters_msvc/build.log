@@ -1,0 +1,4 @@
+cl /c ..\source\foo.c /Fofoo_объект.obj
+��
+link /implib:libfoo.dynamic.lib /out:libfoo.dynamic.dll foo_объект.obj
+lib /out:libfoo.lib foo_объект.obj

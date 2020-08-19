@@ -1,0 +1,5 @@
+gcc -I../source -I../source/zlib/include ../source/1.c -o t1
+gcc -I../source -I../source/zlib/include ../source/2.c -o t2
+gcc -I../source -I../source/zlib/include ../source/3.c -o t3
+gcc -I../source -I../source/zlib/include ../source/4.c -o t4
+gcc ../source/5.c -o t5

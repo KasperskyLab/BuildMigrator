@@ -1,0 +1,9 @@
+cl /c ..\source\1.c /Fo1.obj
+cl /c ..\source\2.c /Fo2.obj
+cl /c ..\source\3.c /Fo3.obj
+
+lib.exe /MACHINE:X86 /LTCG /WX /OUT:s1.lib 1.obj
+
+lib.exe /MACHINE:X86 /WX /OUT:s2.lib 2.obj
+
+link.exe /OUT:app.exe 3.obj

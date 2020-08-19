@@ -1,0 +1,2 @@
+clang-cl.exe -c -imsvcC:\Windows\System32 -Iinclude /I bad_include ..\source\src.cpp /Fo"src.obj"
+link.exe /OUT:app.exe src.obj

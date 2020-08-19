@@ -1,0 +1,7 @@
+cl.exe -c ..\source\a.cpp /Fo"a.obj"
+NOTE: b.obj should not exist to make sure that object file existence is optional
+cl.exe -c ..\source\b.cpp /Fo"b.obj"
+link.exe /lib a.obj /OUT:setargv.lib setargv.obj
+lib.exe /OUT:local_setargv.lib a.obj @cwd@\build\libs\setargv.obj
+link.exe /libpath:@cwd@\build\libs wsetargv.obj b.obj /out:local_wsetargv.dll
+link.exe wsetargv.obj b.obj /out:wsetargv.dll

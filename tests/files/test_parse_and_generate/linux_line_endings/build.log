@@ -1,0 +1,2 @@
+gcc -c ../source/src.cpp -o src.o
+gcc -shared src.o -o liblib.so

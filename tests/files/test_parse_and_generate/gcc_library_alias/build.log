@@ -1,0 +1,5 @@
+gcc -o util.o -c ../source/util.c
+
+ar cr libutil.a util.o
+
+gcc -shared -lm -L. -o libpublic.so libimpl1.a -limpl2 -lutil

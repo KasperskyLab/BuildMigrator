@@ -1,0 +1,4 @@
+gcc -I. -DBUILD1 ../source/1.c -o main1
+make: Entering directory '../build2'
+gcc -I. -DBUILD2 ../source/2.c -o main2
+make: Leaving directory '.'

@@ -1,0 +1,3 @@
+cl /c /EHsc ..\source\extra.cpp /Foextra.obj
+cl /c /EHsc ..\source\main.cpp /Fomain.obj
+link /subsystem:console /out:main.exe @in.rsp

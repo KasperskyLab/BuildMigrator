@@ -1,0 +1,6 @@
+gcc -c ../source/gasm1.S -Iinclude_a -Wa,--execstack -DGASM=1 -DF1 -o gasm1.o
+gcc -c ../source/gasm2.S -Iinclude_b -Iinclude_a -Wa,--execstack -DGASM=1 -DF2 -o gasm2.o
+gcc -c ../source/c1.c -o c1.o
+
+gcc -shared gasm1.o c1.o -o libshared.so
+gcc gasm2.o -o app

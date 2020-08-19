@@ -1,0 +1,5 @@
+clang++ -c -std=c++11 -fstack-protector -mmacosx-version-min=10.7 ../source/libjsoncpp.cpp -o libjsoncpp.o
+
+clang++ -std=c++11 -fstack-protector -mmacosx-version-min=10.7 -dynamiclib -Wl,-headerpad_max_install_names -compatibility_version 1.0.0 -current_version 1.7.2 -o libjsoncpp.1.7.2.dylib -install_name libjsoncpp.1.dylib libjsoncpp.o
+
+/usr/bin/cmake -E cmake_symlink_library libjsoncpp.1.7.2.dylib libjsoncpp.1.dylib libjsoncpp.dylib && install_name_tool -id @loader_path/libjsoncpp.1.7.2.dylib libjsoncpp.1.7.2.dylib

@@ -1,0 +1,57 @@
+make: Entering directory '@cwd@/build'
+source='@cwd@/source/sqlite3.c' object='sqlite3.lo' libtool=yes \
+DEPDIR=.deps depmode=none /bin/bash @cwd@/source/depcomp \
+/bin/bash ./libtool  --tag=CC   --mode=compile @cwd@/source/compile /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc -DPACKAGE_NAME=\"sqlite\" -DPACKAGE_TARNAME=\"sqlite\" -DPACKAGE_VERSION=\"3.31.1\" -DPACKAGE_STRING=\"sqlite\ 3.31.1\" -DPACKAGE_BUGREPORT=\"http://www.sqlite.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"sqlite\" -DVERSION=\"3.31.1\" -DLT_OBJDIR=\".libs/\" -DHAVE_DECL_STRERROR_R=0 -I. -I@cwd@/source    -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_GEOPOLY  -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_MEMSYS3 -DSQLITE_ENABLE_UNLOCK_NOTIFY -std=gnu99 -fPIC -pthread --sysroot=/opt/aurora/targets/armv7hl/ -D__AURORA__ -B/opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi- -c -o sqlite3.lo @cwd@/source/sqlite3.c
+libtool: compile:  @cwd@/source/compile /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc -DPACKAGE_NAME=\"sqlite\" -DPACKAGE_TARNAME=\"sqlite\" -DPACKAGE_VERSION=\"3.31.1\" "-DPACKAGE_STRING=\"sqlite 3.31.1\"" -DPACKAGE_BUGREPORT=\"http://www.sqlite.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"sqlite\" -DVERSION=\"3.31.1\" -DLT_OBJDIR=\".libs/\" -DHAVE_DECL_STRERROR_R=0 -I. -I@cwd@/source -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_MEMSYS3 -DSQLITE_ENABLE_UNLOCK_NOTIFY -std=gnu99 -fPIC -pthread --sysroot=/opt/aurora/targets/armv7hl/ -D__AURORA__ -B/opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi- -c @cwd@/source/sqlite3.c 
+libtool: compile: mv -f "sqlite3.o" ".libs/sqlite3.o"
+libtool: compile:  @cwd@/source/compile /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc -DPACKAGE_NAME=\"sqlite\" -DPACKAGE_TARNAME=\"sqlite\" -DPACKAGE_VERSION=\"3.31.1\" "-DPACKAGE_STRING=\"sqlite 3.31.1\"" -DPACKAGE_BUGREPORT=\"http://www.sqlite.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"sqlite\" -DVERSION=\"3.31.1\" -DLT_OBJDIR=\".libs/\" -DHAVE_DECL_STRERROR_R=0 -I. -I@cwd@/source -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_MEMSYS3 -DSQLITE_ENABLE_UNLOCK_NOTIFY -std=gnu99 -fPIC -pthread --sysroot=/opt/aurora/targets/armv7hl/ -D__AURORA__ -B/opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi- -c @cwd@/source/sqlite3.c >/dev/null 2>&1
+/bin/bash ./libtool  --tag=CC   --mode=link @cwd@/source/compile /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_GEOPOLY  -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_MEMSYS3 -DSQLITE_ENABLE_UNLOCK_NOTIFY -std=gnu99 -fPIC -pthread --sysroot=/opt/aurora/targets/armv7hl/ -D__AURORA__ -B/opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi- -no-undefined -version-info 8:6:8 -ldl -lm -o libsqlite3.la -rpath @cwd@/build sqlite3.lo  
+libtool: link: @cwd@/source/compile /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc -shared   .libs/sqlite3.o    -ldl -lm  -pthread --sysroot=/opt/aurora/targets/armv7hl/   -pthread -Wl,-soname -Wl,libsqlite3.so.0 -o .libs/libsqlite3.so.0.8.6
+libtool: link: (cd ".libs" && rm -f "libsqlite3.so.0" && ln -s "libsqlite3.so.0.8.6" "libsqlite3.so.0")
+libtool: link: (cd ".libs" && rm -f "libsqlite3.so" && ln -s "libsqlite3.so.0.8.6" "libsqlite3.so")
+libtool: link: /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-ar cru .libs/libsqlite3.a  sqlite3.o
+/opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-ar: `u' modifier ignored since `D' is the default (see `U')
+libtool: link: /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-ranlib .libs/libsqlite3.a
+libtool: link: ( cd ".libs" && rm -f "libsqlite3.la" && ln -s "../libsqlite3.la" "libsqlite3.la" )
+ /bin/mkdir -p '@cwd@/build'
+ /bin/bash ./libtool   --mode=install /usr/bin/install -c   libsqlite3.la '@cwd@/build'
+libtool: install: /usr/bin/install -c .libs/libsqlite3.so.0.8.6 @cwd@/build/libsqlite3.so.0.8.6
+libtool: install: (cd @cwd@/build && { ln -s -f libsqlite3.so.0.8.6 libsqlite3.so.0 || { rm -f libsqlite3.so.0 && ln -s libsqlite3.so.0.8.6 libsqlite3.so.0; }; })
+libtool: install: (cd @cwd@/build && { ln -s -f libsqlite3.so.0.8.6 libsqlite3.so || { rm -f libsqlite3.so && ln -s libsqlite3.so.0.8.6 libsqlite3.so; }; })
+libtool: install: /usr/bin/install -c .libs/libsqlite3.lai @cwd@/build/libsqlite3.la
+libtool: install: /usr/bin/install -c .libs/libsqlite3.a @cwd@/build/libsqlite3.a
+libtool: install: chmod 644 @cwd@/build/libsqlite3.a
+libtool: install: /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-ranlib @cwd@/build/libsqlite3.a
+libtool: finish: PATH="/home/builder/aaaaaa/cbt2_agent-production2020.04.13.1/.install/bin/air::/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/aurora/tooling/opt/cross/bin:/home/builder/aaaaaa/cbt2_agent-production2020.04.13.1/.data/cmake/3.12.4/bin:/sbin" ldconfig -n @cwd@/build
+----------------------------------------------------------------------
+Libraries have been installed in:
+   @cwd@/build
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+ /bin/mkdir -p '@cwd@/build/include'
+ /usr/bin/install -c -m 644 @cwd@/source/sqlite3.h @cwd@/source/sqlite3ext.h '@cwd@/build/include'
+source='shell.c' object='sqlite3-shell.o' libtool=no \
+DEPDIR=.deps depmode=none /bin/bash @cwd@/source/depcomp \
+@cwd@/source/compile /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc -DPACKAGE_NAME=\"sqlite\" -DPACKAGE_TARNAME=\"sqlite\" -DPACKAGE_VERSION=\"3.31.1\" -DPACKAGE_STRING=\"sqlite\ 3.31.1\" -DPACKAGE_BUGREPORT=\"http://www.sqlite.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"sqlite\" -DVERSION=\"3.31.1\" -DLT_OBJDIR=\".libs/\" -DHAVE_DECL_STRERROR_R=0 -I. -I@cwd@/source    -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_GEOPOLY  -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_DBPAGE_VTAB -DSQLITE_ENABLE_STMTVTAB -DSQLITE_ENABLE_DBSTAT_VTAB -DSQLITE_NOHAVE_SYSTEM -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_MEMSYS3 -DSQLITE_ENABLE_UNLOCK_NOTIFY -std=gnu99 -fPIC -pthread --sysroot=/opt/aurora/targets/armv7hl/ -D__AURORA__ -B/opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi- -c -o sqlite3-shell.o `test -f 'shell.c' || echo '@cwd@/source/'`shell.c
+source='sqlite3.c' object='sqlite3-sqlite3.o' libtool=no \
+DEPDIR=.deps depmode=none /bin/bash @cwd@/source/depcomp \
+@cwd@/source/compile /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc -DPACKAGE_NAME=\"sqlite\" -DPACKAGE_TARNAME=\"sqlite\" -DPACKAGE_VERSION=\"3.31.1\" -DPACKAGE_STRING=\"sqlite\ 3.31.1\" -DPACKAGE_BUGREPORT=\"http://www.sqlite.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"sqlite\" -DVERSION=\"3.31.1\" -DLT_OBJDIR=\".libs/\" -DHAVE_DECL_STRERROR_R=0 -I. -I@cwd@/source    -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_GEOPOLY  -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_DBPAGE_VTAB -DSQLITE_ENABLE_STMTVTAB -DSQLITE_ENABLE_DBSTAT_VTAB -DSQLITE_NOHAVE_SYSTEM -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_MEMSYS3 -DSQLITE_ENABLE_UNLOCK_NOTIFY -std=gnu99 -fPIC -pthread --sysroot=/opt/aurora/targets/armv7hl/ -D__AURORA__ -B/opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi- -c -o sqlite3-sqlite3.o `test -f 'sqlite3.c' || echo '@cwd@/source/'`sqlite3.c
+/bin/bash ./libtool  --tag=CC   --mode=link @cwd@/source/compile /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_GEOPOLY  -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_DBPAGE_VTAB -DSQLITE_ENABLE_STMTVTAB -DSQLITE_ENABLE_DBSTAT_VTAB -DSQLITE_NOHAVE_SYSTEM -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_MEMSYS3 -DSQLITE_ENABLE_UNLOCK_NOTIFY -std=gnu99 -fPIC -pthread --sysroot=/opt/aurora/targets/armv7hl/ -D__AURORA__ -B/opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-  -ldl -lm -o sqlite3 sqlite3-shell.o sqlite3-sqlite3.o  
+libtool: link: @cwd@/source/compile /opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_DBPAGE_VTAB -DSQLITE_ENABLE_STMTVTAB -DSQLITE_ENABLE_DBSTAT_VTAB -DSQLITE_NOHAVE_SYSTEM -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_MEMSYS3 -DSQLITE_ENABLE_UNLOCK_NOTIFY -std=gnu99 -fPIC -pthread --sysroot=/opt/aurora/targets/armv7hl/ -D__AURORA__ -B/opt/aurora/tooling/opt/cross/bin/armv7hl-meego-linux-gnueabi- -o sqlite3 sqlite3-shell.o sqlite3-sqlite3.o  -ldl -lm -pthread
+ /bin/mkdir -p '@cwd@/build/bin'
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c sqlite3 '@cwd@/build/bin'
+libtool: install: /usr/bin/install -c sqlite3 @cwd@/build/bin/sqlite3
+make: Leaving directory '@cwd@/build'

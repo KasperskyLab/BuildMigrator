@@ -1,0 +1,3 @@
+gcc -c ../source/foo.c -o tmp/foo.o
+ar rc out/libfoo.a tmp/foo.o
+gcc -shared -o out/libfoo.so tmp/foo.o

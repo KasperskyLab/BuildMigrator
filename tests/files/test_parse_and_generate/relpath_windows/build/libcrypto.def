@@ -1,0 +1,8 @@
+;
+; Definition file for the DLL version of the crypto_ssl_1_1 library from OpenSSL
+;
+
+LIBRARY         crypto_ssl_1_1	
+
+EXPORTS
+    AES_encrypt

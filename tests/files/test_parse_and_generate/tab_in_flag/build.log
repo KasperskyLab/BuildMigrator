@@ -1,0 +1,1 @@
+gcc -o test "-DTEST=\"a	b\"" "../source/test.c"

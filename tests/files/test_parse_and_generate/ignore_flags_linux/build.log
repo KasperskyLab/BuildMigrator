@@ -1,0 +1,4 @@
+gcc -c ../source/1.c -Iignore -DIGNORE -o 1.o
+gcc -c ../source/2.cpp -Iignore -DIGNORE -o 2.o
+gcc -c -Iignore -DIGNORE ../source/3.S -o 3.o
+gcc 1.o 2.o 3.o -m256 -o out

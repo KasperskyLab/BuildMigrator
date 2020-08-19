@@ -1,0 +1,4 @@
+cl.exe -c ../source/a.cpp /Foa.obj
+link.exe /IMPLIB:./liba.dll.lib /DLL /OUT:./liba.dll .\a.obj
+link.exe /DLL /OUT:./libb.dll /IMPLIB:./libb.lib a.obj ./liba.dll.lib
+link.exe /DLL /OUT:./libc.dll a.obj ./libb.lib

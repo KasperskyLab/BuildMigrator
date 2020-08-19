@@ -1,0 +1,10 @@
+gcc -c ../source/a.c -Iinclude_a -DA=1 -Wall -o a.c.o
+g++ -c ../source/a.cpp -Iinclude_a -DA=1 -Wall -std=c++17 -o a.cpp.o
+gcc -c ../source/a.S -Iinclude_a -DA=1 -Wall -Wa,--execstack -o a.S.o
+
+gcc -pie a.c.o a.cpp.o a.S.o -o app
+
+gcc -c ../source/b1.c -Iinclude_b -DB=1 -m32 -Wno-error -std=c11 -o b1.c.o
+gcc -c ../source/b2.c -Iinclude_b -DB=1 -m32 -Wno-error -fno-stack-protector -o b2.c.o
+
+gcc -shared -Wl,-z,execstack b1.c.o b2.c.o -o liblib.so

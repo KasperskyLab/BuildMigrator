@@ -1,0 +1,7 @@
+{
+    "parsers": [
+        "clang_gcc",
+        "gnu_ar",
+        "gnu_cp_ln_mv"
+    ]
+}

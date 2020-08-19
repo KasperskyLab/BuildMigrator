@@ -1,0 +1,2 @@
+cl -c /Fo.\main.obj "..\source\main.cpp"
+link /nologo /manifest:embed /manifestuac:no /manifestinput:..\source\as_invoker.manifest /manifestinput:common_controls.manifest /SUBSYSTEM:CONSOLE,5.01 /out:.\test.exe .\main.obj

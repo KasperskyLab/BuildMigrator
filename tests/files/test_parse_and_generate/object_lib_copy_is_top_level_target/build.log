@@ -1,0 +1,5 @@
+gcc -c ../source/a.c -o a.o
+ln -s a.o b.o
+ln -s b.o c.o
+ln -s c.o d.o
+gcc -shared a.o -o liba.so

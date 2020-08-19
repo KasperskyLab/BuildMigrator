@@ -1,0 +1,1 @@
+g++ ../source/test.cpp -shared -o libtest.so

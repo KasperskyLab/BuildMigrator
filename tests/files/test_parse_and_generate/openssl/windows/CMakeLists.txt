@@ -1,0 +1,70 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(openssl LANGUAGES C CXX VERSION 1.1.1)
+enable_language(ASM_NASM)
+enable_language(RC)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+include(extensions)
+
+set(OPENSSL_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/source" CACHE PATH "")
+set(CMAKE_ASM_NASM_OBJECT_FORMAT win32)
+
+set(copy_prebuilt_artifacts_DIR windows)
+set(copy_prebuilt_artifacts_DEST ${CMAKE_CURRENT_BINARY_DIR})
+file(GLOB_RECURSE _files RELATIVE ${CMAKE_CURRENT_LIST_DIR}/${copy_prebuilt_artifacts_DIR} ${copy_prebuilt_artifacts_DIR}/*)
+foreach(_f ${_files})
+    configure_file(${copy_prebuilt_artifacts_DIR}/${_f} ${copy_prebuilt_artifacts_DEST}/${_f} COPYONLY)
+endforeach()
+
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/apps/app_rand.c PROPERTIES COMPILE_OPTIONS
+    "/bigobj;/GL;-Zc:threadSafeInit-;-Gw;-DL_ENDIAN;-DOPENSSL_PIC;-DOPENSSL_CPUID_OBJ;-DOPENSSL_BN_ASM_PART_WORDS;-DOPENSSL_IA32_SSE2;-DOPENSSL_BN_ASM_MONT;-DOPENSSL_BN_ASM_GF2m;-DSHA1_ASM;-DSHA256_ASM;-DSHA512_ASM;-DRC4_ASM;-DMD5_ASM;-DRMD160_ASM;-DAES_ASM;-DVPAES_ASM;-DWHIRLPOOL_ASM;-DGHASH_ASM;-DECP_NISTZ256_ASM;-DPADLOCK_ASM;-DPOLY1305_ASM;-DOPENSSLDIR=\"C:\\\\\\\\Program Files\\\\\\\\Common Files\\\\\\\\SSL\";-DENGINESDIR=\".\";-DOPENSSL_SYS_WIN32;-DWIN32_LEAN_AND_MEAN;-DOPENSSL_USE_APPLINK"
+)
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/apps/app_rand.c PROPERTIES INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_BINARY_DIR}/include;${OPENSSL_SOURCE_DIR};${OPENSSL_SOURCE_DIR}/include"
+)
+add_library(apps.static STATIC ${OPENSSL_SOURCE_DIR}/apps/app_rand.c)
+set_target_properties(apps.static PROPERTIES OUTPUT_NAME libapps)
+set_target_output_subdir(apps.static ARCHIVE_OUTPUT_DIRECTORY apps)
+set_target_properties(apps.static PROPERTIES VERSION 1.1.1)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/crypto/include)
+
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/crypto/dllmain.c PROPERTIES COMPILE_OPTIONS
+    "/bigobj;/GL;-Zc:threadSafeInit-;-Gw;-DL_ENDIAN;-DOPENSSL_PIC;-DOPENSSL_CPUID_OBJ;-DOPENSSL_BN_ASM_PART_WORDS;-DOPENSSL_IA32_SSE2;-DOPENSSL_BN_ASM_MONT;-DOPENSSL_BN_ASM_GF2m;-DSHA1_ASM;-DSHA256_ASM;-DSHA512_ASM;-DRC4_ASM;-DMD5_ASM;-DRMD160_ASM;-DAES_ASM;-DVPAES_ASM;-DWHIRLPOOL_ASM;-DGHASH_ASM;-DECP_NISTZ256_ASM;-DPADLOCK_ASM;-DPOLY1305_ASM;-DOPENSSLDIR=\"C:\\\\\\\\Program Files\\\\\\\\Common Files\\\\\\\\SSL\";-DENGINESDIR=\".\";-DOPENSSL_SYS_WIN32;-DWIN32_LEAN_AND_MEAN;-DOPENSSL_USE_APPLINK"
+)
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/crypto/dllmain.c PROPERTIES INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_BINARY_DIR}/crypto/include;${CMAKE_CURRENT_BINARY_DIR}/include;${OPENSSL_SOURCE_DIR};${OPENSSL_SOURCE_DIR}/crypto/include;${OPENSSL_SOURCE_DIR}/include"
+)
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/initialize.cpp PROPERTIES COMPILE_OPTIONS
+    "/bigobj;/GL;-Zc:threadSafeInit-;-Gw;-DL_ENDIAN;-DOPENSSL_PIC;-DOPENSSL_CPUID_OBJ;-DOPENSSL_BN_ASM_PART_WORDS;-DOPENSSL_IA32_SSE2;-DOPENSSL_BN_ASM_MONT;-DOPENSSL_BN_ASM_GF2m;-DSHA1_ASM;-DSHA256_ASM;-DSHA512_ASM;-DRC4_ASM;-DMD5_ASM;-DRMD160_ASM;-DAES_ASM;-DVPAES_ASM;-DWHIRLPOOL_ASM;-DGHASH_ASM;-DECP_NISTZ256_ASM;-DPADLOCK_ASM;-DPOLY1305_ASM;-DOPENSSLDIR=\"C:\\\\\\\\Program Files\\\\\\\\Common Files\\\\\\\\SSL\";-DENGINESDIR=\".\";-DOPENSSL_SYS_WIN32;-DWIN32_LEAN_AND_MEAN;-DOPENSSL_USE_APPLINK"
+)
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/initialize.cpp PROPERTIES INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_BINARY_DIR}/crypto/include;${CMAKE_CURRENT_BINARY_DIR}/include;${OPENSSL_SOURCE_DIR};${OPENSSL_SOURCE_DIR}/crypto/include;${OPENSSL_SOURCE_DIR}/include"
+)
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/ssl.c PROPERTIES COMPILE_OPTIONS
+    "/bigobj;/GL;-Zc:threadSafeInit-;-Gw;-DL_ENDIAN;-DOPENSSL_PIC;-DOPENSSL_CPUID_OBJ;-DOPENSSL_BN_ASM_PART_WORDS;-DOPENSSL_IA32_SSE2;-DOPENSSL_BN_ASM_MONT;-DOPENSSL_BN_ASM_GF2m;-DSHA1_ASM;-DSHA256_ASM;-DSHA512_ASM;-DRC4_ASM;-DMD5_ASM;-DRMD160_ASM;-DAES_ASM;-DVPAES_ASM;-DWHIRLPOOL_ASM;-DGHASH_ASM;-DECP_NISTZ256_ASM;-DPADLOCK_ASM;-DPOLY1305_ASM;-DOPENSSLDIR=\"C:\\\\\\\\Program Files\\\\\\\\Common Files\\\\\\\\SSL\";-DENGINESDIR=\".\";-DOPENSSL_SYS_WIN32;-DWIN32_LEAN_AND_MEAN;-DOPENSSL_USE_APPLINK"
+)
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/ssl.c PROPERTIES INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_BINARY_DIR}/crypto/include;${CMAKE_CURRENT_BINARY_DIR}/include;${OPENSSL_SOURCE_DIR};${OPENSSL_SOURCE_DIR}/crypto/include;${OPENSSL_SOURCE_DIR}/include"
+)
+add_library(openssl_1_1 SHARED
+    ${OPENSSL_SOURCE_DIR}/crypto/dllmain.c
+    ${CMAKE_CURRENT_BINARY_DIR}/libcrypto.rc
+    ${OPENSSL_SOURCE_DIR}/initialize.cpp
+    ${OPENSSL_SOURCE_DIR}/ssl.c
+    ${CMAKE_CURRENT_BINARY_DIR}/crypto/aes/aes-586.asm
+)
+target_link_libraries(openssl_1_1 PRIVATE ws2_32 crypt32)
+set_target_properties(openssl_1_1 PROPERTIES VERSION 1.1.1)
+
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/apps/asn1pars.c PROPERTIES COMPILE_OPTIONS
+    "/bigobj;/GL;-Zc:threadSafeInit-;-Gw;-DOPENSSL_SYS_WIN32;-DWIN32_LEAN_AND_MEAN;-DOPENSSL_USE_APPLINK"
+)
+set_source_files_properties(${OPENSSL_SOURCE_DIR}/apps/asn1pars.c PROPERTIES INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_BINARY_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/apps;${OPENSSL_SOURCE_DIR};${OPENSSL_SOURCE_DIR}/include"
+)
+add_executable(openssl ${OPENSSL_SOURCE_DIR}/apps/asn1pars.c)
+target_link_options(openssl PRIVATE setargv.obj)
+target_link_libraries(openssl PRIVATE apps.static openssl_1_1 ws2_32 crypt32)
+set_target_output_subdir(openssl RUNTIME_OUTPUT_DIRECTORY apps)
+set_target_properties(openssl PROPERTIES VERSION 1.1.1)

@@ -1,0 +1,3 @@
+cl.exe -c ..\source\src.cpp /Fo"src.obj"
+
+link.exe /libpath:..\source /libpath:./lib/ /DLL /OUT:./d.dll src.obj liba.lib libb.lib libc.lib

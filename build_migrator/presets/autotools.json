@@ -1,0 +1,7 @@
+{
+    "log_type": "make",
+    "parsers": [
+        "build_log_parser",
+        "autotools"
+    ]
+}

@@ -1,0 +1,6 @@
+gcc -DA=1 -o a.o -c ../source/a.c
+gcc -shared a.o -o liba1.so
+gcc -DA=2 -o a.o -c ../source/a.c
+gcc -shared a.o -o liba2.so
+gcc -DA=3 -o a.o -c ../source/a.c
+gcc -shared a.o -o liba3.so

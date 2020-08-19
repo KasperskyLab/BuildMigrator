@@ -1,0 +1,7 @@
+7    vfork() = 8
+8    chdir("build")
+8    execve("gcc", ["gcc", "liblib.a", "main.dir/main.o", "-o", "main"], [/* 2 vars */]) = 0
+8    exit_group(0)                     = ?
+8    +++ exited with 0 +++
+7    exit_group(0)                     = ?
+7    +++ exited with 0 +++

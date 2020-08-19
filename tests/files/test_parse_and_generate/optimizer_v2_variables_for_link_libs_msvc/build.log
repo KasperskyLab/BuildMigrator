@@ -1,0 +1,13 @@
+cl /c ..\source\a.c -Foa.obj
+cl /c ..\source\b.c -Fob.obj
+cl /c ..\source\c.c -Foc.obj
+cl /c ..\source\d.c -Fod.obj
+cl /c ..\source\e.c -Foe.obj
+
+lib.exe /OUT:./static1.lib a.obj
+
+link.exe /DLL aaaaaaaaaaaaaaaaaa.lib bbbbbbbbbbbbbbbbbbbbbbbb.lib static1.lib /OUT:./shared1.dll b.obj
+link.exe /DLL /OUT:./shared2.dll c.obj
+
+link.exe aaaaaaaaaaaaaaaaaa.lib bbbbbbbbbbbbbbbbbbbbbbbb.lib static1.lib /OUT:./exe1.exe d.obj
+link.exe /OUT:./exe2.exe e.obj

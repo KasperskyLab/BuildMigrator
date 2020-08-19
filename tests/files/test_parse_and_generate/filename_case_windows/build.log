@@ -1,0 +1,8 @@
+cl /c ../source/subdir/FOO.CPP /IIncludeDir1 /Fofoo.obj
+cl /c ../source/bar.cpp /Iincludedir2 /FoBar.obj
+cl /c ../source/bAr.cpp /Iincludedir2 /FoBAR2.OBJ
+cl /c ../source/DoesNotExist.C /Fodoes_NOT_exist.obj
+link /out:ApplicatioN.EXE Bar.obj
+link /DLL /out:My_Library.DLL /IMPLIB:My_Library.LIB does_NOT_exist.obj BAR2.OBJ
+lib /out:LIBTEST1.LIB foo.obj My_Library.LIB
+lib /out:LIBTEST2.LIB foo.obj My_Library.LIB

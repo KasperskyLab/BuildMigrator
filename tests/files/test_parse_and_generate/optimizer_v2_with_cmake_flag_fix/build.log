@@ -1,0 +1,10 @@
+cl /c ../source/foo.cpp /DFOO /Iincludedir1 /Fofoo.obj
+cl /c ../source/bar1.cpp /Iincludedir2 /Fobar11.obj
+cl /c ../source/bar2.cpp /Iincludedir2 /Fobar21.obj
+cl /c ../source/bar1.cpp /Iincludedir2 /DBAR2 /Fobar12.obj
+cl /c ../source/bar2.cpp /Iincludedir2 /DBAR2 /Fobar22.obj
+cl /c ../source/baz.c /Fobaz.obj
+lib /OUT:st.lib foo.obj
+link /OUT:ex.exe foo.obj bar11.obj bar21.obj
+link /DLL /out:sh1.dll foo.obj bar12.obj bar22.obj
+link /DLL /out:sh2.dll baz.obj

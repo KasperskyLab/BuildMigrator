@@ -1,0 +1,3 @@
+cl.exe -c /I"include dir" "..\source\source file.cpp" /Fo"object file.obj"
+link.exe /DLL /libpath:"lib dir" /OUT:".\lib dir\b.dll" "object file.obj" a.lib
+link.exe /DLL /OUT:"c.dll" "object file.obj" "lib dir/b.lib"

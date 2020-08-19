@@ -1,0 +1,3 @@
+cl -c -DA=1 /DA=1 -DA=1 -DB=2 -Iinclude -Iinclude /Iinclude /bigobj -I../source/include -GR -D B=2 -I@cwd@/source/include  /Fomain.obj ../source/main.c
+cl -c  -D A=1 -I./include -I../build/../source/include /GR -bigobj  -D B=2 /DB=2 -I ./../source/include /Foutil.obj /GR ../source/util.c
+link /machine:x86 /safeseh /out:test.exe /SAFESEH /SAFESEH -safeseh main.obj util.obj

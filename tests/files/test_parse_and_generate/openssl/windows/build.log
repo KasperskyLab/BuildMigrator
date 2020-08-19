@@ -1,0 +1,82 @@
+	"C:\Perl64\bin\perl.exe" "-I." -Mconfigdata "..\..\source\util\dofile.pl"  "-omakefile" "..\..\source\crypto\include\internal\bn_conf.h.in" > crypto\include\internal\bn_conf.h
+	"C:\Perl64\bin\perl.exe" "-I." -Mconfigdata "..\..\source\util\dofile.pl"  "-omakefile" "..\..\source\crypto\include\internal\dso_conf.h.in" > crypto\include\internal\dso_conf.h
+	"C:\Perl64\bin\perl.exe" "-I." -Mconfigdata "..\..\source\util\dofile.pl"  "-omakefile" "..\..\source\include\openssl\opensslconf.h.in" > include\openssl\opensslconf.h
+	"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\nmake.exe" /                   depend && "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\nmake.exe" /                   _all
+	cl  /Zi /Fdossl_static.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "include" /I "..\..\source" /I "..\..\source\include" -D"L_ENDIAN" -D"OPENSSL_PIC" -D"OPENSSL_CPUID_OBJ" -D"OPENSSL_BN_ASM_PART_WORDS" -D"OPENSSL_IA32_SSE2" -D"OPENSSL_BN_ASM_MONT" -D"OPENSSL_BN_ASM_GF2m" -D"SHA1_ASM" -D"SHA256_ASM" -D"SHA512_ASM" -D"RC4_ASM" -D"MD5_ASM" -D"RMD160_ASM" -D"AES_ASM" -D"VPAES_ASM" -D"WHIRLPOOL_ASM" -D"GHASH_ASM" -D"ECP_NISTZ256_ASM" -D"PADLOCK_ASM" -D"POLY1305_ASM" -D"OPENSSLDIR=\"C:\\openssl\"" -D"ENGINESDIR=\"D:\\src\\3rd_party_gen\\.build_win\\externals\\openssl\\1.1.1\\openssl_package\\lib\\engines-1_1\"" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 /Zs /showIncludes "..\..\source\apps\app_rand.c"
+app_rand.c
+Note: including file: ..\..\source\apps\apps.h
+Note: including file:  ..\..\source\e_os.h
+	cl  /Zi /Fdossl_static.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "include" /I "..\..\source" /I "..\..\source\include" -D"L_ENDIAN" -D"OPENSSL_PIC" -D"OPENSSL_CPUID_OBJ" -D"OPENSSL_BN_ASM_PART_WORDS" -D"OPENSSL_IA32_SSE2" -D"OPENSSL_BN_ASM_MONT" -D"OPENSSL_BN_ASM_GF2m" -D"SHA1_ASM" -D"SHA256_ASM" -D"SHA512_ASM" -D"RC4_ASM" -D"MD5_ASM" -D"RMD160_ASM" -D"AES_ASM" -D"VPAES_ASM" -D"WHIRLPOOL_ASM" -D"GHASH_ASM" -D"ECP_NISTZ256_ASM" -D"PADLOCK_ASM" -D"POLY1305_ASM" -D"OPENSSLDIR=\"C:\\openssl\"" -D"ENGINESDIR=\"D:\\src\\3rd_party_gen\\.build_win\\externals\\openssl\\1.1.1\\openssl_package\\lib\\engines-1_1\"" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 -c /Foapps\app_rand.obj "..\..\source\apps\app_rand.c"
+app_rand.c
+    echo apps\app_rand.obj > C:\AppData\Local\Temp\nmC9B1.tmp
+	lib /nologo /out:apps\libapps.lib @C:\AppData\Local\Temp\nmC9B1.tmp
+
+LINK : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+	cl  /Zi /Fdossl_static.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "crypto\include" /I "include" /I "..\..\source" /I "..\..\source\crypto\include" /I "..\..\source\include" -D"L_ENDIAN" -D"OPENSSL_PIC" -D"OPENSSL_CPUID_OBJ" -D"OPENSSL_BN_ASM_PART_WORDS" -D"OPENSSL_IA32_SSE2" -D"OPENSSL_BN_ASM_MONT" -D"OPENSSL_BN_ASM_GF2m" -D"SHA1_ASM" -D"SHA256_ASM" -D"SHA512_ASM" -D"RC4_ASM" -D"MD5_ASM" -D"RMD160_ASM" -D"AES_ASM" -D"VPAES_ASM" -D"WHIRLPOOL_ASM" -D"GHASH_ASM" -D"ECP_NISTZ256_ASM" -D"PADLOCK_ASM" -D"POLY1305_ASM" -D"OPENSSLDIR=\"C:\\openssl\"" -D"ENGINESDIR=\"D:\\src\\3rd_party_gen\\.build_win\\externals\\openssl\\1.1.1\\openssl_package\\lib\\engines-1_1\"" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 /Zs /showIncludes "..\..\source\crypto\dllmain.c"
+dllmain.c
+Note: including file: ..\..\source\e_os.h
+	cl  /Zi /Fdossl_static.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "crypto\include" /I "include" /I "..\..\source" /I "..\..\source\crypto\include" /I "..\..\source\include" -D"L_ENDIAN" -D"OPENSSL_PIC" -D"OPENSSL_CPUID_OBJ" -D"OPENSSL_BN_ASM_PART_WORDS" -D"OPENSSL_IA32_SSE2" -D"OPENSSL_BN_ASM_MONT" -D"OPENSSL_BN_ASM_GF2m" -D"SHA1_ASM" -D"SHA256_ASM" -D"SHA512_ASM" -D"RC4_ASM" -D"MD5_ASM" -D"RMD160_ASM" -D"AES_ASM" -D"VPAES_ASM" -D"WHIRLPOOL_ASM" -D"GHASH_ASM" -D"ECP_NISTZ256_ASM" -D"PADLOCK_ASM" -D"POLY1305_ASM" -D"OPENSSLDIR=\"C:\\openssl\"" -D"ENGINESDIR=\"D:\\src\\3rd_party_gen\\.build_win\\externals\\openssl\\1.1.1\\openssl_package\\lib\\engines-1_1\"" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 -c /Focrypto\dllmain.obj "..\..\source\crypto\dllmain.c"
+dllmain.c
+	"C:\Perl64\bin\perl.exe" "..\..\source\util\mkrc.pl" openssl_1_1 > libcrypto.rc
+	rc /folibcrypto.res "libcrypto.rc"
+Microsoft (R) Windows (R) Resource Compiler Version 10.0.10011.16384
+
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+	cl  /Zi /Fdossl_static.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "crypto\include" /I "include" /I "..\..\source" /I "..\..\source\crypto\include" /I "..\..\source\include" -D"L_ENDIAN" -D"OPENSSL_PIC" -D"OPENSSL_CPUID_OBJ" -D"OPENSSL_BN_ASM_PART_WORDS" -D"OPENSSL_IA32_SSE2" -D"OPENSSL_BN_ASM_MONT" -D"OPENSSL_BN_ASM_GF2m" -D"SHA1_ASM" -D"SHA256_ASM" -D"SHA512_ASM" -D"RC4_ASM" -D"MD5_ASM" -D"RMD160_ASM" -D"AES_ASM" -D"VPAES_ASM" -D"WHIRLPOOL_ASM" -D"GHASH_ASM" -D"ECP_NISTZ256_ASM" -D"PADLOCK_ASM" -D"POLY1305_ASM" -D"OPENSSLDIR=\"C:\\openssl\"" -D"ENGINESDIR=\"D:\\src\\3rd_party_gen\\.build_win\\externals\\openssl\\1.1.1\\openssl_package\\lib\\engines-1_1\"" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 /Zs /showIncludes "..\..\source\initialize.cpp"
+initialize.cpp
+Note: including file: C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\stdio.h
+Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt.h
+Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\ncrypt.h
+Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\dpapi.h
+..\..\source\initialize.cpp(66): warning C4996: 'GetVersion': was declared deprecated
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\sysinfoapi.h(184): note: see declaration of 'GetVersion'
+	cl  /Zi /Fdossl_static.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "crypto\include" /I "include" /I "..\..\source" /I "..\..\source\crypto\include" /I "..\..\source\include" -D"L_ENDIAN" -D"OPENSSL_PIC" -D"OPENSSL_CPUID_OBJ" -D"OPENSSL_BN_ASM_PART_WORDS" -D"OPENSSL_IA32_SSE2" -D"OPENSSL_BN_ASM_MONT" -D"OPENSSL_BN_ASM_GF2m" -D"SHA1_ASM" -D"SHA256_ASM" -D"SHA512_ASM" -D"RC4_ASM" -D"MD5_ASM" -D"RMD160_ASM" -D"AES_ASM" -D"VPAES_ASM" -D"WHIRLPOOL_ASM" -D"GHASH_ASM" -D"ECP_NISTZ256_ASM" -D"PADLOCK_ASM" -D"POLY1305_ASM" -D"OPENSSLDIR=\"C:\\openssl\"" -D"ENGINESDIR=\"D:\\src\\3rd_party_gen\\.build_win\\externals\\openssl\\1.1.1\\openssl_package\\lib\\engines-1_1\"" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 -c /Foinitialize_cc.obj "..\..\source\initialize.cpp"
+initialize.cpp
+..\..\source\initialize.cpp(66): warning C4996: 'GetVersion': was declared deprecated
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\sysinfoapi.h(184): note: see declaration of 'GetVersion'
+	cl  /Zi /Fdossl_static.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "crypto\include" /I "include" /I "..\..\source" /I "..\..\source\crypto\include" /I "..\..\source\include" -D"L_ENDIAN" -D"OPENSSL_PIC" -D"OPENSSL_CPUID_OBJ" -D"OPENSSL_BN_ASM_PART_WORDS" -D"OPENSSL_IA32_SSE2" -D"OPENSSL_BN_ASM_MONT" -D"OPENSSL_BN_ASM_GF2m" -D"SHA1_ASM" -D"SHA256_ASM" -D"SHA512_ASM" -D"RC4_ASM" -D"MD5_ASM" -D"RMD160_ASM" -D"AES_ASM" -D"VPAES_ASM" -D"WHIRLPOOL_ASM" -D"GHASH_ASM" -D"ECP_NISTZ256_ASM" -D"PADLOCK_ASM" -D"POLY1305_ASM" -D"OPENSSLDIR=\"C:\\openssl\"" -D"ENGINESDIR=\"D:\\src\\3rd_party_gen\\.build_win\\externals\\openssl\\1.1.1\\openssl_package\\lib\\engines-1_1\"" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 /Zs /showIncludes "..\..\source\ssl.c"
+ssl.c
+Note: including file: ..\..\source\include\openssl/ssl.h
+Note: including file:  ..\..\source\include\openssl/ssl.h
+Note: including file:   ..\..\source\include\openssl/e_os2.h
+Note: including file:    .\include\openssl/opensslconf.h
+Note: including file:  ..\..\source\include\internal/tsan_assist.h
+	cl  /Zi /Fdossl_static.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "crypto\include" /I "include" /I "..\..\source" /I "..\..\source\crypto\include" /I "..\..\source\include" -D"L_ENDIAN" -D"OPENSSL_PIC" -D"OPENSSL_CPUID_OBJ" -D"OPENSSL_BN_ASM_PART_WORDS" -D"OPENSSL_IA32_SSE2" -D"OPENSSL_BN_ASM_MONT" -D"OPENSSL_BN_ASM_GF2m" -D"SHA1_ASM" -D"SHA256_ASM" -D"SHA512_ASM" -D"RC4_ASM" -D"MD5_ASM" -D"RMD160_ASM" -D"AES_ASM" -D"VPAES_ASM" -D"WHIRLPOOL_ASM" -D"GHASH_ASM" -D"ECP_NISTZ256_ASM" -D"PADLOCK_ASM" -D"POLY1305_ASM" -D"OPENSSLDIR=\"C:\\openssl\"" -D"ENGINESDIR=\"D:\\src\\3rd_party_gen\\.build_win\\externals\\openssl\\1.1.1\\openssl_package\\lib\\engines-1_1\"" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 -c /Fossl.obj "..\..\source\ssl.c"
+ssl.c
+	set ASM=nasm
+	"C:\Perl64\bin\perl.exe" "..\..\source\crypto\aes\asm\aes-586.pl" win32n /Zi /Fdossl_static.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -D"L_ENDIAN" -D"OPENSSL_PIC" -D"OPENSSL_CPUID_OBJ" -D"OPENSSL_BN_ASM_PART_WORDS" -D"OPENSSL_IA32_SSE2" -D"OPENSSL_BN_ASM_MONT" -D"OPENSSL_BN_ASM_GF2m" -D"SHA1_ASM" -D"SHA256_ASM" -D"SHA512_ASM" -D"RC4_ASM" -D"MD5_ASM" -D"RMD160_ASM" -D"AES_ASM" -D"VPAES_ASM" -D"WHIRLPOOL_ASM" -D"GHASH_ASM" -D"ECP_NISTZ256_ASM" -D"PADLOCK_ASM" -D"POLY1305_ASM" -D"OPENSSLDIR=\"C:\\openssl\"" -D"ENGINESDIR=\"D:\\src\\3rd_party_gen\\.build_win\\externals\\openssl\\1.1.1\\openssl_package\\lib\\engines-1_1\"" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501  crypto\aes\aes-586.asm
+	nasm  -f win32  -o crypto\aes\aes-586.obj "crypto\aes\aes-586.asm"
+	"C:\Perl64\bin\perl.exe" "..\..\source\util\mkdef.pl" openssl_1_1 32 > libcrypto.def
+	echo crypto\dllmain.obj > C:\AppData\Local\Temp\nm31B0.tmp
+	echo libcrypto.res >> C:\AppData\Local\Temp\nm31B0.tmp
+	echo initialize_cc.obj >> C:\AppData\Local\Temp\nm31B0.tmp
+	echo ssl.obj >> C:\AppData\Local\Temp\nm31B0.tmp
+	echo crypto\aes\aes-586.obj >> C:\AppData\Local\Temp\nm31B0.tmp
+	echo ws2_32.lib gdi32.lib advapi32.lib crypt32.lib user32.lib >> C:\AppData\Local\Temp\nm31B0.tmp
+	IF EXIST openssl_1_1.dll.manifest DEL /F /Q openssl_1_1.dll.manifest
+	IF EXIST openssl_1_1.lib DEL /F /Q openssl_1_1.lib
+	link /nologo /debug /guard:cf /SUBSYSTEM:CONSOLE,5.01 /dll  /nologo /debug /guard:cf /SUBSYSTEM:CONSOLE,5.01  /implib:openssl_1_1.lib /out:openssl_1_1.dll /def:libcrypto.def @C:\AppData\Local\Temp\nm31B0.tmp || (DEL /Q openssl_1_1.* openssl_1_1.* && EXIT 1)
+
+dllmain.obj : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+   Creating library openssl_1_1.lib and object openssl_1_1.exp
+Generating code
+Finished generating code
+	"C:\Perl64\bin\perl.exe" "..\..\source\apps\progs.pl" "apps\openssl" > apps\progs.h
+	cl  /Zi /Fdapp.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "include" /I "apps" /I "..\..\source" /I "..\..\source\include" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 /Zs /showIncludes "..\..\source\apps\asn1pars.c"
+asn1pars.c
+	cl  /Zi /Fdapp.pdb /Gs0 /GF /Gy /MT /W3 /wd4090 /nologo /guard:cf /bigobj /O1 /GL -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 -Zc:threadSafeInit- -Gw -Oy- -arch:IA32 /I "." /I "include" /I "apps" /I "..\..\source" /I "..\..\source\include" -D"OPENSSL_SYS_WIN32" -D"WIN32_LEAN_AND_MEAN" -D"UNICODE" -D"_UNICODE" -D"_CRT_SECURE_NO_DEPRECATE" -D"_WINSOCK_DEPRECATED_NO_WARNINGS" -D"OPENSSL_USE_APPLINK" -D"NDEBUG" -D_WIN32_WINNT=0x0501 -D_WIN32_WINNT=0x0501 -c /Foapps\asn1pars.obj "..\..\source\apps\asn1pars.c"
+asn1pars.c
+    echo apps\asn1pars.obj > C:\AppData\Local\Temp\nmD9BA.tmp
+    echo setargv.obj >> C:\AppData\Local\Temp\nmD9BA.tmp
+    echo apps\libapps.lib >> C:\AppData\Local\Temp\nmD9BA.tmp
+    echo openssl_1_1.lib >> C:\AppData\Local\Temp\nmD9BA.tmp
+    echo ws2_32.lib gdi32.lib advapi32.lib crypt32.lib user32.lib >> C:\AppData\Local\Temp\nmD9BA.tmp
+	IF EXIST apps\openssl.exe.manifest DEL /F /Q apps\openssl.exe.manifest
+	link /nologo /debug /guard:cf /SUBSYSTEM:CONSOLE,5.01 /subsystem:console /opt:ref  /nologo /debug /guard:cf /SUBSYSTEM:CONSOLE,5.01 /out:apps\openssl.exe @C:\AppData\Local\Temp\nmD9BA.tmp
+asn1pars.obj : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+   Creating library apps\openssl.lib and object apps\openssl.exp
+Generating code
+Finished generating code
+	IF EXIST apps\openssl.exe.manifest  mt -nologo -manifest apps\openssl.exe.manifest -outputresource:apps\openssl.exe

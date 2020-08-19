@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+SCRIPT_DIR=`dirname "$0"`
+python "$SCRIPT_DIR/../merge_cmake/merge_cmake.py" "$@"

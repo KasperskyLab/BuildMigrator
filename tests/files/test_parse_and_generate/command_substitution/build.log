@@ -1,0 +1,1 @@
+gcc -o test "-DA=\"$(echo A)\"" "-DB=\"`echo B`\"" "../source/test.c"

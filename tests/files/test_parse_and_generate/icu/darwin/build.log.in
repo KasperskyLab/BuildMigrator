@@ -1,0 +1,123 @@
+make: Entering directory `@cwd@/build'
+cd ./config; \
+		/Applications/Xcode.app/Contents/Developer/usr/bin/make -f pkgdataMakefile
+rebuilding config/icucross.mk
+rm -rf config/icu-config
+rebuilding config/icucross.inc
+/usr/bin/install -c @cwd@/../source/config/icu-config-top config/icu-config
+/bin/sh @cwd@/../source/mkinstalldirs lib
+/bin/sh @cwd@/../source/mkinstalldirs bin
+chmod u+w config/icu-config
+make[1]: Entering directory `@cwd@/build/config'
+rm -rf pkgdata.inc
+mkdir lib
+mkdir bin
+/Applications/Xcode.app/Contents/Developer/usr/bin/make[0]: Making `all' in `stubdata'
+make[1]: Entering directory `@cwd@/build/stubdata'
+LC_ALL=C sed -f @cwd@/../source/config/make2sh.sed < ./config/Makefile.inc | grep -v '#M#' | uniq >> config/icu-config
+clang -DU_ATTRIBUTE_DEPRECATED= -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -std=c99 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -fno-common -c -dynamic -MMD -MT "stubdata.d stubdata.o stubdata.ao" -o stubdata.o @cwd@/../source/stubdata/stubdata.c
+clang -dynamiclib -dynamic -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC  -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long    -fvisibility=hidden -stdlib=libc++ -stdlib=libc++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names -arch i386    -Wl,-compatibility_version -Wl,58 -Wl,-current_version -Wl,58.2 -install_name @loader_path/libicudata.58.dylib -o libicudata.58.2.dylib stubdata.o -lpthread -lm
+LC_ALL=C sed -f @cwd@/../source/config/make2sh.sed < @cwd@/../source/config/mh-darwin | grep -v '#M#' | uniq >> config/icu-config
+cat @cwd@/../source/config/icu-config-bottom >> config/icu-config
+chmod u-w config/icu-config
+config/icu-uc.pc updated.
+config/icu-io.pc updated.
+config/icu-i18n.pc updated.
+make[1]: Leaving directory `@cwd@/build/config'
+rm -f libicudata.58.dylib && ln -s libicudata.58.2.dylib libicudata.58.dylib
+rm -f libicudata.dylib && ln -s libicudata.58.2.dylib libicudata.dylib
+make[1]: Leaving directory `@cwd@/build/stubdata'
+/Applications/Xcode.app/Contents/Developer/usr/bin/make[0]: Making `all' in `common'
+make[1]: Entering directory `@cwd@/build/common'
+generating ../common/svchook.mk
+cd .. \
+	 && CONFIG_FILES=common/Makefile CONFIG_HEADERS= /bin/sh ./config.status
+config.status: creating common/Makefile
+make[1]: Leaving directory `@cwd@/build/common'
+make[1]: Entering directory `@cwd@/build/common'
+clang -DU_ATTRIBUTE_DEPRECATED= -DU_COMMON_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common "-DDEFAULT_ICU_PLUGINS=\"/Users/buildadmin/a/b/a_4D5ED1CA_/b/externals/icu/icu-install/lib/icu\" " -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -std=c99 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "ucnv.d ucnv.o ucnv.ao" -o ucnv.o @cwd@/../source/common/ucnv.c
+clang++ -DU_ATTRIBUTE_DEPRECATED= -DU_COMMON_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common "-DDEFAULT_ICU_PLUGINS=\"/Users/buildadmin/a/b/a_4D5ED1CA_/b/externals/icu/icu-install/lib/icu\" " -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "resbund.d resbund.o resbund.ao" -o resbund.o @cwd@/../source/common/resbund.cpp
+clang++ -DU_ATTRIBUTE_DEPRECATED= -DU_COMMON_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common "-DDEFAULT_ICU_PLUGINS=\"/Users/buildadmin/a/b/a_4D5ED1CA_/b/externals/icu/icu-install/lib/icu\" " -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "unistr_case_locale.d unistr_case_locale.o unistr_case_locale.ao" -o unistr_case_locale.o @cwd@/../source/common/unistr_case_locale.cpp
+clang++ -DU_ATTRIBUTE_DEPRECATED= -DU_COMMON_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common "-DDEFAULT_ICU_PLUGINS=\"/Users/buildadmin/a/b/a_4D5ED1CA_/b/externals/icu/icu-install/lib/icu\" " -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "uniset.d uniset.o uniset.ao" -o uniset.o @cwd@/../source/common/uniset.cpp
+clang++ -dynamiclib -dynamic -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC  -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long    -fvisibility=hidden -stdlib=libc++ -stdlib=libc++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names -arch i386    -Wl,-compatibility_version -Wl,58 -Wl,-current_version -Wl,58.2 -install_name @loader_path/libicuuc.58.dylib -o ../lib/libicuuc.58.2.dylib ucnv.o resbund.o unistr_case_locale.o uniset.o -L../lib -L../stubdata -licudata -lpthread -lm
+rm -f ../lib/libicuuc.58.dylib && ln -s libicuuc.58.2.dylib ../lib/libicuuc.58.dylib
+rm -f ../lib/libicuuc.dylib && ln -s libicuuc.58.2.dylib ../lib/libicuuc.dylib
+make[1]: Leaving directory `@cwd@/build/common'
+/Applications/Xcode.app/Contents/Developer/usr/bin/make[0]: Making `all' in `i18n'
+make[1]: Entering directory `@cwd@/build/i18n'
+clang++ -DU_ATTRIBUTE_DEPRECATED= -DU_I18N_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/i18n -I@cwd@/../source/common -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "ucln_in.d ucln_in.o ucln_in.ao" -o ucln_in.o @cwd@/../source/i18n/ucln_in.cpp
+clang++ -DU_ATTRIBUTE_DEPRECATED= -DU_I18N_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/i18n -I@cwd@/../source/common -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "decimfmt.d decimfmt.o decimfmt.ao" -o decimfmt.o @cwd@/../source/i18n/decimfmt.cpp
+clang -DU_ATTRIBUTE_DEPRECATED= -DU_I18N_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/i18n -I@cwd@/../source/common -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -std=c99 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "decContext.d decContext.o decContext.ao" -o decContext.o @cwd@/../source/i18n/decContext.c
+clang++ -DU_ATTRIBUTE_DEPRECATED= -DU_I18N_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/i18n -I@cwd@/../source/common -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "decimfmtimpl.d decimfmtimpl.o decimfmtimpl.ao" -o decimfmtimpl.o @cwd@/../source/i18n/decimfmtimpl.cpp
+clang++ -dynamiclib -dynamic -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC  -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long    -fvisibility=hidden -stdlib=libc++ -stdlib=libc++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names -arch i386    -Wl,-compatibility_version -Wl,58 -Wl,-current_version -Wl,58.2 -install_name @loader_path/libicui18n.58.dylib -o ../lib/libicui18n.58.2.dylib ucln_in.o decimfmt.o decContext.o decimfmtimpl.o -L../lib -licuuc -L../stubdata -licudata -lpthread -lm
+rm -f ../lib/libicui18n.58.dylib && ln -s libicui18n.58.2.dylib ../lib/libicui18n.58.dylib
+rm -f ../lib/libicui18n.dylib && ln -s libicui18n.58.2.dylib ../lib/libicui18n.dylib
+make[1]: Leaving directory `@cwd@/build/i18n'
+/Applications/Xcode.app/Contents/Developer/usr/bin/make[0]: Making `all' in `io'
+make[1]: Entering directory `@cwd@/build/io'
+clang++ -DU_ATTRIBUTE_DEPRECATED= -DU_IO_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common -I@cwd@/../source/i18n -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "locbund.d locbund.o locbund.ao" -o locbund.o @cwd@/../source/io/locbund.cpp
+clang -DU_ATTRIBUTE_DEPRECATED= -DU_IO_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common -I@cwd@/../source/i18n -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -std=c99 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "ufile.d ufile.o ufile.ao" -o ufile.o @cwd@/../source/io/ufile.c
+clang++ -DU_ATTRIBUTE_DEPRECATED= -DU_IO_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common -I@cwd@/../source/i18n -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "ucln_io.d ucln_io.o ucln_io.ao" -o ucln_io.o @cwd@/../source/io/ucln_io.cpp
+clang++ -dynamiclib -dynamic -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC  -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long    -fvisibility=hidden -stdlib=libc++ -stdlib=libc++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names -arch i386    -Wl,-compatibility_version -Wl,58 -Wl,-current_version -Wl,58.2 -install_name @loader_path/libicuio.58.dylib -o ../lib/libicuio.58.2.dylib locbund.o ufile.o ucln_io.o -L../lib -licuuc -L../stubdata -licudata -L../lib -licui18n -lpthread -lm
+rm -f ../lib/libicuio.58.dylib && ln -s libicuio.58.2.dylib ../lib/libicuio.58.dylib
+rm -f ../lib/libicuio.dylib && ln -s libicuio.58.2.dylib ../lib/libicuio.dylib
+make[1]: Leaving directory `@cwd@/build/io'
+/Applications/Xcode.app/Contents/Developer/usr/bin/make[0]: Making `all' in `tools'
+make[1]: Entering directory `@cwd@/build/tools'
+/Applications/Xcode.app/Contents/Developer/usr/bin/make[1]: Making `all' in `toolutil'
+make[2]: Entering directory `@cwd@/build/tools/toolutil'
+clang -DU_ATTRIBUTE_DEPRECATED= -DU_TOOLUTIL_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common -I@cwd@/../source/i18n "-DU_BUILD=\"x86_64-apple-darwin18.7.0\"" "-DU_HOST=\"i386-apple-darwin\"" "-DU_CC=\"clang\"" "-DU_CXX=\"clang++\"" -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNISTR_FROM_STRING_EXPLICIT=explicit -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -std=c99 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "filestrm.d filestrm.o filestrm.ao" -o filestrm.o @cwd@/../source/tools/toolutil/filestrm.c
+clang -DU_ATTRIBUTE_DEPRECATED= -DU_TOOLUTIL_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common -I@cwd@/../source/i18n "-DU_BUILD=\"x86_64-apple-darwin18.7.0\"" "-DU_HOST=\"i386-apple-darwin\"" "-DU_CC=\"clang\"" "-DU_CXX=\"clang++\"" -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNISTR_FROM_STRING_EXPLICIT=explicit -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -std=c99 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "ucm.d ucm.o ucm.ao" -o ucm.o @cwd@/../source/tools/toolutil/ucm.c
+clang++ -DU_ATTRIBUTE_DEPRECATED= -DU_TOOLUTIL_IMPLEMENTATION -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1 -I@cwd@/../source/common -I@cwd@/../source/i18n "-DU_BUILD=\"x86_64-apple-darwin18.7.0\"" "-DU_HOST=\"i386-apple-darwin\"" "-DU_CC=\"clang\"" "-DU_CXX=\"clang++\"" -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNISTR_FROM_STRING_EXPLICIT=explicit -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long -fvisibility=hidden -fno-common -c -dynamic -MMD -MT "ucln_tu.d ucln_tu.o ucln_tu.ao" -o ucln_tu.o @cwd@/../source/tools/toolutil/ucln_tu.cpp
+clang++ -dynamiclib -dynamic -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -std=c++11 -stdlib=libc++ -fstack-protector -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC  -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -W -Wall -pedantic -Wpointer-arith -Wwrite-strings -Wno-long-long    -fvisibility=hidden -stdlib=libc++ -stdlib=libc++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names -arch i386    -Wl,-compatibility_version -Wl,58 -Wl,-current_version -Wl,58.2 -install_name @loader_path/libicutu.58.dylib -o ../../lib/libicutu.58.2.dylib filestrm.o ucm.o ucln_tu.o -L../../lib -licui18n -L../../lib -licuuc -L../../stubdata -licudata -lpthread -lm
+rm -f ../../lib/libicutu.58.dylib && ln -s libicutu.58.2.dylib ../../lib/libicutu.58.dylib
+rm -f ../../lib/libicutu.dylib && ln -s libicutu.58.2.dylib ../../lib/libicutu.dylib
+make[2]: Leaving directory `@cwd@/build/tools/toolutil'
+make[2]: Entering directory `@cwd@/build/tools'
+make[2]: Nothing to be done for `all-local'.
+make[2]: Leaving directory `@cwd@/build/tools'
+make[1]: Leaving directory `@cwd@/build/tools'
+/Applications/Xcode.app/Contents/Developer/usr/bin/make[0]: Making `all' in `data'
+make[1]: Entering directory `@cwd@/build/data'
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f pkgdataMakefile
+echo timestamp > build-dir.tmp
+/bin/sh @cwd@/../source/mkinstalldirs ./out ./out/build ./out/build/icudt58l ./out/build/icudt58l/curr ./out/build/icudt58l/lang ./out/build/icudt58l/region ./out/build/icudt58l/zone ./out/build/icudt58l/unit ./out/build/icudt58l/brkitr ./out/build/icudt58l/coll ./out/build/icudt58l/rbnf ./out/build/icudt58l/translit ./out/tmp ./out/tmp/curr ./out/tmp/lang ./out/tmp/region ./out/tmp/zone ./out/tmp/unit ./out/tmp/coll ./out/tmp/rbnf ./out/tmp/translit ./out/tmp/brkitr
+make[2]: Entering directory `@cwd@/build/data'
+rm -rf icupkg.inc
+mkdir ./out
+mkdir ./out/build
+mkdir ./out/build/icudt58l
+mkdir ./out/build/icudt58l/curr
+mkdir ./out/build/icudt58l/lang
+make[2]: Leaving directory `@cwd@/build/data'
+mkdir ./out/build/icudt58l/region
+mkdir ./out/build/icudt58l/zone
+mkdir ./out/build/icudt58l/unit
+mkdir ./out/build/icudt58l/brkitr
+mkdir ./out/build/icudt58l/coll
+mkdir ./out/build/icudt58l/rbnf
+mkdir ./out/build/icudt58l/translit
+mkdir ./out/tmp
+mkdir ./out/tmp/curr
+mkdir ./out/tmp/lang
+mkdir ./out/tmp/region
+mkdir ./out/tmp/zone
+mkdir ./out/tmp/unit
+mkdir ./out/tmp/coll
+mkdir ./out/tmp/rbnf
+mkdir ./out/tmp/translit
+mkdir ./out/tmp/brkitr
+mv build-dir.tmp build-dir
+Unpacking @cwd@/../source/data/in/icudt58l.dat and generating out/tmp/icudata.lst (list of data files)
+DYLD_LIBRARY_PATH=@cwd@/build-native/lib:@cwd@/build-native/stubdata:@cwd@/build-native/tools/ctestfw:$DYLD_LIBRARY_PATH @cwd@/build-native/bin/icupkg -d ./out/build/icudt58l --list -x \* @cwd@/../source/data/in/icudt58l.dat -o out/tmp/icudata.lst
+echo timestamp > build-local
+DYLD_LIBRARY_PATH=@cwd@/build-native/stubdata:@cwd@/build-native/tools/ctestfw:@cwd@/build-native/lib:$DYLD_LIBRARY_PATH  @cwd@/build-native/bin/pkgdata -O ../data/icupkg.inc -q -c -s @cwd@/build/data/out/build/icudt58l -d ../lib -e icudt58  -T ./out/tmp -p icudt58l -m dll -r 58.2 -L icudata ./out/tmp/icudata.lst
+pkgdata: clang -DU_ATTRIBUTE_DEPRECATED=   -DU_HAVE_ATOMIC=1 -DU_HAVE_STRTOD_L=1  -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -isysroot /opt/toolchain/cross/i386-apple-darwin_sdk10.8/MacOSX10.8.sdk -mmacosx-version-min=10.7 -fPIC  -I/Users/buildadmin/a/b/a_4D5ED1CA_/b/include -I/Users/buildadmin/a/b/c_7HS43P8G/s/include -arch i386 -std=c99 -Wall -pedantic -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings   -fno-common -c -I@cwd@/../source/common -I../common  -dynamic -o ./out/tmp/icudt58l_dat.o ./out/tmp/icudt58l_dat.S
+pkgdata: cd ../lib/ && rm -f libicudata.58.dylib && ln -s libicudata.58.2.dylib libicudata.58.dylib
+pkgdata: cd ../lib/ && rm -f libicudata.dylib && ln -s libicudata.58.2.dylib libicudata.dylib
+echo timestamp > packagedata
+make[1]: Leaving directory `@cwd@/build/data'
+make[1]: Entering directory `@cwd@/build'
+make[1]: Nothing to be done for `all-local'.
+make[1]: Leaving directory `@cwd@/build'
+make: Leaving directory `@cwd@/build'

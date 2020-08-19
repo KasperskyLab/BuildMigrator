@@ -1,0 +1,4 @@
+1    execve("gcc", ["gcc", "-DHAVE_CONFIG_H", "-c", "@cwd@/source/object.c", "-o", "object.o"], [/* 2 vars */]) = 0
+2    execve("/bin/ln", ["ln", "object.o", "object_symlink.o"], [/* 27 vars */]) = 0
+3    execve("/bin/ln", ["ln", "object_symlink.o", "object_symlink2.o"], [/* 27 vars */]) = 0
+4    execve("ar", ["ar", "r", "liblib.a", "object_symlink2.o"], [/* 2 vars */]) = 0

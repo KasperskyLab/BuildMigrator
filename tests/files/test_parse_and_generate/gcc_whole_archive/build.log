@@ -1,0 +1,8 @@
+gcc -o impl.o -c ../source/impl.c
+gcc -o util.o -c ../source/util.c
+
+ar cr libimpl1.a impl.o
+ar cr libimpl2.a impl.o
+ar cr libutil.a util.o
+
+gcc -shared -lm -z noexecstack -Wl,-z,defs -L. -o libpublic.so -Wl,--whole-archive libimpl1.a -limpl2 -Wl,--no-whole-archive -lutil

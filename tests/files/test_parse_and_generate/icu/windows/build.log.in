@@ -1,0 +1,215 @@
+make: Entering directory '@cwd@/build'
+rebuilding config/icucross.mk
+rebuilding config/icucross.inc
+cd ./config; \
+	make -f pkgdataMakefile
+make[1]: Entering directory '@cwd@/build/config'
+rm -rf pkgdata.inc
+make[1]: Leaving directory '@cwd@/build/config'
+rm -rf config/icu-config
+/bin/install -c @cwd@/../source/config/icu-config-top config/icu-config
+chmod u+w config/icu-config
+LC_ALL=C sed -f @cwd@/../source/config/make2sh.sed < ./config/Makefile.inc | grep -v '#M#' | uniq >> config/icu-config
+LC_ALL=C sed -f @cwd@/../source/config/make2sh.sed < @cwd@/../source/config/mh-cygwin-msvc | grep -v '#M#' | uniq >> config/icu-config
+cat @cwd@/../source/config/icu-config-bottom >> config/icu-config
+chmod u-w config/icu-config
+config/icu-uc.pc updated.
+config/icu-i18n.pc updated.
+config/icu-io.pc updated.
+/bin/sh @cwd@/../source/mkinstalldirs lib
+mkdir lib
+/bin/sh @cwd@/../source/mkinstalldirs bin
+mkdir bin
+make[0]: Making `all' in `stubdata'
+make[1]: Entering directory '@cwd@/build/stubdata'
+generating dependency information for @cwd@/../source/stubdata/stubdata.c
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common  -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC /GL- /W4   -GF -nologo -c -DU_STATIC_IMPLEMENTATION  -Fostubdata.ao @cwd@/../source/stubdata/stubdata.c
+stubdata.c
+LIB.EXE -nologo  -OUT:sicudt.lib stubdata.ao
+ls -s sicudt.lib
+4 sicudt.lib
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common  -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC /GL- /W4   -GF -nologo -c   -Fostubdata.o @cwd@/../source/stubdata/stubdata.c
+stubdata.c
+LINK.EXE -DLL  -nologo -base:"0x4ad00000" -NOENTRY -IMPLIB:icudt.lib -out:icudt58.dll stubdata.o 
+   Creating library icudt.lib and object icudt.exp
+make[1]: Leaving directory '@cwd@/build/stubdata'
+make[0]: Making `all' in `common'
+make[1]: Entering directory '@cwd@/build/common'
+generating ../common/svchook.mk
+cd .. \
+ && CONFIG_FILES=common/Makefile CONFIG_HEADERS= /bin/sh ./config.status
+
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common   "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" " -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_COMMON_IMPLEMENTATION  /GL- /W4   -GF -nologo  -c -DU_STATIC_IMPLEMENTATION  -Foucnv.ao @cwd@/../source/common/ucnv.c
+ucnv.c
+
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common   "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" " -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_COMMON_IMPLEMENTATION  /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c -DU_STATIC_IMPLEMENTATION  -Foresbund.ao @cwd@/../source/common/resbund.cpp
+resbund.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common   "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" " -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_COMMON_IMPLEMENTATION  /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c -DU_STATIC_IMPLEMENTATION  -Founistr_case_locale.ao @cwd@/../source/common/unistr_case_locale.cpp
+unistr_case_locale.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common   "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" " -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_COMMON_IMPLEMENTATION  /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c -DU_STATIC_IMPLEMENTATION  -Founiset.ao @cwd@/../source/common/uniset.cpp
+uniset.cpp
+LIB.EXE -nologo  -OUT:../lib/sicuuc.lib ucnv.ao resbund.ao unistr_case_locale.ao uniset.ao
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common   "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" " -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_COMMON_IMPLEMENTATION  /GL- /W4   -GF -nologo  -c   -Foucnv.o @cwd@/../source/common/ucnv.c
+ucnv.c
+
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common   "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" " -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_COMMON_IMPLEMENTATION  /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c   -Foresbund.o @cwd@/../source/common/resbund.cpp
+resbund.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common   "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" " -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_COMMON_IMPLEMENTATION  /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c   -Founistr_case_locale.o @cwd@/../source/common/unistr_case_locale.cpp
+unistr_case_locale.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common   "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" " -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_COMMON_IMPLEMENTATION  /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c   -Founiset.o @cwd@/../source/common/uniset.cpp
+uniset.cpp
+rc.exe -focommon.res   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common   "-DDEFAULT_ICU_PLUGINS=\"/usr/local/lib/icu\" " @cwd@/../source/common/common.rc
+
+LINK.EXE -DLL  -nologo -base:"0x4a800000" -IMPLIB:../lib/icuuc.lib -out:../lib/icuuc58.dll ucnv.o resbund.o unistr_case_locale.o uniset.o common.res ../stubdata/icudt.lib advapi32.lib
+make[1]: Leaving directory '@cwd@/build/common'
+make[1]: Entering directory '@cwd@/build/i18n'
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/i18n -I@cwd@/../source/common   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_I18N_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c -DU_STATIC_IMPLEMENTATION  -Foucln_in.ao @cwd@/../source/i18n/ucln_in.cpp
+ucln_in.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/i18n -I@cwd@/../source/common   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_I18N_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c -DU_STATIC_IMPLEMENTATION  -Fodecimfmt.ao @cwd@/../source/i18n/decimfmt.cpp
+decimfmt.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/i18n -I@cwd@/../source/common   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_I18N_IMPLEMENTATION /GL- /W4   -GF -nologo  -c -DU_STATIC_IMPLEMENTATION  -FodecContext.ao @cwd@/../source/i18n/decContext.c
+decContext.c
+LIB.EXE -nologo  -OUT:../lib/sicuin.lib ucln_in.ao decimfmt.ao decContext.ao
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/i18n -I@cwd@/../source/common   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_I18N_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c   -Foucln_in.o @cwd@/../source/i18n/ucln_in.cpp
+ucln_in.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/i18n -I@cwd@/../source/common   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_I18N_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c   -Fodecimfmt.o @cwd@/../source/i18n/decimfmt.cpp
+decimfmt.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/i18n -I@cwd@/../source/common   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_I18N_IMPLEMENTATION /GL- /W4   -GF -nologo  -c   -FodecContext.o @cwd@/../source/i18n/decContext.c
+decContext.c
+c:\a\b\d_00000000\s\3rd_party\nsk\icu\58.2\src\source\common\uresdata.h(478): warning C4245: 'initializing': conversion from 'UResType' to 'Resource', signed/unsigned mismatch
+rc.exe -foi18n.res   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/i18n -I@cwd@/../source/common   @cwd@/../source/i18n/i18n.rc
+Microsoft (R) Windows (R) Resource Compiler Version 10.0.10011.16384
+
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+LINK.EXE -DLL  -nologo -base:"0x4a900000" -IMPLIB:../lib/icuin.lib -out:../lib/icuin58.dll ucln_in.o decimfmt.o decContext.o i18n.res ../lib/icuuc.lib ../stubdata/icudt.lib advapi32.lib
+   Creating library ../lib/icuin.lib and object ../lib/icuin.exp
+make[1]: Leaving directory '@cwd@/build/i18n'
+make[0]: Making `all' in `io'
+make[1]: Entering directory '@cwd@/build/io'
+generating dependency information for @cwd@/../source/io/ucln_io.cpp
+generating dependency information for @cwd@/../source/io/ufile.c
+generating dependency information for @cwd@/../source/io/locbund.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_IO_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c -DU_STATIC_IMPLEMENTATION  -Folocbund.ao @cwd@/../source/io/locbund.cpp
+locbund.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_IO_IMPLEMENTATION /GL- /W4   -GF -nologo  -c -DU_STATIC_IMPLEMENTATION  -Foufile.ao @cwd@/../source/io/ufile.c
+ufile.c
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_IO_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c -DU_STATIC_IMPLEMENTATION  -Foucln_io.ao @cwd@/../source/io/ucln_io.cpp
+ucln_io.cpp
+LIB.EXE -nologo  -OUT:../lib/sicuio.lib locbund.ao ufile.ao ucln_io.ao
+ls -s ../lib/sicuio.lib
+340 ../lib/sicuio.lib
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_IO_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c   -Folocbund.o @cwd@/../source/io/locbund.cpp
+locbund.cpp
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_IO_IMPLEMENTATION /GL- /W4   -GF -nologo  -c   -Foufile.o @cwd@/../source/io/ufile.c
+ufile.c
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_IO_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c   -Foucln_io.o @cwd@/../source/io/ucln_io.cpp
+ucln_io.cpp
+rc.exe -foio.res   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n   @cwd@/../source/io/io.rc
+Microsoft (R) Windows (R) Resource Compiler Version 10.0.10011.16384
+
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+LINK.EXE -DLL  -nologo -base:"0x4ab00000" -IMPLIB:../lib/icuio.lib -out:../lib/icuio58.dll locbund.o ufile.o ucln_io.o io.res ../lib/icuuc.lib ../stubdata/icudt.lib ../lib/icuin.lib advapi32.lib
+   Creating library ../lib/icuio.lib and object ../lib/icuio.exp
+make[1]: Leaving directory '@cwd@/build/io'
+make[0]: Making `all' in `tools'
+make[1]: Entering directory '@cwd@/build/tools'
+make[1]: Making `all' in `toolutil'
+make[2]: Entering directory '@cwd@/build/tools/toolutil'
+generating dependency information for @cwd@/../source/tools/toolutil/ucln_tu.cpp
+generating dependency information for @cwd@/../source/tools/toolutil/dbgutil.cpp
+generating dependency information for @cwd@/../source/tools/toolutil/ucm.c
+generating dependency information for @cwd@/../source/tools/toolutil/filestrm.c
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n  "-DU_BUILD=\"x86_64-unknown-cygwin\"" "-DU_HOST=\"x86_64-unknown-cygwin\"" "-DU_CC=\"cl.exe\"" "-DU_CXX=\"cl.exe\"" -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNISTR_FROM_STRING_EXPLICIT=explicit -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_TOOLUTIL_IMPLEMENTATION /GL- /W4   -GF -nologo  -c -DU_STATIC_IMPLEMENTATION  -Fofilestrm.ao @cwd@/../source/tools/toolutil/filestrm.c
+filestrm.c
+@cwd@/../source/tools/toolutil/filestrm.c(107): warning C4267: 'return': conversion from 'size_t' to 'int32_t', possible loss of data
+@cwd@/../source/tools/toolutil/filestrm.c(114): warning C4267: 'return': conversion from 'size_t' to 'int32_t', possible loss of data
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n  "-DU_BUILD=\"x86_64-unknown-cygwin\"" "-DU_HOST=\"x86_64-unknown-cygwin\"" "-DU_CC=\"cl.exe\"" "-DU_CXX=\"cl.exe\"" -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNISTR_FROM_STRING_EXPLICIT=explicit -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_TOOLUTIL_IMPLEMENTATION /GL- /W4   -GF -nologo  -c -DU_STATIC_IMPLEMENTATION  -Foucm.ao @cwd@/../source/tools/toolutil/ucm.c
+ucm.c
+@cwd@/../source/tools/toolutil/ucm.c(311): warning C4100: 'baseStates': unreferenced formal parameter
+@cwd@/../source/tools/toolutil/ucm.c(1044): warning C4100: 'codePoints': unreferenced formal parameter
+
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n  "-DU_BUILD=\"x86_64-unknown-cygwin\"" "-DU_HOST=\"x86_64-unknown-cygwin\"" "-DU_CC=\"cl.exe\"" "-DU_CXX=\"cl.exe\"" -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNISTR_FROM_STRING_EXPLICIT=explicit -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_TOOLUTIL_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c -DU_STATIC_IMPLEMENTATION  -Foucln_tu.ao @cwd@/../source/tools/toolutil/ucln_tu.cpp
+ucln_tu.cpp
+LIB.EXE -nologo  -OUT:../../lib/sicutu.lib filestrm.ao ucm.ao ucln_tu.ao
+ls -s ../../lib/sicutu.lib
+3328 ../../lib/sicutu.lib
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n  "-DU_BUILD=\"x86_64-unknown-cygwin\"" "-DU_HOST=\"x86_64-unknown-cygwin\"" "-DU_CC=\"cl.exe\"" "-DU_CXX=\"cl.exe\"" -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNISTR_FROM_STRING_EXPLICIT=explicit -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_TOOLUTIL_IMPLEMENTATION /GL- /W4   -GF -nologo  -c   -Fofilestrm.o @cwd@/../source/tools/toolutil/filestrm.c
+filestrm.c
+@cwd@/../source/tools/toolutil/filestrm.c(107): warning C4267: 'return': conversion from 'size_t' to 'int32_t', possible loss of data
+@cwd@/../source/tools/toolutil/filestrm.c(114): warning C4267: 'return': conversion from 'size_t' to 'int32_t', possible loss of data
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n  "-DU_BUILD=\"x86_64-unknown-cygwin\"" "-DU_HOST=\"x86_64-unknown-cygwin\"" "-DU_CC=\"cl.exe\"" "-DU_CXX=\"cl.exe\"" -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNISTR_FROM_STRING_EXPLICIT=explicit -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_TOOLUTIL_IMPLEMENTATION /GL- /W4   -GF -nologo  -c   -Foucm.o @cwd@/../source/tools/toolutil/ucm.c
+ucm.c
+@cwd@/../source/tools/toolutil/ucm.c(311): warning C4100: 'baseStates': unreferenced formal parameter
+@cwd@/../source/tools/toolutil/ucm.c(1044): warning C4100: 'codePoints': unreferenced formal parameter
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I@cwd@/../source/common -I@cwd@/../source/i18n  "-DU_BUILD=\"x86_64-unknown-cygwin\"" "-DU_HOST=\"x86_64-unknown-cygwin\"" "-DU_CC=\"cl.exe\"" "-DU_CXX=\"cl.exe\"" -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNISTR_FROM_STRING_EXPLICIT=explicit -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_TOOLUTIL_IMPLEMENTATION /GL- /W4   -GF -nologo -EHsc -Zc:wchar_t  -c   -Foucln_tu.o @cwd@/../source/tools/toolutil/ucln_tu.cpp
+ucln_tu.cpp
+LINK.EXE -DLL  -nologo -base:"0x4ac00000" -IMPLIB:../../lib/icutu.lib -out:../../lib/icutu58.dll filestrm.o ucm.o ucln_tu.o ../../lib/icuin.lib ../../lib/icuuc.lib ../../stubdata/icudt.lib advapi32.lib
+   Creating library ../../lib/icutu.lib and object ../../lib/icutu.exp
+make[2]: Leaving directory '@cwd@/build/tools/toolutil'
+make[2]: Entering directory '@cwd@/build/tools'
+make[2]: Nothing to be done for 'all-local'.
+make[2]: Leaving directory '@cwd@/build/tools'
+make[1]: Leaving directory '@cwd@/build/tools'
+make[0]: Making `all' in `data'
+make[1]: Entering directory '@cwd@/build/data'
+echo timestamp > build-dir.tmp
+/bin/sh @cwd@/../source/mkinstalldirs ./out ./out/build ./out/build/icudt58l ./out/build/icudt58l/curr ./out/build/icudt58l/lang ./out/build/icudt58l/region ./out/build/icudt58l/zone ./out/build/icudt58l/unit ./out/build/icudt58l/brkitr ./out/build/icudt58l/coll ./out/build/icudt58l/rbnf ./out/build/icudt58l/translit ./out/tmp ./out/tmp/curr ./out/tmp/lang ./out/tmp/region ./out/tmp/zone ./out/tmp/unit ./out/tmp/coll ./out/tmp/rbnf ./out/tmp/translit ./out/tmp/brkitr
+mkdir ./out
+mkdir ./out/build
+mkdir ./out/build/icudt58l
+mkdir ./out/build/icudt58l/curr
+mkdir ./out/build/icudt58l/lang
+mkdir ./out/build/icudt58l/region
+mkdir ./out/build/icudt58l/zone
+mkdir ./out/build/icudt58l/unit
+mkdir ./out/build/icudt58l/brkitr
+mkdir ./out/build/icudt58l/coll
+mkdir ./out/build/icudt58l/rbnf
+mkdir ./out/build/icudt58l/translit
+mkdir ./out/tmp
+mkdir ./out/tmp/curr
+mkdir ./out/tmp/lang
+mkdir ./out/tmp/region
+mkdir ./out/tmp/zone
+mkdir ./out/tmp/unit
+mkdir ./out/tmp/coll
+mkdir ./out/tmp/rbnf
+mkdir ./out/tmp/translit
+mkdir ./out/tmp/brkitr
+mv build-dir.tmp build-dir
+make -f pkgdataMakefile
+make[2]: Entering directory '@cwd@/build/data'
+rm -rf icupkg.inc
+make[2]: Leaving directory '@cwd@/build/data'
+rc.exe /i@cwd@/../source/data/../common /i../common /foout/tmp/icudata.res   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE @cwd@/../source/data/misc/icudata.rc
+Microsoft (R) Windows (R) Resource Compiler Version 10.0.10011.16384
+
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Unpacking @cwd@/../source/data/in/icudt58l.dat and generating out/tmp/icudata.lst (list of data files)
+PATH=C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/lib:C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/stubdata:C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/tools/ctestfw:$PATH C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/bin/icupkg -d ./out/build/icudt58l --list -x \* @cwd@/../source/data/in/icudt58l.dat -o out/tmp/icudata.lst
+echo timestamp > build-local
+PATH=C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/stubdata:C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/tools/ctestfw:C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/lib:$PATH  C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/bin/pkgdata -O ../data/icupkg.inc -q -c -s out/build/icudt58l -d ../lib -e icudt58  -T ./out/tmp -p icudt58l -L sicudt -m static -r 58 ./out/tmp/icudata.lst
+cl : Command line warning D9035 : option 'o' has been deprecated and will be removed in a future release
+oma.c
+pkgdata: cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC /GL- /W4   -GF -nologo -c oma.c -o oma.obj
+genccode: --match-arch cpu=34404 bits=64 big-endian=0
+pkgdata: LIB.exe /nologo /out:"../lib/sicudt.lib" "./out/tmp\icudt58l_dat.obj"
+PATH=C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/stubdata:C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/tools/ctestfw:C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/lib:$PATH  C:/a/b/d_00000000/s/3rd_party/nsk/icu/58.2/migration_helper/.build_native_Windows_x86_64/bin/pkgdata -O ../data/icupkg.inc -q -c -s out/build/icudt58l -d ../lib -e icudt58  -T ./out/tmp -p icudt58l -m dll -r 58 -L icudt ./out/tmp/icudata.lst
+cl : Command line warning D9035 : option 'o' has been deprecated and will be removed in a future release
+oma.c
+   Creating library ../lib/icudt.lib and object ../lib/icudt.exp
+pkgdata: cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC /GL- /W4   -GF -nologo -c oma.c -o oma.obj
+genccode: --match-arch cpu=34404 bits=64 big-endian=0
+pkgdata: link.exe /nologo /release /out:"../lib/icudt58.dll" /DLL /NOENTRY /MANIFEST:NO  /base:0x4ad00000 /implib:"../lib/icudt.lib" "./out/tmp\icudt58l_dat.obj" "./out/tmp/icudata.res"
+echo timestamp > packagedata
+make[1]: Leaving directory '@cwd@/build/data'
+make[1]: Entering directory '@cwd@/build'
+make[1]: Nothing to be done for 'all-local'.
+make[1]: Leaving directory '@cwd@/build'
+make: Leaving directory '@cwd@/build'

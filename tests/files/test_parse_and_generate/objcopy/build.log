@@ -1,0 +1,3 @@
+gcc -shared ../source/foo.c -o libfoo.so
+objcopy --redefine-syms=symbols.txt libfoo.so libfoo_modified.so
+gcc -o main ../source/main.c -L. -lfoo_modified

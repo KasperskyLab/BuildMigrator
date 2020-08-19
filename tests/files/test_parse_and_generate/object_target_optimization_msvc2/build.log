@@ -1,0 +1,4 @@
+CL.exe /c /nologo /Fo"shared\\" "..\source\a.c" "..\source\b.c"
+link.exe /OUT:"sh.dll" /SUBSYSTEM:CONSOLE /IMPLIB:"sh.lib" /DLL shared\a.obj shared\b.obj
+CL.exe /c /nologo /D STATIC /Fo"static\\" "..\source\a.c" "..\source\b.c"
+Lib.exe /OUT:"st.lib" /NOLOGO static\a.obj static\b.obj

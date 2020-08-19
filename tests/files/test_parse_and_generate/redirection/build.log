@@ -1,0 +1,3 @@
+gcc -o a.o -c ../source/a.c >/dev/null 2>&1
+
+gcc -shared -o liba.so a.o

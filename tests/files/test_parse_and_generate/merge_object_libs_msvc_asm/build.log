@@ -1,0 +1,12 @@
+yasm -p nasm -r nasm -fwin32 -m x86 -DYASM_MODE=1 ../source/yasm_test1.asm -o yasm_test11.obj
+yasm -p nasm -r nasm -fwin32 -m x86 -DYASM_MODE=1 ../source/yasm_test2.asm -o yasm_test21.obj
+yasm -p nasm -r nasm -fwin32 -m x86 -DYASM_MODE=2 ../source/yasm_test1.asm -o yasm_test2.obj
+yasm -p nasm -r nasm -fwin32 -m x86 -DYASM_MODE=2 -I../source ../source/yasm_test1.asm -o yasm_test3.obj
+nasm -fwin32 -DNASM_MODE=1 ../source/nasm_test1.asm -o nasm_test11.obj
+nasm -fwin32 -DNASM_MODE=1 ../source/nasm_test2.asm -o nasm_test21.obj
+nasm -fwin32 -DNASM_MODE=2 ../source/nasm_test1.asm -o nasm_test2.obj
+ml /c -DMASM_MODE=1 ../source/masm_test1.asm /Fomasm_test11.obj
+ml /c -DMASM_MODE=1 ../source/masm_test2.asm /Fomasm_test21.obj
+ml /c -DMASM_MODE=2 ../source/masm_test1.asm /Fomasm_test2.obj
+link.exe /DLL /OUT:./test1.dll yasm_test11.obj yasm_test21.obj nasm_test11.obj nasm_test21.obj masm_test11.obj masm_test21.obj
+link.exe /DLL /OUT:./test2.dll yasm_test2.obj nasm_test2.obj yasm_test3.obj masm_test1.obj masm_test2.obj

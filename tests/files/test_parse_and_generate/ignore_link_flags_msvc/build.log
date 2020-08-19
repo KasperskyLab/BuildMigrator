@@ -1,0 +1,4 @@
+cl.exe -c ..\source\a.cpp /Fo"a.obj"
+cl.exe -c ..\source\c.cpp /Fo"c.obj"
+link.exe /DLL /OUT:lib\a.dll a.obj
+link.exe /LIBPATH:.\lib /libpath:.\bad_lib "/LIBPATH:C:\Windows\System32" /DLL c.obj a.lib b.lib /OUT:c.dll

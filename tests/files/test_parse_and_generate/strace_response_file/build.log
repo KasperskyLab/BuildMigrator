@@ -1,0 +1,6 @@
+1    execve("gcc", ["gcc", "-c", "../source/lib.c", "-o", "lib.o"], [/* 2 vars */]) = 0
+1    execve( <unfinished ...>
+1    execve("abc",  ["def", "@file_not_found.rsp"], [/* 2 vars */]) = 0
+1    execve("ar",  ["ar", "r", "@file.rsp"], [/* 2 vars */]) = 0
+1    exit_group(0)                     = ?
+1    +++ exited with 0 +++

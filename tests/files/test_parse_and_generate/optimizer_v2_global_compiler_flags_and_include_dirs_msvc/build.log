@@ -1,0 +1,25 @@
+yasm -fwin32 -DWIN32=1 -DF1 -I.\include_a ../source/yasm1.asm -o yasm1.obj
+yasm -fwin32 -DWIN32=1 -DF2 -Iinclude_b -Iinclude_a -I. ../source/yasm2.asm -o yasm2.obj
+
+nasm -fwin32 -DWIN32=1 -DF3 -I. -Iinclude_a ../source/nasm1.asm -o nasm1.obj
+nasm -fwin32 -DWIN32=1 -DF4 -Iinclude_b -Iinclude_a ../source/nasm2.asm -o nasm2.obj
+
+ml /c -DWIN32=1 /I.\include_a /Iinclude_b -DF5 ../source/masm1.asm /Fomasm1.obj
+ml /c -DWIN32=1 /Iinclude_a /I. -DF6 ../source/masm2.asm /Fomasm2.obj
+
+cl /c -DWIN32=1 -DF7 /Iinclude_b /Iinclude_a\ ../source/c1.c /Foc1.obj
+cl /c -DWIN32=1 -DF8 /I. /Iinclude_a ../source/c2.c /Foc2.obj
+
+cl /c -DF9 /Iinclude_a\ -DWIN32=1 ../source/cpp1.cpp /Focpp1.obj
+cl /c -DF10 /I.\include_b /Iinclude_a -DWIN32=1 ../source/cpp2.cpp /Focpp2.obj
+
+rc /DWIN32=1 /DF11 /Iinclude_b /I.\include_a ..\source\rc1.rc /forc1.res
+rc /DWIN32=1 /DF12 /I. /Iinclude_a ..\source\rc2.rc /forc2.res
+
+cl /Feapp1.exe -DWIN32=1 /Iinclude_a ..\source\cpp3.cpp ..\source\c3.c
+
+cl /c -DWIN32=1 -DF13 -Iinclude_a -I. ../source/c4.c /Foc4.obj
+
+link.exe /DLL /OUT:./shared1.dll yasm1.obj nasm1.obj masm1.obj c1.obj cpp1.obj rc1.res
+link.exe /OUT:./app2.exe yasm2.obj nasm2.obj masm2.obj c2.obj cpp2.obj rc2.res
+link.exe /DLL /OUT:./shared2.dll c4.obj

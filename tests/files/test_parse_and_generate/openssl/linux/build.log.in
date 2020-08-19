@@ -1,0 +1,35 @@
+make[4]: Entering directory '@cwd@/build'
+/usr/bin/perl "-I." -Mconfigdata "../../source/util/dofile.pl" \
+    "-oMakefile" ../../source/crypto/include/internal/bn_conf.h.in > crypto/include/internal/bn_conf.h
+/usr/bin/perl "-I." -Mconfigdata "../../source/util/dofile.pl" \
+    "-oMakefile" ../../source/crypto/include/internal/dso_conf.h.in > crypto/include/internal/dso_conf.h
+/usr/bin/perl "-I." -Mconfigdata "../../source/util/dofile.pl" \
+    "-oMakefile" ../../source/include/openssl/opensslconf.h.in > include/openssl/opensslconf.h
+make depend && make _all
+make[5]: Entering directory '@cwd@/build'
+make[5]: Leaving directory '@cwd@/build'
+make[5]: Entering directory '@cwd@/build'
+gcc  -I. -Iinclude -I../../source -I../../source/include -fPIC -pthread -m64 -Wa,--noexecstack -Wall -O3 -fstack-protector-strong -Wformat -Wformat-security -D_FORTIFY_SOURCE=2 -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now -static-libstdc++ -static-libgcc -fno-rtti -fno-exceptions -Wa,--noexecstack -g -DOPENSSL_USE_NODELETE -DL_ENDIAN -DOPENSSL_PIC -DOPENSSL_CPUID_OBJ -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DKECCAK1600_ASM -DRC4_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DGHASH_ASM -DECP_NISTZ256_ASM -DX25519_ASM -DPADLOCK_ASM -DPOLY1305_ASM -DOPENSSLDIR="\"/mnt/d/src/3rd_party_gen/.build_linux/externals/openssl/1.1.1/openssl_install/ssl\"" -DENGINESDIR="\"/mnt/d/src/3rd_party_gen/.build_linux/externals/openssl/1.1.1/openssl_install/lib/engines-1.1\"" -DNDEBUG  -MMD -MF apps/app_rand.d.tmp -MT apps/app_rand.o -c -o apps/app_rand.o ../../source/apps/app_rand.c
+ar r apps/libapps.a apps/app_rand.o
+/usr/toolchain/x86_64-pc-linux-gnu_gcc7.3.0_glibc2.11/bin/x86_64-pc-linux-gnu-ranlib apps/libapps.a || echo Never mind.
+g++  -I. -Icrypto/include -Iinclude -I../../source -I../../source/crypto/include -I../../source/include -std=c++0x -pthread -m64 -Wall -O3 -fstack-protector-strong -Wformat -Wformat-security -D_FORTIFY_SOURCE=2 -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now -static-libstdc++ -static-libgcc -fno-rtti -fno-exceptions -Wa,--noexecstack -g -DOPENSSL_USE_NODELETE -DL_ENDIAN -DOPENSSL_PIC -DOPENSSL_CPUID_OBJ -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DKECCAK1600_ASM -DRC4_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DGHASH_ASM -DECP_NISTZ256_ASM -DX25519_ASM -DPADLOCK_ASM -DPOLY1305_ASM -DOPENSSLDIR="\"/mnt/d/src/3rd_party_gen/.build_linux/externals/openssl/1.1.1/openssl_install/ssl\"" -DENGINESDIR="\"/mnt/d/src/3rd_party_gen/.build_linux/externals/openssl/1.1.1/openssl_install/lib/engines-1.1\"" -DNDEBUG  -MMD -MF initialize_cc.d.tmp -MT initialize_cc.o -c -o initialize_cc.o ../../source/initialize.cpp
+gcc  -I. -Icrypto/include -Iinclude -I../../source -I../../source/crypto/include -I../../source/include -fPIC -pthread -m64 -Wa,--noexecstack -Wall -O3 -fstack-protector-strong -Wformat -Wformat-security -D_FORTIFY_SOURCE=2 -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now -static-libstdc++ -static-libgcc -fno-rtti -fno-exceptions -Wa,--noexecstack -g -DOPENSSL_USE_NODELETE -DL_ENDIAN -DOPENSSL_PIC -DOPENSSL_CPUID_OBJ -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DKECCAK1600_ASM -DRC4_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DGHASH_ASM -DECP_NISTZ256_ASM -DX25519_ASM -DPADLOCK_ASM -DPOLY1305_ASM -DOPENSSLDIR="\"/mnt/d/src/3rd_party_gen/.build_linux/externals/openssl/1.1.1/openssl_install/ssl\"" -DENGINESDIR="\"/mnt/d/src/3rd_party_gen/.build_linux/externals/openssl/1.1.1/openssl_install/lib/engines-1.1\"" -DNDEBUG  -MMD -MF ssl.d.tmp -MT ssl.o -c -o ssl.o ../../source/ssl.c
+CC="gcc" /usr/bin/perl ../../source/crypto/aes/asm/aes-x86_64.pl elf crypto/aes/aes-x86_64.s
+gcc -fPIC -pthread -m64 -Wa,--noexecstack -Wall -O3 -fstack-protector-strong -Wformat -Wformat-security -D_FORTIFY_SOURCE=2 -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now -static-libstdc++ -static-libgcc -fno-rtti -fno-exceptions -Wa,--noexecstack -g -DOPENSSL_USE_NODELETE -DL_ENDIAN -DOPENSSL_PIC -DOPENSSL_CPUID_OBJ -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DKECCAK1600_ASM -DRC4_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DGHASH_ASM -DECP_NISTZ256_ASM -DX25519_ASM -DPADLOCK_ASM -DPOLY1305_ASM -DOPENSSLDIR="\"/mnt/d/src/3rd_party_gen/.build_linux/externals/openssl/1.1.1/openssl_install/ssl\"" -DENGINESDIR="\"/mnt/d/src/3rd_party_gen/.build_linux/externals/openssl/1.1.1/openssl_install/lib/engines-1.1\"" -DNDEBUG  -c -o crypto/aes/aes-x86_64.o crypto/aes/aes-x86_64.s
+ar r libopenssl_1_1.a initialize_cc.o ssl.o crypto/aes/aes-x86_64.o
+/usr/toolchain/x86_64-pc-linux-gnu_gcc7.3.0_glibc2.11/bin/x86_64-pc-linux-gnu-ranlib libopenssl_1_1.a || echo Never mind.
+gcc -fPIC -pthread -m64 -Wa,--noexecstack -Wall -O3 -fstack-protector-strong -Wformat -Wformat-security -D_FORTIFY_SOURCE=2 -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now -static-libstdc++ -static-libgcc -fno-rtti -fno-exceptions -Wa,--noexecstack -g -L. -Wl,-znodelete -shared -Wl,-Bsymbolic   -Wl,-soname=libopenssl_1_1.so \
+	-o libopenssl_1_1.so -Wl,--version-script=libcrypto.map initialize_cc.o ssl.o crypto/aes/aes-x86_64.o \
+                 -ldl -pthread 
+if [ 'libopenssl_1_1.so' != 'libopenssl_1_1.so' ]; then \
+	rm -f libopenssl_1_1.so; \
+	ln -s libopenssl_1_1.so libopenssl_1_1.so; \
+fi
+/usr/bin/perl ../../source/apps/progs.pl apps/openssl > apps/progs.h
+gcc  -I. -Iinclude -Iapps -I../../source -I../../source/include -pthread -m64 -Wa,--noexecstack -Wall -O3 -fstack-protector-strong -Wformat -Wformat-security -D_FORTIFY_SOURCE=2 -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now -static-libstdc++ -static-libgcc -fno-rtti -fno-exceptions -Wa,--noexecstack -g -DNDEBUG  -MMD -MF apps/asn1pars.d.tmp -MT apps/asn1pars.o -c -o apps/asn1pars.o ../../source/apps/asn1pars.c
+rm -f apps/openssl
+${LDCMD:-gcc} -pthread -m64 -Wa,--noexecstack -Wall -O3 -fstack-protector-strong -Wformat -Wformat-security -D_FORTIFY_SOURCE=2 -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now -static-libstdc++ -static-libgcc -fno-rtti -fno-exceptions -Wa,--noexecstack -g -L.   \
+	-o apps/openssl apps/asn1pars.o \
+	 apps/libapps.a -lopenssl_1_1 -ldl -pthread 
+make[5]: Leaving directory '@cwd@/build'
+make[4]: Leaving directory '@cwd@/build'

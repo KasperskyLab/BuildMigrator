@@ -1,0 +1,11 @@
+cl /c /DF1 /DF2 /DF3 /DF4 /Dignore1 /Ii1 /Ii2 /MT /Zc:wchar_t- /Fo1.obj ..\source\1.c
+cl /c /DF1 /DF2 /DF3 /DF4 /Dignore2 /Ii1 /Ii2 /MT /Zc:wchar_t- /Fo2.obj ..\source\2.cpp
+cl /c /DF1 /DF2 /DF3 /DF4 /Dignore3 /Ii1 /Ii2 /MT /Zc:wchar_t- /Fo3.obj ..\source\3.cpp
+cl /c /DF1 /DF2 /DF3 /DF4 /Dignore4 /Ii1 /Ii2 /MT /Zc:wchar_t- /Fo4.obj ..\source\4.cpp
+cl /c /Dignore5 /Fo5.obj ..\source\5.cpp
+cl /c /DF1 /DF2 /DF3 /DF4 /Dignore1 /DSTATIC_IMPL /Ii1 /Ii2 /MT /Zc:wchar_t- /Fo1s.obj ..\source\1.c
+cl /c /DF1 /DF2 /DF3 /DF4 /Dignore2 /DSTATIC_IMPL /Ii1 /Ii2 /MT /Zc:wchar_t- /Fo2s.obj ..\source\2.cpp
+
+link /DLL /out:sh1.dll 1.obj 2.obj 3.obj 4.obj
+link /DLL /out:sh2.dll 5.obj
+lib /out:st.lib 1s.obj 2s.obj

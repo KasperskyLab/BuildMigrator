@@ -1,0 +1,32 @@
+Microsoft (R) Build Engine version 14.0.25420.1
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Building the projects in this solution one at a time. To enable parallel build, please add the "/m" switch.
+Build started 27.01.2020 15:24:59.
+Project "@cwd@\source\projects\mt\libcurlmt.sln" on node 1 (Build target(s)).
+ValidateSolutionConfiguration:
+  Building solution configuration "LIB Release - LIB OpenSSL|Win32".
+Project "@cwd@\source\projects\mt\libcurlmt.sln" (1) is building "@cwd@\source\projects\libcurlmt.vcxproj" (2) on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "@cwd@/build/intermediate\libcurlmt\".
+  Creating directory "@cwd@/build/curl_package/lib\".
+  Creating directory "@cwd@/build/intermediate\libcurlmt\libcurlmt.tlog\".
+InitializeBuildStatus:
+  Creating "@cwd@/build/intermediate\libcurlmt\libcurlmt.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I..\..\include /I..\..\lib /IZ:\zlib_package/include /IZ:\openssl_package/include /IZ:\nghttp2_package/include /Z7 /nologo /W4 /WX- /MP /O2 /Ob1 /Oy- /D NDEBUG /D BUILDING_LIBCURL /D CURL_STATICLIB /D USE_SSLEAY /D USE_OPENSSL /D USE_IPV6 /D USE_WINDOWS_SSPI /D ENABLE_IPV6 /D CURL_DISABLE_LDAP /D UNICODE /D HAVE_LIBZ /D HAVE_ZLIB_H /D USE_NGHTTP2 /D NGHTTP2_STATICLIB /D _USING_V110_SDK71_ /D _UNICODE /D UNICODE /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"@cwd@/build/intermediate\libcurlmt\\" /Fd"@cwd@/build/intermediate\libcurlmt\libcurlmt.pdb" /Gd /TC /analyze- /errorReport:queue /Gw /guard:cf  /Gy  /arch:IA32 ..\..\lib\b.c
+  b.c
+Lib:
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"@cwd@/build/curl_package/lib\libcurlmt.lib" /NOLOGO /MACHINE:X86 @cwd@/build/intermediate\libcurlmt\b.obj
+  libcurlmt.vcxproj -> @cwd@/build/curl_package/lib\libcurlmt.lib
+FinalizeBuildStatus:
+  Deleting file "@cwd@/build/intermediate\libcurlmt\libcurlmt.tlog\unsuccessfulbuild".
+  Touching "@cwd@/build/intermediate\libcurlmt\libcurlmt.tlog\libcurlmt.lastbuildstate".
+Done Building Project "@cwd@\source\projects\libcurlmt.vcxproj" (default targets).
+Done Building Project "@cwd@\source\projects\libcurlmt.sln" (Build target(s)).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:08.76

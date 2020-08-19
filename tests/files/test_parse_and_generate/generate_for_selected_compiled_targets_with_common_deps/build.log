@@ -1,0 +1,8 @@
+gcc -o a.o -c ../source/a.c
+gcc -o b.o -c ../source/b.c
+gcc -o c.o -c ../source/c.c
+
+ar cr libc.a c.o
+
+gcc -o app_a libc.a a.o
+gcc -o app_b libc.a b.o

@@ -1,0 +1,5 @@
+link.exe /lib /nologo /ignore:4221 /OUT:liba.lib ../source/1.obj
+lib.exe /nologo /ignore:4221 /OUT:libb.lib 2.o
+link.exe /nologo /ignore:4221 /IMPLIB:./libc.lib /DLL /OUT:./libc.dll .\dir\3.obj
+cl.exe -c ..\source\a.cpp /Fo"a.obj"
+link.exe /nologo /ignore:4221 /DLL /OUT:./libd.dll 2.o .\a.obj ./libc.lib

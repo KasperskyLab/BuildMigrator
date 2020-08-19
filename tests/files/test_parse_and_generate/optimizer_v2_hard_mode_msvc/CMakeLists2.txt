@@ -1,0 +1,207 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(PROJECT C CXX)
+enable_language(ASM_MASM)
+enable_language(ASM_NASM)
+enable_language(RC)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+include(extensions)
+
+set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
+set(CMAKE_ASM_YASM_OBJECT_FORMAT win32)
+set(CMAKE_ASM_YASM_MACHINE x86)
+set(CMAKE_ASM_NASM_OBJECT_FORMAT win32)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/yasm1)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/yasm2)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/nasm)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/masm)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/c)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/cpp)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/rc)
+
+set_source_files_properties(${SOURCE_DIR}/yasm1.asm PROPERTIES COMPILE_OPTIONS "-pnasm;-rnasm;-DYASM=1;-DNOT_C=1;-DNOT_RC=1")
+set_source_files_properties(${SOURCE_DIR}/yasm1.asm PROPERTIES INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_BINARY_DIR}/include/yasm1;${CMAKE_CURRENT_BINARY_DIR}/include/yasm2"
+)
+add_library(1 SHARED ${SOURCE_DIR}/foo1.c ${SOURCE_DIR}/resource1.rc)
+target_link_options(1 PRIVATE /LTCG)
+target_compile_options(1 PRIVATE -DNOT_CXX=1 -DF1=1 -DF2=1 -DNOT_NASM=1 -DNOT_MASM=1)
+target_include_directories(1 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_language_compile_options(1 C PRIVATE -DNOT_YASM=1 -DNOT_RC=1 -DC=1 /GR-)
+target_language_compile_options(1 RC PRIVATE -DRC=1 -DNOT_C=1 -DNOT_YASM=1 /w /l409)
+target_language_include_directories(1 C PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/c)
+target_language_include_directories(1 RC PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/rc)
+target_yasm_sources(1 PRIVATE ${SOURCE_DIR}/yasm1.asm)
+set_target_properties(1 PROPERTIES OUTPUT_NAME lib1)
+
+set_source_files_properties(${SOURCE_DIR}/masm1.asm PROPERTIES LANGUAGE ASM_MASM)
+add_library(2 SHARED ${SOURCE_DIR}/foo2.c ${SOURCE_DIR}/masm1.asm)
+target_link_options(2 PRIVATE /LTCG /GUARD:CF /OPT:REF /OPT:ICF /PROFILE)
+target_compile_options(2 PRIVATE
+    -DNOT_CXX=1
+    -DF1=1
+    -DF2=1
+    -DNOT_NASM=1
+    -DNOT_YASM=1
+    -DNOT_RC=1
+)
+target_include_directories(2 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_language_compile_options(2 ASM_MASM PRIVATE -DNOT_C=1 -DMASM=1)
+target_language_compile_options(2 C PRIVATE -DNOT_MASM=1 -DC=1 -DF9=1 /GR-)
+target_language_include_directories(2 ASM_MASM PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/masm)
+target_language_include_directories(2 C PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/c)
+set_target_properties(2 PROPERTIES OUTPUT_NAME lib2)
+
+set_source_files_properties(${SOURCE_DIR}/nasm1.asm PROPERTIES LANGUAGE ASM_NASM)
+add_library(3.static STATIC
+    ${SOURCE_DIR}/foo3.c
+    ${SOURCE_DIR}/bar1.cpp
+    ${SOURCE_DIR}/nasm1.asm
+)
+target_link_options(3.static PRIVATE /LTCG)
+target_compile_options(3.static PRIVATE -DF1=1 -DF2=1 -DNOT_MASM=1 -DNOT_YASM=1 -DNOT_RC=1)
+target_include_directories(3.static PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_language_compile_options(3.static ASM_NASM PRIVATE -DNASM=1 -DNOT_C=1 -DNOT_CXX=1)
+target_language_compile_options(3.static C PRIVATE -DNOT_CXX=1 -DNOT_NASM=1 -DC=1 /GR-)
+target_language_compile_options(3.static CXX PRIVATE -DCXX=1 -DNOT_C=1 -DNOT_NASM=1 /GR-)
+target_language_include_directories(3.static ASM_NASM PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/nasm)
+target_language_include_directories(3.static C PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/c)
+target_language_include_directories(3.static CXX PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/cpp)
+set_target_properties(3.static PROPERTIES OUTPUT_NAME lib3)
+
+set_source_files_properties(${SOURCE_DIR}/masm2.asm PROPERTIES LANGUAGE ASM_MASM)
+set_source_files_properties(${SOURCE_DIR}/nasm2.asm PROPERTIES LANGUAGE ASM_NASM)
+set_source_files_properties(${SOURCE_DIR}/yasm2.asm PROPERTIES COMPILE_OPTIONS
+    "-pnasm;-rnasm;-DYASM=1;-DNOT_C=1;-DNOT_CXX=1;-DNOT_NASM=1;-DNOT_MASM=1;-DF6=1"
+)
+set_source_files_properties(${SOURCE_DIR}/yasm2.asm PROPERTIES INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_BINARY_DIR}/include/yasm1;${CMAKE_CURRENT_BINARY_DIR}/include/yasm2"
+)
+add_library(4.static STATIC
+    ${SOURCE_DIR}/foo4.c
+    ${SOURCE_DIR}/bar2.cpp
+    ${SOURCE_DIR}/nasm2.asm
+    ${SOURCE_DIR}/masm2.asm
+)
+target_link_options(4.static PRIVATE /LTCG /WX)
+target_compile_options(4.static PRIVATE -DF1=1 -DF2=1 -DNOT_RC=1)
+target_include_directories(4.static PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_language_compile_options(4.static ASM_MASM PRIVATE
+    -DNOT_C=1
+    -DNOT_CXX=1
+    -DNOT_YASM=1
+    -DNOT_NASM=1
+    -DMASM=1
+    -DF8=1
+)
+target_language_compile_options(4.static ASM_NASM PRIVATE
+    -DNASM=1
+    -DNOT_C=1
+    -DNOT_CXX=1
+    -DNOT_YASM=1
+    -DNOT_MASM=1
+    -DF7=1
+)
+target_language_compile_options(4.static C PRIVATE
+    -DNOT_CXX=1
+    -DNOT_NASM=1
+    -DNOT_MASM=1
+    -DNOT_YASM=1
+    -DF3=1
+    -DF4=1
+    -DF5=1
+    -DC=1
+    /GR-
+)
+target_language_compile_options(4.static CXX PRIVATE
+    -DCXX=1
+    -DNOT_C=1
+    -DNOT_NASM=1
+    -DNOT_MASM=1
+    -DNOT_YASM=1
+    -DF0=1
+    /GR-
+)
+target_language_include_directories(4.static ASM_MASM PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/masm)
+target_language_include_directories(4.static ASM_NASM PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/nasm)
+target_language_include_directories(4.static C PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/c)
+target_language_include_directories(4.static CXX PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/cpp)
+target_yasm_sources(4.static PRIVATE ${SOURCE_DIR}/yasm2.asm)
+set_target_properties(4.static PROPERTIES OUTPUT_NAME lib4)
+
+set_source_files_properties(${SOURCE_DIR}/masm3.asm PROPERTIES LANGUAGE ASM_MASM)
+set_source_files_properties(${SOURCE_DIR}/nasm3.asm PROPERTIES LANGUAGE ASM_NASM)
+add_executable(prog1
+    ${SOURCE_DIR}/bar3.cpp
+    ${SOURCE_DIR}/nasm3.asm
+    ${SOURCE_DIR}/masm3.asm
+    ${SOURCE_DIR}/resource2.rc
+)
+target_link_options(prog1 PRIVATE /LTCG /DYNAMICBASE /NXCOMPAT)
+target_compile_options(prog1 PRIVATE -DNOT_C=1 -DNOT_YASM=1 -DF1=1 -DF2=1)
+target_include_directories(prog1 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_language_compile_options(prog1 ASM_MASM PRIVATE
+    -DNOT_CXX=1
+    -DNOT_NASM=1
+    -DMASM=1
+    -DNOT_RC=1
+    -DF3=1
+    -DF4=1
+    -DF5=1
+)
+target_language_compile_options(prog1 ASM_NASM PRIVATE
+    -DNASM=1
+    -DNOT_CXX=1
+    -DNOT_MASM=1
+    -DNOT_RC=1
+    -DF3=1
+    -DF4=1
+    -DF5=1
+)
+target_language_compile_options(prog1 CXX PRIVATE -DCXX=1 -DNOT_NASM=1 -DNOT_MASM=1 -DNOT_RC=1 /GR-)
+target_language_compile_options(prog1 RC PRIVATE
+    -DRC=1
+    -DNOT_NASM=1
+    -DNOT_MASM=1
+    -DNOT_CXX=1
+    -UNOT_C
+    /w
+    /l409
+    /g511
+)
+target_language_include_directories(prog1 ASM_MASM PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/masm)
+target_language_include_directories(prog1 ASM_NASM PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/nasm)
+target_language_include_directories(prog1 CXX PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/cpp)
+target_language_include_directories(prog1 RC PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/rc)
+
+set_source_files_properties(${SOURCE_DIR}/yasm3.asm PROPERTIES COMPILE_OPTIONS "-pnasm;-rnasm;-DYASM=1;-DNOT_CXX=1;-DNOT_RC=1")
+set_source_files_properties(${SOURCE_DIR}/yasm3.asm PROPERTIES INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_BINARY_DIR}/include/yasm1;${CMAKE_CURRENT_BINARY_DIR}/include/yasm2"
+)
+add_executable(prog2 ${SOURCE_DIR}/resource3.rc ${SOURCE_DIR}/bar4.cpp)
+target_link_options(prog2 PRIVATE
+    /LTCG
+    /DYNAMICBASE
+    /NXCOMPAT
+    /PROFILE
+    /GUARD:CF
+    /SUBSYSTEM:CONSOLE
+)
+target_compile_options(prog2 PRIVATE
+    -DNOT_C=1
+    -DNOT_NASM=1
+    -DNOT_MASM=1
+    -DF1=1
+    -DF2=1
+    -DF3=1
+    -DF4=1
+    -DF5=1
+)
+target_include_directories(prog2 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_language_compile_options(prog2 CXX PRIVATE -DCXX=1 -DNOT_YASM=1 -DNOT_RC=1 /GR-)
+target_language_compile_options(prog2 RC PRIVATE -DRC=1 -DNOT_YASM=1 -DNOT_CXX=1 /w /l409)
+target_language_include_directories(prog2 CXX PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/cpp)
+target_language_include_directories(prog2 RC PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include/rc)
+target_yasm_sources(prog2 PRIVATE ${SOURCE_DIR}/yasm3.asm)

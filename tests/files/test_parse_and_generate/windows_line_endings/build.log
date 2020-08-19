@@ -1,0 +1,2 @@
+cl.exe -c ../source/src.cpp /Fosrc.obj
+link.exe src.obj /out:lib.dll

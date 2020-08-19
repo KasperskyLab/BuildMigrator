@@ -1,0 +1,4 @@
+gcc -Wa,--noexecstack -DA=1 -DA=1 -DB=2 -Iinclude -Iinclude -fPIC -O3 -fPIC -Wa,--noexecstack -g -I../source/include -D B=2 -I@cwd@/source/include -c -o main.o ../source/main.c
+gcc -D A=1 -I./include -fPIC -O3 -g -I../build/../source/include -D B=2 -I ./../source/include -Wa,--noexecstack -c -o util.o ../source/util.c
+
+gcc -fPIC -O3 -fPIC -Wa,--noexecstack -g -L. -Wl,-search_paths_first -Wa,--noexecstack -Wl,-search_paths_first -o test main.o util.o

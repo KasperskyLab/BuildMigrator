@@ -1,0 +1,2 @@
+gcc -Wl,-Tdata -Wl,512 -Wl,-z,now -o a ../source/a.c
+gcc -Wl,-z,now -Wl,-Ttext -Wl,512 -o b ../source/b.c

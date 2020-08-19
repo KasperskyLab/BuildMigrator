@@ -1,0 +1,204 @@
+# CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64"
+cmake_minimum_required(VERSION 3.8)
+
+project(icu LANGUAGES C CXX VERSION 58.2)
+enable_language(RC)
+
+include(cmake_framework)
+include(compiler_config)
+include(system)
+include(set_target_output_subdir)
+fix_asm_flags()
+find_thread_library()
+
+set(ICU_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
+set(compile_flags_1
+    -DUNISTR_FROM_CHAR_EXPLICIT=explicit
+    -DUNISTR_FROM_STRING_EXPLICIT=explicit
+    -DU_TOOLUTIL_IMPLEMENTATION
+)
+set(compile_flags_2
+    -DCYGWINMSVC
+    -DU_ATTRIBUTE_DEPRECATED=
+    -GF
+    -GL
+    -GL-
+    -Gw
+    -Gy
+    -Z7
+    -d2notypeopt
+)
+add_compile_options(
+    -DHAVE_DLOPEN=0
+    -DU_HAVE_ATOMIC=1
+    -DU_HAVE_MMAP=0
+    -DU_HAVE_DIRENT_H=0
+    -DU_HAVE_POPEN=0
+    -DU_HAVE_TZNAME=0
+    -DU_HAVE_STRTOD_L=0
+    -DU_HAVE_WCSCPY=0
+)
+include_directories(${ICU_SOURCE_DIR}/common)
+language_compile_options(C ${compile_flags_2})
+language_compile_options(CXX ${compile_flags_2} /GR -Zc:wchar_t)
+
+set(copy_prebuilt_artifacts_DIR windows_x86_64/prebuilt)
+set(copy_prebuilt_artifacts_DEST ${CMAKE_CURRENT_BINARY_DIR})
+file(GLOB_RECURSE _files RELATIVE ${CMAKE_CURRENT_LIST_DIR}/${copy_prebuilt_artifacts_DIR} ${copy_prebuilt_artifacts_DIR}/*)
+foreach(_f ${_files})
+    configure_file(${copy_prebuilt_artifacts_DIR}/${_f} ${copy_prebuilt_artifacts_DEST}/${_f} COPYONLY)
+endforeach()
+
+find_program(ICU_ICUPKG icupkg)
+if(NOT ICU_ICUPKG)
+    message(FATAL_ERROR "icupkg not found")
+endif()
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    COMMAND
+        ${CMAKE_COMMAND} -E env
+        ${ICU_ICUPKG} -d ${CMAKE_CURRENT_BINARY_DIR}/data/out/build/icudt58l --list -x * ${ICU_SOURCE_DIR}/data/in/icudt58l.dat -o ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    VERBATIM
+)
+add_custom_target(data_out_tmp_icudata_lst DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst)
+
+find_program(ICU_PKGDATA pkgdata)
+if(NOT ICU_PKGDATA)
+    message(FATAL_ERROR "pkgdata not found")
+endif()
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lib/icudt58.dll
+    COMMAND
+        ${CMAKE_COMMAND} -E env
+        ${ICU_PKGDATA} -O ${CMAKE_CURRENT_BINARY_DIR}/data/icupkg.inc -q -c -s ${CMAKE_CURRENT_BINARY_DIR}/data/out/build/icudt58l -d ${CMAKE_CURRENT_BINARY_DIR}/lib -e icudt58 -T ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp -p icudt58l -m dll -r 58 -L icudt ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    DEPENDS
+        ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    VERBATIM
+)
+add_custom_target(lib_icudata.58.2 DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/lib/icudt58.dll)
+
+add_library(stubdata_icudata.58.2 ${ICU_SOURCE_DIR}/stubdata/stubdata.c)
+set_target_properties(stubdata_icudata.58.2 PROPERTIES LINK_FLAGS "-NOENTRY")
+set_target_properties(stubdata_icudata.58.2 PROPERTIES OUTPUT_NAME icudt58)
+set_target_properties(stubdata_icudata.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icudt)
+set_target_output_subdir(stubdata_icudata.58.2 RUNTIME_OUTPUT_DIRECTORY stubdata)
+set_target_output_subdir(stubdata_icudata.58.2 ARCHIVE_OUTPUT_DIRECTORY stubdata)
+set_target_properties(stubdata_icudata.58.2 PROPERTIES VERSION 58.2)
+
+add_library(icuuc.58.2
+    ${ICU_SOURCE_DIR}/common/ucnv.c
+    ${ICU_SOURCE_DIR}/common/resbund.cpp
+    ${ICU_SOURCE_DIR}/common/unistr_case_locale.cpp
+    ${ICU_SOURCE_DIR}/common/uniset.cpp
+    ${ICU_SOURCE_DIR}/common/common.rc
+)
+target_link_libraries(icuuc.58.2 PRIVATE stubdata_icudata.58.2)
+target_language_compile_options(icuuc.58.2 CXX PRIVATE -DU_COMMON_IMPLEMENTATION)
+target_language_compile_options(icuuc.58.2 C PRIVATE -DU_COMMON_IMPLEMENTATION)
+set_target_properties(icuuc.58.2 PROPERTIES OUTPUT_NAME icuuc58)
+set_target_properties(icuuc.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icuuc)
+set_target_output_subdir(icuuc.58.2 RUNTIME_OUTPUT_DIRECTORY lib)
+set_target_output_subdir(icuuc.58.2 ARCHIVE_OUTPUT_DIRECTORY lib)
+set_target_properties(icuuc.58.2 PROPERTIES VERSION 58.2)
+
+add_library(icui18n.58.2
+    ${ICU_SOURCE_DIR}/i18n/ucln_in.cpp
+    ${ICU_SOURCE_DIR}/i18n/decimfmt.cpp
+    ${ICU_SOURCE_DIR}/i18n/decContext.c
+    ${ICU_SOURCE_DIR}/i18n/decimfmt.cpp
+    ${ICU_SOURCE_DIR}/i18n/i18n.rc
+)
+target_link_libraries(icui18n.58.2 PRIVATE icuuc.58.2 stubdata_icudata.58.2)
+target_include_directories(icui18n.58.2 PRIVATE ${ICU_SOURCE_DIR}/i18n)
+target_language_compile_options(icui18n.58.2 CXX PRIVATE -DU_I18N_IMPLEMENTATION)
+target_language_compile_options(icui18n.58.2 C PRIVATE -DU_I18N_IMPLEMENTATION)
+set_target_properties(icui18n.58.2 PROPERTIES OUTPUT_NAME icuin58)
+set_target_properties(icui18n.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icuin)
+set_target_output_subdir(icui18n.58.2 RUNTIME_OUTPUT_DIRECTORY lib)
+set_target_output_subdir(icui18n.58.2 ARCHIVE_OUTPUT_DIRECTORY lib)
+set_target_properties(icui18n.58.2 PROPERTIES VERSION 58.2)
+
+add_library(icuio.58.2
+    ${ICU_SOURCE_DIR}/io/locbund.cpp
+    ${ICU_SOURCE_DIR}/io/ufile.c
+    ${ICU_SOURCE_DIR}/io/ucln_io.cpp
+    ${ICU_SOURCE_DIR}/io/io.rc
+)
+target_link_libraries(icuio.58.2 PRIVATE icuuc.58.2 stubdata_icudata.58.2 icui18n.58.2)
+target_include_directories(icuio.58.2 PRIVATE ${ICU_SOURCE_DIR}/i18n)
+target_language_compile_options(icuio.58.2 CXX PRIVATE -DU_IO_IMPLEMENTATION)
+target_language_compile_options(icuio.58.2 C PRIVATE -DU_IO_IMPLEMENTATION)
+set_target_properties(icuio.58.2 PROPERTIES OUTPUT_NAME icuio58)
+set_target_properties(icuio.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icuio)
+set_target_output_subdir(icuio.58.2 RUNTIME_OUTPUT_DIRECTORY lib)
+set_target_output_subdir(icuio.58.2 ARCHIVE_OUTPUT_DIRECTORY lib)
+set_target_properties(icuio.58.2 PROPERTIES VERSION 58.2)
+
+add_library(icutu.58.2
+    ${ICU_SOURCE_DIR}/tools/toolutil/filestrm.c
+    ${ICU_SOURCE_DIR}/tools/toolutil/ucm.c
+    ${ICU_SOURCE_DIR}/tools/toolutil/ucln_tu.cpp
+)
+target_link_libraries(icutu.58.2 PRIVATE icui18n.58.2 icuuc.58.2 stubdata_icudata.58.2)
+target_compile_options(icutu.58.2 PRIVATE ${compile_flags_1})
+target_include_directories(icutu.58.2 PRIVATE ${ICU_SOURCE_DIR}/i18n)
+set_target_properties(icutu.58.2 PROPERTIES OUTPUT_NAME icutu58)
+set_target_properties(icutu.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icutu)
+set_target_output_subdir(icutu.58.2 RUNTIME_OUTPUT_DIRECTORY lib)
+set_target_output_subdir(icutu.58.2 ARCHIVE_OUTPUT_DIRECTORY lib)
+set_target_properties(icutu.58.2 PROPERTIES VERSION 58.2)
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lib/sicudt.lib
+    COMMAND
+        ${CMAKE_COMMAND} -E env
+        ${ICU_PKGDATA} -O ${CMAKE_CURRENT_BINARY_DIR}/data/icupkg.inc -q -c -s ${CMAKE_CURRENT_BINARY_DIR}/data/out/build/icudt58l -d ${CMAKE_CURRENT_BINARY_DIR}/lib -e icudt58 -T ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp -p icudt58l -L sicudt -m static -r 58 ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    DEPENDS
+        ${CMAKE_CURRENT_BINARY_DIR}/data/out/tmp/icudata.lst
+    VERBATIM
+)
+add_custom_target(icudata.static DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/lib/sicudt.lib)
+
+add_library(icui18n.static
+    ${ICU_SOURCE_DIR}/i18n/ucln_in.cpp
+    ${ICU_SOURCE_DIR}/i18n/decimfmt.cpp
+    ${ICU_SOURCE_DIR}/i18n/decContext.c
+    ${ICU_SOURCE_DIR}/i18n/decimfmt.cpp
+)
+target_compile_options(icui18n.static PRIVATE -DU_I18N_IMPLEMENTATION -DU_STATIC_IMPLEMENTATION)
+target_include_directories(icui18n.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+set_target_properties(icui18n.static PROPERTIES OUTPUT_NAME sicuin)
+set_target_output_subdir(icui18n.static ARCHIVE_OUTPUT_DIRECTORY lib)
+set_target_properties(icui18n.static PROPERTIES VERSION 58.2)
+
+add_library(icuio.static
+    ${ICU_SOURCE_DIR}/io/locbund.cpp
+    ${ICU_SOURCE_DIR}/io/ufile.c
+    ${ICU_SOURCE_DIR}/io/ucln_io.cpp
+)
+target_compile_options(icuio.static PRIVATE -DU_IO_IMPLEMENTATION -DU_STATIC_IMPLEMENTATION)
+target_include_directories(icuio.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+set_target_properties(icuio.static PROPERTIES OUTPUT_NAME sicuio)
+set_target_output_subdir(icuio.static ARCHIVE_OUTPUT_DIRECTORY lib)
+set_target_properties(icuio.static PROPERTIES VERSION 58.2)
+
+add_library(icutu.static
+    ${ICU_SOURCE_DIR}/tools/toolutil/filestrm.c
+    ${ICU_SOURCE_DIR}/tools/toolutil/ucm.c
+    ${ICU_SOURCE_DIR}/tools/toolutil/ucln_tu.cpp
+)
+target_compile_options(icutu.static PRIVATE ${compile_flags_1} -DU_STATIC_IMPLEMENTATION)
+target_include_directories(icutu.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+set_target_properties(icutu.static PROPERTIES OUTPUT_NAME sicutu)
+set_target_output_subdir(icutu.static ARCHIVE_OUTPUT_DIRECTORY lib)
+set_target_properties(icutu.static PROPERTIES VERSION 58.2)
+
+add_library(icuuc.static
+    ${ICU_SOURCE_DIR}/common/ucnv.c
+    ${ICU_SOURCE_DIR}/common/resbund.cpp
+    ${ICU_SOURCE_DIR}/common/unistr_case_locale.cpp
+    ${ICU_SOURCE_DIR}/common/uniset.cpp
+)
+target_compile_options(icuuc.static PRIVATE -DU_COMMON_IMPLEMENTATION -DU_STATIC_IMPLEMENTATION)
+set_target_properties(icuuc.static PROPERTIES OUTPUT_NAME sicuuc)
+set_target_output_subdir(icuuc.static ARCHIVE_OUTPUT_DIRECTORY lib)
+set_target_properties(icuuc.static PROPERTIES VERSION 58.2)

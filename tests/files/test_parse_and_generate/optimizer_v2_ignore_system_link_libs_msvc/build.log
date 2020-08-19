@@ -1,0 +1,7 @@
+cl /c ..\source\1.c /Fo1.obj
+cl /c ..\source\2.c /Fo2.obj
+cl /c ..\source\3.c /Fo3.obj
+
+link.exe /MACHINE:X86 advapi32.lib comdlg32.lib gdi32.lib kernel32.lib shell32.lib /OUT:a1.exe 1.obj
+link.exe /MACHINE:X86 advapi32.lib comdlg32.lib gdi32.lib kernel32.lib shell32.lib /OUT:a2.exe 2.obj
+link.exe /MACHINE:X86 advapi32.lib comdlg32.lib gdi32.lib kernel32.lib shell32.lib /OUT:a3.exe 3.obj

@@ -1,0 +1,2 @@
+gcc -o src.o -c ../source/src.cpp
+gcc -shared -o libe.so -L. -L./../source/. -la -lb -l:./lib/libc.a -Wl,-Bstatic -ld -Wl,-Bdynamic src.o 

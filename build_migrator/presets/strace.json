@@ -1,0 +1,8 @@
+{
+    "platform": "linux",
+    "log_type": "strace",
+    "parsers": [
+        "build_log_parser",
+        "strace"
+    ]
+}

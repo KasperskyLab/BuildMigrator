@@ -1,0 +1,6 @@
+gcc -o a.o -c ../source/a.c
+gcc -o b.o -c ../source/b.c
+
+ar cr liba.a a.o
+
+gcc -shared -lm -L. -la -Wl,--exclude-libs,liba.a -o libb.so b.o

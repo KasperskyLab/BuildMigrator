@@ -1,0 +1,10 @@
+g++ -c ../source/cpp1.cpp -I. -Iinclude_a -DCXX=1 -DF1 -o cpp1.o
+g++ -c ../source/cpp2.cpp -Iinclude_a -Iinclude_b -DCXX=1 -DF2 -o cpp2.o
+g++ -c ../source/cpp3.cpp -Iinclude_a -I../source -DCXX=1 -DCOMMON -DF3 -o cpp3.o
+g++ -c ../source/cpp4.cpp -Iinclude_a -I../source -DCXX=1 -DCOMMON -DF4 -o cpp4.o
+gcc -c ../source/c1.c -o c1.o
+gcc -c ../source/c2.c -o c2.o
+
+g++ -shared cpp1.o c1.o -o libshared.so
+g++ cpp2.o -o app1
+g++ c2.o cpp3.o cpp4.o -o app2

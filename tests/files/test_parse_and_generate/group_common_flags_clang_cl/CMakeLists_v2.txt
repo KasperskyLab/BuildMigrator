@@ -1,0 +1,78 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(PROJECT C CXX)
+enable_language(ASM_MASM)
+enable_language(ASM_NASM)
+enable_language(RC)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+include(extensions)
+
+set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
+set(CMAKE_ASM_YASM_OBJECT_FORMAT win32)
+set(CMAKE_ASM_YASM_MACHINE x86)
+set(CMAKE_ASM_NASM_OBJECT_FORMAT win32)
+language_compile_options(CXX
+    -Xclang
+    -mllvm
+    -Xclang
+    -instcombine-lower-dbg-declare=0
+    -fmsc-version=1911
+    -DWIN32=1
+    /utf-8
+)
+language_include_directories(CXX ${CMAKE_CURRENT_BINARY_DIR})
+
+set(copy_prebuilt_artifacts_DIR prebuilt)
+set(copy_prebuilt_artifacts_DEST ${CMAKE_CURRENT_BINARY_DIR})
+file(GLOB_RECURSE _files RELATIVE ${CMAKE_CURRENT_LIST_DIR}/${copy_prebuilt_artifacts_DIR} ${copy_prebuilt_artifacts_DIR}/*)
+foreach(_f ${_files})
+    configure_file(${copy_prebuilt_artifacts_DIR}/${_f} ${copy_prebuilt_artifacts_DEST}/${_f} COPYONLY)
+endforeach()
+
+set_source_files_properties(${SOURCE_DIR}/nasm.asm PROPERTIES LANGUAGE ASM_NASM)
+set_source_files_properties(${SOURCE_DIR}/a.cpp PROPERTIES COMPILE_OPTIONS -DMODE_A)
+set_source_files_properties(${SOURCE_DIR}/a.cpp PROPERTIES INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR}/a)
+set_source_files_properties(${SOURCE_DIR}/c.cpp PROPERTIES COMPILE_OPTIONS "-DMODE_C;/arch:AVX2")
+set_source_files_properties(${SOURCE_DIR}/c.cpp PROPERTIES INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_BINARY_DIR}/b_c;${CMAKE_CURRENT_BINARY_DIR}/c"
+)
+add_library(foo.static STATIC
+    ${SOURCE_DIR}/a.cpp
+    ${SOURCE_DIR}/b.c
+    ${SOURCE_DIR}/c.cpp
+    ${SOURCE_DIR}/nasm.asm
+)
+target_link_options(foo.static PRIVATE /llvmlibthin)
+target_language_compile_options(foo.static ASM_NASM PRIVATE -DNASM -DASM)
+target_language_compile_options(foo.static C PRIVATE
+    -msse4.2
+    -Xclang
+    -mllvm
+    -Xclang
+    -instcombine-lower-dbg-declare=0
+    -fmsc-version=1911
+    -DWIN32=1
+    -DMODE_B
+    /utf-8
+)
+target_language_include_directories(foo.static ASM_NASM PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/xasm)
+target_language_include_directories(foo.static C PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/b_c)
+set_target_properties(foo.static PROPERTIES OUTPUT_NAME foo)
+
+set_source_files_properties(${SOURCE_DIR}/masm.asm PROPERTIES LANGUAGE ASM_MASM)
+set_source_files_properties(${SOURCE_DIR}/yasm.asm PROPERTIES COMPILE_OPTIONS "-DYASM;-DASM")
+set_source_files_properties(${SOURCE_DIR}/yasm.asm PROPERTIES INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR}/xasm)
+add_library(bar SHARED
+    ${SOURCE_DIR}/masm.asm
+    ${SOURCE_DIR}/d.cpp
+    ${SOURCE_DIR}/resource.rc
+)
+target_link_options(bar PRIVATE /SAFESEH)
+target_link_libraries(bar PRIVATE ws2_32 delayimp foo.static)
+target_language_compile_options(bar ASM_MASM PRIVATE -DMASM -DASM /safeseh)
+target_language_compile_options(bar CXX PRIVATE -msse4.2 -mpclmul /GR-)
+target_language_compile_options(bar RC PRIVATE -DRC=1)
+target_language_include_directories(bar ASM_MASM PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/masm)
+target_language_include_directories(bar RC PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/rc)
+target_yasm_sources(bar PRIVATE ${SOURCE_DIR}/yasm.asm)

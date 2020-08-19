@@ -1,0 +1,7 @@
+gcc -c -DMODE=1 -fno-rtti -o test1.o ../source/test.cpp
+gcc -c -DMODE=2 -o test2.o ../source/test.cpp
+gcc -c -DMODE=3 -o test3.o ../source/test.cpp
+gcc -c -DCMODE=1 ../source/test.c -o test_c_1.o
+gcc -c -DCMODE=2 ../source/test.c -o test_c_2.o
+gcc test1.o test2.o test_c_1.o -shared -o libtest1.so
+gcc test3.o test_c_1.o test_c_2.o -shared -o libtest2.so

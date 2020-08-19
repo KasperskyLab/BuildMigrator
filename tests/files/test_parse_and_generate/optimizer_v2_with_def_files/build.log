@@ -1,0 +1,7 @@
+cl.exe /c ../source/1.c -DTEST=1 /Fo1.obj
+cl.exe /c ../source/2.c -DTEST=1 /Fo2.obj
+cl.exe /c ../source/3.c -DTEST=1 /Fo3.obj
+link /nologo /dll /out:test1.dll /def:..\source\1.def 1.obj 2.obj 3.obj
+
+cl.exe /c ../source/4.c -DTEST=2 /Fo4.obj
+link /nologo /dll /out:test2.dll 4.obj

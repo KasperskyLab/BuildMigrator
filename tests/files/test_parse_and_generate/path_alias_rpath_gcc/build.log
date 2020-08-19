@@ -1,0 +1,1 @@
+gcc ../source/main.cpp -shared -Wl,-rpath -Wl,/some/path/lib -o liba.so

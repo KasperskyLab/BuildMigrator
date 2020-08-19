@@ -1,0 +1,7 @@
+gcc -DSOMEFLAG1=aaa -DSOMEFLAG2=bbb -DSOMEFLAG3=ccc ../source/1.c -o t1
+gcc -DSOMEFLAG1=aaa -DSOMEFLAG2=bbb -DSOMEFLAG3=ccc ../source/3.c -o t2
+gcc -DSOMEFLAG1=aaa -DSOMEFLAG2=bbb -DSOMEFLAG3=ccc ../source/3.c -o t3
+g++ -DSOMEFLAG1=aaa -DSOMEFLAG2=bbb -DSOMEFLAG3=ccc --std=c++14 ../source/4.cpp -o t4
+g++ -DSOMEFLAG1=aaa -DSOMEFLAG2=bbb -DSOMEFLAG3=ccc --std=c++14 ../source/5.cpp -o t5
+g++ -DSOMEFLAG1=aaa -DSOMEFLAG2=bbb -DSOMEFLAG3=ccc --std=c++14 ../source/6.cpp -o t6
+gcc ../source/7.S -o t7

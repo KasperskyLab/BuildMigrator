@@ -1,0 +1,2 @@
+gcc -Wl,-z -Wl,relro -Wl,-z,now -o a ../source/a.c
+gcc -Wl,-z,now -Wl,-z -Wl,noexecstack -o b ../source/b.c

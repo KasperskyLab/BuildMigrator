@@ -1,0 +1,7 @@
+{
+    "log_type": "ninja",
+    "parsers": [
+        "build_log_parser",
+        "ninja"
+    ]
+}

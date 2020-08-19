@@ -1,0 +1,17 @@
+{
+    "platform": "linux",
+    "parsers": [
+        "clang_gcc",
+        "gnu_ar",
+        "gnu_cp_ln_mv",
+        "libtool",
+        "objcopy"
+    ],
+    "delete_flags": [
+        "^-m(32|64)$",
+        "^-O[123sg]$",
+        "^-DNDEBUG$",
+        "^--sysroot",
+        "^-x c"
+    ]
+}

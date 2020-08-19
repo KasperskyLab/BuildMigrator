@@ -1,0 +1,20 @@
+cl /c /Iaaaaaaaaaaaaaaaaaaaaaa /Ibbbbbbbbbbbbbbbbbbb ../source/1.cpp /Fo1.obj
+cl /c ../source/2.cpp /Fo2.obj
+
+cl /c /Iaaaaaaaaaaaaaaaaaaaaaa /Ibbbbbbbbbbbbbbbbbbb ../source/3.c /Fo3.obj
+cl /c ../source/4.c /Fo4.obj
+
+ml /c /Iaaaaaaaaaaaaaaaaaaaaaa /Ibbbbbbbbbbbbbbbbbbb ../source/5.asm /Fo5.obj
+ml /c ../source/6.asm /Fo6.obj
+
+nasm -fwin32 -Iaaaaaaaaaaaaaaaaaaaaaa -Ibbbbbbbbbbbbbbbbbbb ../source/7.asm -o 7.obj
+nasm -fwin32 ../source/8.asm -o 8.obj
+
+rc /Iaaaaaaaaaaaaaaaaaaaaaa /Ibbbbbbbbbbbbbbbbbbb ..\source\9.rc /fo9.res
+rc ..\source\10.rc /fo10.res
+
+yasm -fwin32 -Iaaaaaaaaaaaaaaaaaaaaaa -Ibbbbbbbbbbbbbbbbbbb ../source/11.asm -o 11.obj
+yasm -fwin32 ../source/12.asm -o 12.obj
+
+
+link.exe /OUT:./test.exe 1.obj 2.obj 3.obj 4.obj 5.obj 6.obj 7.obj 8.obj 9.res 10.res 11.obj 12.obj

@@ -1,0 +1,3 @@
+cl.exe -c ..\source\SOURCE~1.cpp /Fo".\OUTPUT~1\a.obj"
+C:\PROGRA~2\Microsoft~1\VC\bin\link.exe /DLL @cwd@\build\OUTPUT~1\a.obj /OUT:.\OUTPUT~1\a.dll
+C:\PROGRA~2\Microsoft~1\VC\bin\link.exe /DLL .\OUTPUT~1\a.obj /OUT:@cwd@\build\OUTPUT~1\does_not_exist.dll

@@ -1,0 +1,9 @@
+gcc -c ../source/a.c -o a.o
+gcc -c ../source/b.c -o b.o
+gcc -c ../source/c.c -o c.o
+gcc -c ../source/d.c -o d.o
+
+gcc -shared -pthread -lm -lrt -laaaaaaaaaaaaaaaaaa -lbbbbbbbbbbbbbbbbbbbbb a.o -o libtest1.so
+gcc -shared b.o -o libtest2.so
+gcc -pie -lm -lrt -laaaaaaaaaaaaaaaaaa -lbbbbbbbbbbbbbbbbbbbbb c.o -L. -ltest1 -o test3
+gcc d.o -L. -ltest2 -o test4

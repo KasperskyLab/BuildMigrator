@@ -1,0 +1,1 @@
+g++ -DMSG_A=a -DMSG_B=b ../source/a.cpp ../source/b.cpp ../source/main.cpp -o test

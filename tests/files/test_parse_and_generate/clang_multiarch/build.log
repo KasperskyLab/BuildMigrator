@@ -1,0 +1,1 @@
+clang -arch arm64 -arch armv7s -I. ../source/test.c -o test

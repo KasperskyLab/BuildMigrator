@@ -1,0 +1,28 @@
+# F2
+project(test)
+
+include(a)
+c()
+
+set(v1 1)
+func()
+
+set(v4 222)
+if(v4)
+    func2(${v4})
+endif()
+
+func4()
+
+target(t2
+    4.cpp
+    5.cpp
+)
+target_prop(t2 b)
+target_prop(t2 d)
+
+target(t3
+    6.cpp
+    7.cpp
+)
+target_prop(t3 c)

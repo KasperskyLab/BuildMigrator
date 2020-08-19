@@ -1,0 +1,26 @@
+cp ../source/main.cpp main_cp.cpp
+gcc main_cp.cpp -o main_cp
+
+gcc ../source/main.cpp -o main
+
+ln -f ../source/main.cpp main_ln.cpp
+gcc main_ln.cpp -o main_ln
+
+mv ../source/main.cpp main_mv.cpp
+gcc main_mv.cpp -o main_mv
+
+ln -s main_cp.cpp main_cp_ln.cpp
+gcc main_cp_ln.cpp -o main_cp_ln
+
+cp ../source/alias/alias.cpp alias.cpp
+gcc alias.cpp -o alias
+
+make: Entering directory 'subdir'
+
+cp ../main_cp main_cp_subdir1
+ln -s ../main_ln main_ln_subdir1
+
+cp ../main_cp ../main_cp_subdir2
+ln -s main_ln ../main_ln_subdir2
+
+make: Leaving directory '.'

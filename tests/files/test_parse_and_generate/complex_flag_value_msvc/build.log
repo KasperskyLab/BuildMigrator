@@ -1,0 +1,2 @@
+cl.exe -c "-DANGLE_PRELOADED_D3DCOMPILER_MODULE_NAMES={ \"d3dcompiler_47.dll\", \"d3dcompiler_46.dll\", \"d3dcompiler_43.dll\" }" ../source/test.cpp /Fotest.obj
+link.exe /IMPLIB:./test.dll.lib /DLL /OUT:./test.dll test.obj

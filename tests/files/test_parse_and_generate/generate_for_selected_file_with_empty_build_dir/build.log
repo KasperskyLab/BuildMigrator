@@ -1,0 +1,4 @@
+gcc -o app.exe ../source/1.c
+gcc -shared -o shared.dll ../source/2.c
+gcc -c -o 3.obj ../source/3.c
+ar cr static.lib 3.obj

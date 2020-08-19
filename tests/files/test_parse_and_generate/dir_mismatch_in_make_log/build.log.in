@@ -1,0 +1,6 @@
+make[1]: Entering directory '@cwd@/build/a'
+make[1]: Entering directory '@cwd@/build/b'
+cl.exe /c /Fomain.obj ../../source/main.cpp
+make[1]: Leaving directory '@cwd@/build/a'
+link.exe /OUT:test.exe main.obj
+make[1]: Leaving directory '@cwd@/build/b'

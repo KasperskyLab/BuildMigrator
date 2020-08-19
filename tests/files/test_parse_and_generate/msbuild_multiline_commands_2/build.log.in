@@ -1,0 +1,57 @@
+Microsoft (R) Build Engine version 14.0.25420.1
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 09.07.2019 20:10:30.
+     1>Project "@cwd@\build\libarchive\archive_static.vcxproj" on node 1 (default targets).
+     1>Project "@cwd@\build\libarchive\archive_static.vcxproj" (1) is building "@cwd@\build\ZERO_CHECK.vcxproj" (2) on node 1 (default targets).
+     2>PrepareForBuild:
+         Creating directory "Win32\Release\ZERO_CHECK\".
+         Creating directory "@cwd@\build\Release\".
+         Creating directory "Win32\Release\ZERO_CHECK\ZERO_CHECK.tlog\".
+       InitializeBuildStatus:
+         Creating "Win32\Release\ZERO_CHECK\ZERO_CHECK.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+       CustomBuild:
+         Checking Build System
+         CMake does not need to re-run because D:/src/mono_2/3rd_party/nsk/libarchive/3.3.3/migration_helper/.build/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because @cwd@/build/libarchive/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because @cwd@/build/libarchive/test/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because @cwd@/build/cat/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because @cwd@/build/cat/test/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because @cwd@/build/tar/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because @cwd@/build/tar/test/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because @cwd@/build/cpio/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because @cwd@/build/cpio/test/CMakeFiles/generate.stamp is up-to-date.
+       FinalizeBuildStatus:
+         Deleting file "Win32\Release\ZERO_CHECK\ZERO_CHECK.tlog\unsuccessfulbuild".
+         Touching "Win32\Release\ZERO_CHECK\ZERO_CHECK.tlog\ZERO_CHECK.lastbuildstate".
+     2>Done Building Project "@cwd@\build\ZERO_CHECK.vcxproj" (default targets).
+     1>PrepareForBuild:
+         Creating directory "archive_static.dir\Release\".
+         Creating directory "@cwd@\build\libarchive\Release\".
+         Creating directory "archive_static.dir\Release\archive_static.tlog\".
+       InitializeBuildStatus:
+         Creating "archive_static.dir\Release\archive_static.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+       CustomBuild:
+         Building Custom Rule D:/src/mono_2/3rd_party/nsk/libarchive/3.3.3/src/libarchive/CMakeLists.txt
+         CMake does not need to re-run because @cwd@/build/libarchive/CMakeFiles/generate.stamp is up-to-date.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I@cwd@\source\libarchive /I@cwd@\build /nologo /W3 /WX- /O2 /Ob2 /Oi /Oy- /D WIN32 /D _WINDOWS /D NDEBUG /D LIBARCHIVE_STATIC /D HAVE_CONFIG_H /D _CRT_SECURE_NO_DEPRECATE /D "CMAKE_INTDIR=\"Release\"" /D _MBCS /Gm- /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"archive_static.dir\Release\\" /Fd"archive_static.dir\Release\archive_static.pdb" /Gd /TC /analyze- /errorReport:queue @cwd@\source\libarchive\foo.c @cwd@\source\libarchive\bar.c
+         foo.c
+         bar.c
+         Generating Code...
+         Compiling...
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"@cwd@\build\libarchive\Release\archive_static.lib" /NOLOGO  /machine:X86 archive_static.dir\Release\foo.obj
+         archive_static.dir\Release\bar.obj
+         archive_static.vcxproj -> @cwd@\build\libarchive\Release\archive_static.lib
+       FinalizeBuildStatus:
+         Deleting file "archive_static.dir\Release\archive_static.tlog\unsuccessfulbuild".
+         Touching "archive_static.dir\Release\archive_static.tlog\archive_static.lastbuildstate".
+     1>Done Building Project "@cwd@\build\libarchive\archive_static.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:54.86

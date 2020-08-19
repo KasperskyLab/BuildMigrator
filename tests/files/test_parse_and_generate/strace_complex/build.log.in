@@ -1,0 +1,370 @@
+6989  execve("/usr/bin/make", ["make"], [/* 21 vars */]) = 0
+6989  arch_prctl(ARCH_SET_FS, 0x7f76d0390700) = 0
+6989  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f76d03909d0) = 6990
+6990  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-H@cwd@/source", "-B@cwd@/build", "--check-build-system", "CMakeFiles/Makefile.cmake", "0"], [/* 24 vars */] <unfinished ...>
+6989  wait4(-1,  <unfinished ...>
+6990  <... execve resumed> )            = 0
+6990  arch_prctl(ARCH_SET_FS, 0x7f9205f90740) = 0
+6990  exit_group(0)                     = ?
+6990  +++ exited with 0 +++
+6989  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6990
+6989  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f76d03909d0) = 6991
+6989  wait4(-1,  <unfinished ...>
+6991  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_progress_start", "@cwd@/build/CMakeFiles", "@cwd@/build/CMakeFiles/progress.marks"], [/* 24 vars */]) = 0
+6991  arch_prctl(ARCH_SET_FS, 0x7fb9b5130740) = 0
+6991  exit_group(0)                     = ?
+6991  +++ exited with 0 +++
+6989  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6991
+6989  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=6991, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6989  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f76d03909d0) = 6992
+6989  wait4(-1,  <unfinished ...>
+6992  execve("/home/pixel/sonar-scanner/sonar-scanner-3.3.0.1492-linux/bin/make", ["make", "-f", "CMakeFiles/Makefile2", "all"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6992  execve("/home/pixel/bin/make", ["make", "-f", "CMakeFiles/Makefile2", "all"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6992  execve("/home/pixel/.local/bin/make", ["make", "-f", "CMakeFiles/Makefile2", "all"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6992  execve("/opt/cmake-3.11/bin/make", ["make", "-f", "CMakeFiles/Makefile2", "all"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6992  execve("/usr/local/sbin/make", ["make", "-f", "CMakeFiles/Makefile2", "all"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6992  execve("/usr/local/bin/make", ["make", "-f", "CMakeFiles/Makefile2", "all"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6992  execve("/usr/sbin/make", ["make", "-f", "CMakeFiles/Makefile2", "all"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6992  execve("/usr/bin/make", ["make", "-f", "CMakeFiles/Makefile2", "all"], [/* 24 vars */]) = 0
+6992  arch_prctl(ARCH_SET_FS, 0x7f9539c30700) = 0
+6992  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f9539c309d0) = 6993
+6993  execve("/home/pixel/sonar-scanner/sonar-scanner-3.3.0.1492-linux/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/depend"], [/* 24 vars */] <unfinished ...>
+6992  wait4(-1,  <unfinished ...>
+6993  <... execve resumed> )            = -1 ENOENT (No such file or directory)
+6993  execve("/home/pixel/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6993  execve("/home/pixel/.local/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6993  execve("/opt/cmake-3.11/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6993  execve("/usr/local/sbin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6993  execve("/usr/local/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6993  execve("/usr/sbin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6993  execve("/usr/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/depend"], [/* 24 vars */]) = 0
+6993  arch_prctl(ARCH_SET_FS, 0x7f6c75d70700) = 0
+6993  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f6c75d709d0) = 6994
+6994  execve("/bin/sh", ["/bin/sh", "-c", "cd @cwd@/build && /opt/cmake-3.11/bin/cmake -E cmake_depends \"Unix Makefiles\" @cwd@/source @cwd@/source @cwd@/build @cwd@/build @cwd@/build/CMakeFiles/lib.dir/DependInfo.cmake --color="], [/* 24 vars */] <unfinished ...>
+6993  wait4(-1,  <unfinished ...>
+6994  <... execve resumed> )            = 0
+6994  arch_prctl(ARCH_SET_FS, 0x7f9eb9f30700) = 0
+6994  chdir("@cwd@/build") = 0
+6994  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f9eb9f309d0) = 6995
+6994  wait4(-1,  <unfinished ...>
+6995  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_depends", "Unix Makefiles", "@cwd@/source", "@cwd@/source", "@cwd@/build", "@cwd@/build", "@cwd@/build/CMakeFiles/lib.dir/DependInfo.cmake", "--color="], [/* 24 vars */]) = 0
+6995  arch_prctl(ARCH_SET_FS, 0x7f55aed60740) = 0
+6995  exit_group(0)                     = ?
+6995  +++ exited with 0 +++
+6994  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6995
+6994  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=6995, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6994  exit_group(0)                     = ?
+6994  +++ exited with 0 +++
+6993  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6994
+6993  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=6994, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6993  chdir("@cwd@/build") = 0
+6993  exit_group(0)                     = ?
+6993  +++ exited with 0 +++
+6992  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6993
+6992  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=6993, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6992  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f9539c309d0) = 6996
+6992  wait4(-1,  <unfinished ...>
+6996  execve("/home/pixel/sonar-scanner/sonar-scanner-3.3.0.1492-linux/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6996  execve("/home/pixel/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6996  execve("/home/pixel/.local/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6996  execve("/opt/cmake-3.11/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6996  execve("/usr/local/sbin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6996  execve("/usr/local/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6996  execve("/usr/sbin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+6996  execve("/usr/bin/make", ["make", "-f", "CMakeFiles/lib.dir/build.make", "CMakeFiles/lib.dir/build"], [/* 24 vars */]) = 0
+6996  arch_prctl(ARCH_SET_FS, 0x7f88d3ec0700) = 0
+6996  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f88d3ec09d0) = 6997
+6997  execve("/bin/sh", ["/bin/sh", "-c", "/opt/cmake-3.11/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=@cwd@/build/CMakeFiles --progress-num=1 \"Building C object CMakeFiles/lib.dir/lib.c.o\""], [/* 24 vars */] <unfinished ...>
+6996  wait4(-1,  <unfinished ...>
+6997  <... execve resumed> )            = 0
+6997  arch_prctl(ARCH_SET_FS, 0x7fc04ede0700) = 0
+6997  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fc04ede09d0) = 6998
+6997  wait4(-1,  <unfinished ...>
+6998  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_echo_color", "--switch=", "--green", "--progress-dir=@cwd@/build/CMakeFiles", "--progress-num=1", "Building C object CMakeFiles/lib.dir/lib.c.o"], [/* 24 vars */]) = 0
+6998  arch_prctl(ARCH_SET_FS, 0x7fedefad0740) = 0
+6998  exit_group(0)                     = ?
+6998  +++ exited with 0 +++
+6997  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6998
+6997  exit_group(0)                     = ?
+6997  +++ exited with 0 +++
+6996  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6997
+6996  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=6997, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6996  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f88d3ec09d0) = 6999
+6996  wait4(-1,  <unfinished ...>
+6999  execve("/usr/bin/cc", ["/usr/bin/cc", "-o", "CMakeFiles/lib.dir/lib.c.o", "-c", "@cwd@/source/lib.c"], [/* 24 vars */]) = 0
+6999  arch_prctl(ARCH_SET_FS, 0x7fb664db0740) = 0
+6999  vfork()                           = 7000
+7000  execve("/usr/lib/gcc/x86_64-linux-gnu/5/cc1", ["/usr/lib/gcc/x86_64-linux-gnu/5/cc1", "-quiet", "-imultiarch", "x86_64-linux-gnu", "@cwd@/source/lib.c", "-quiet", "-dumpbase", "lib.c", "-mtune=generic", "-march=x86-64", "-auxbase-strip", "CMakeFiles/lib.dir/lib.c.o", "-fstack-protector-strong", "-Wformat", "-Wformat-security", "-o", "/tmp/cc9I7nGJ.s"], [/* 26 vars */] <unfinished ...>
+6999  wait4(7000,  <unfinished ...>
+7000  <... execve resumed> )            = 0
+7000  arch_prctl(ARCH_SET_FS, 0x7f79fe510840) = 0
+7000  exit_group(0)                     = ?
+7000  +++ exited with 0 +++
+6999  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7000
+6999  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7000, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6999  vfork()                           = 7001
+6999  wait4(7001,  <unfinished ...>
+7001  execve("/home/pixel/sonar-scanner/sonar-scanner-3.3.0.1492-linux/bin/as", ["as", "--64", "-o", "CMakeFiles/lib.dir/lib.c.o", "/tmp/cc9I7nGJ.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7001  execve("/home/pixel/bin/as", ["as", "--64", "-o", "CMakeFiles/lib.dir/lib.c.o", "/tmp/cc9I7nGJ.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7001  execve("/home/pixel/.local/bin/as", ["as", "--64", "-o", "CMakeFiles/lib.dir/lib.c.o", "/tmp/cc9I7nGJ.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7001  execve("/opt/cmake-3.11/bin/as", ["as", "--64", "-o", "CMakeFiles/lib.dir/lib.c.o", "/tmp/cc9I7nGJ.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7001  execve("/usr/local/sbin/as", ["as", "--64", "-o", "CMakeFiles/lib.dir/lib.c.o", "/tmp/cc9I7nGJ.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7001  execve("/usr/local/bin/as", ["as", "--64", "-o", "CMakeFiles/lib.dir/lib.c.o", "/tmp/cc9I7nGJ.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7001  execve("/usr/sbin/as", ["as", "--64", "-o", "CMakeFiles/lib.dir/lib.c.o", "/tmp/cc9I7nGJ.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7001  execve("/usr/bin/as", ["as", "--64", "-o", "CMakeFiles/lib.dir/lib.c.o", "/tmp/cc9I7nGJ.s"], [/* 26 vars */]) = 0
+7001  arch_prctl(ARCH_SET_FS, 0x7f195d990700) = 0
+7001  exit_group(0)                     = ?
+7001  +++ exited with 0 +++
+6999  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7001
+6999  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7001, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6999  exit_group(0)                     = ?
+6999  +++ exited with 0 +++
+6996  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6999
+6996  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=6999, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6996  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f88d3ec09d0) = 7002
+7002  execve("/bin/sh", ["/bin/sh", "-c", "/opt/cmake-3.11/bin/cmake -E cmake_echo_color --switch= --green --bold --progress-dir=@cwd@/build/CMakeFiles --progress-num=2 \"Linking C static library liblib.a\""], [/* 24 vars */] <unfinished ...>
+6996  wait4(-1,  <unfinished ...>
+7002  <... execve resumed> )            = 0
+7002  arch_prctl(ARCH_SET_FS, 0x7ff146480700) = 0
+7002  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7ff1464809d0) = 7003
+7002  wait4(-1,  <unfinished ...>
+7003  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_echo_color", "--switch=", "--green", "--bold", "--progress-dir=@cwd@/build/CMakeFiles", "--progress-num=2", "Linking C static library liblib.a"], [/* 24 vars */]) = 0
+7003  arch_prctl(ARCH_SET_FS, 0x7fa3f4140740) = 0
+7003  exit_group(0)                     = ?
+7003  +++ exited with 0 +++
+7002  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7003
+7002  exit_group(0)                     = ?
+7002  +++ exited with 0 +++
+6996  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7002
+6996  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7002, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6996  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f88d3ec09d0) = 7004
+7004  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-P", "CMakeFiles/lib.dir/cmake_clean_target.cmake"], [/* 24 vars */] <unfinished ...>
+6996  wait4(-1,  <unfinished ...>
+7004  <... execve resumed> )            = 0
+7004  arch_prctl(ARCH_SET_FS, 0x7f8b4d920740) = 0
+7004  exit_group(0)                     = ?
+7004  +++ exited with 0 +++
+6996  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7004
+6996  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f88d3ec09d0) = 7005
+6996  wait4(-1,  <unfinished ...>
+7005  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_link_script", "CMakeFiles/lib.dir/link.txt", "--verbose="], [/* 24 vars */]) = 0
+7005  arch_prctl(ARCH_SET_FS, 0x7f724d230740) = 0
+7005  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f724d230a10) = 7006
+7006  execve("/usr/bin/ar", ["/usr/bin/ar", "qc", "liblib.a", "CMakeFiles/lib.dir/lib.c.o"], [/* 24 vars */]) = 0
+7006  arch_prctl(ARCH_SET_FS, 0x7f8d3d5f0700) = 0
+7006  exit_group(0)                     = ?
+7006  +++ exited with 0 +++
+7005  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7006, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7005  wait4(7006, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 7006
+7005  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f724d230a10) = 7007
+7007  execve("/usr/bin/ranlib", ["/usr/bin/ranlib", "liblib.a"], [/* 24 vars */]) = 0
+7007  arch_prctl(ARCH_SET_FS, 0x7fab76de0700) = 0
+7007  exit_group(0)                     = ?
+7007  +++ exited with 0 +++
+7005  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7007, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7005  wait4(7007, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 7007
+7005  exit_group(0)                     = ?
+7005  +++ exited with 0 +++
+6996  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7005
+6996  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7005, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6996  chdir("@cwd@/build") = 0
+6996  exit_group(0)                     = ?
+6996  +++ exited with 0 +++
+6992  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6996
+6992  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=6996, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6992  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f9539c309d0) = 7008
+6992  wait4(-1,  <unfinished ...>
+7008  execve("/bin/sh", ["/bin/sh", "-c", "/opt/cmake-3.11/bin/cmake -E cmake_echo_color --switch= --progress-dir=@cwd@/build/CMakeFiles --progress-num=1,2 \"Built target lib\""], [/* 24 vars */]) = 0
+7008  arch_prctl(ARCH_SET_FS, 0x7fe884b50700) = 0
+7008  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fe884b509d0) = 7009
+7008  wait4(-1,  <unfinished ...>
+7009  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_echo_color", "--switch=", "--progress-dir=@cwd@/build/CMakeFiles", "--progress-num=1,2", "Built target lib"], [/* 24 vars */]) = 0
+7009  arch_prctl(ARCH_SET_FS, 0x7f24a3a30740) = 0
+7009  exit_group(0)                     = ?
+7009  +++ exited with 0 +++
+7008  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7009
+7008  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7009, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7008  exit_group(0)                     = ?
+7008  +++ exited with 0 +++
+6992  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7008
+6992  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7008, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6992  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f9539c309d0) = 7010
+6992  wait4(-1,  <unfinished ...>
+7010  execve("/home/pixel/sonar-scanner/sonar-scanner-3.3.0.1492-linux/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7010  execve("/home/pixel/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7010  execve("/home/pixel/.local/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7010  execve("/opt/cmake-3.11/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7010  execve("/usr/local/sbin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7010  execve("/usr/local/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7010  execve("/usr/sbin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/depend"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7010  execve("/usr/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/depend"], [/* 24 vars */]) = 0
+7010  arch_prctl(ARCH_SET_FS, 0x7fd2e7a60700) = 0
+7010  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fd2e7a609d0) = 7011
+7010  wait4(-1,  <unfinished ...>
+7011  execve("/bin/sh", ["/bin/sh", "-c", "cd @cwd@/build && /opt/cmake-3.11/bin/cmake -E cmake_depends \"Unix Makefiles\" @cwd@/source @cwd@/source @cwd@/build @cwd@/build @cwd@/build/CMakeFiles/main.dir/DependInfo.cmake --color="], [/* 24 vars */]) = 0
+7011  arch_prctl(ARCH_SET_FS, 0x7f4ea8e90700) = 0
+7011  chdir("@cwd@/build") = 0
+7011  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f4ea8e909d0) = 7012
+7012  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_depends", "Unix Makefiles", "@cwd@/source", "@cwd@/source", "@cwd@/build", "@cwd@/build", "@cwd@/build/CMakeFiles/main.dir/DependInfo.cmake", "--color="], [/* 24 vars */] <unfinished ...>
+7011  wait4(-1,  <unfinished ...>
+7012  <... execve resumed> )            = 0
+7012  arch_prctl(ARCH_SET_FS, 0x7f23f4210740) = 0
+7012  exit_group(0)                     = ?
+7012  +++ exited with 0 +++
+7011  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7012
+7011  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7012, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7011  exit_group(0)                     = ?
+7011  +++ exited with 0 +++
+7010  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7011
+7010  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7011, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7010  chdir("@cwd@/build") = 0
+7010  exit_group(0)                     = ?
+7010  +++ exited with 0 +++
+6992  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7010
+6992  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7010, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6992  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f9539c309d0) = 7013
+6992  wait4(-1,  <unfinished ...>
+7013  execve("/home/pixel/sonar-scanner/sonar-scanner-3.3.0.1492-linux/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7013  execve("/home/pixel/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7013  execve("/home/pixel/.local/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7013  execve("/opt/cmake-3.11/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7013  execve("/usr/local/sbin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7013  execve("/usr/local/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7013  execve("/usr/sbin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/build"], [/* 24 vars */]) = -1 ENOENT (No such file or directory)
+7013  execve("/usr/bin/make", ["make", "-f", "CMakeFiles/main.dir/build.make", "CMakeFiles/main.dir/build"], [/* 24 vars */]) = 0
+7013  arch_prctl(ARCH_SET_FS, 0x7f39b6b00700) = 0
+7013  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f39b6b009d0) = 7014
+7014  execve("/bin/sh", ["/bin/sh", "-c", "/opt/cmake-3.11/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=@cwd@/build/CMakeFiles --progress-num=3 \"Building CXX object CMakeFiles/main.dir/main.cpp.o\""], [/* 24 vars */] <unfinished ...>
+7013  wait4(-1,  <unfinished ...>
+7014  <... execve resumed> )            = 0
+7014  arch_prctl(ARCH_SET_FS, 0x7f9f5f5d0700) = 0
+7014  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f9f5f5d09d0) = 7015
+7014  wait4(-1,  <unfinished ...>
+7015  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_echo_color", "--switch=", "--green", "--progress-dir=@cwd@/build/CMakeFiles", "--progress-num=3", "Building CXX object CMakeFiles/main.dir/main.cpp.o"], [/* 24 vars */]) = 0
+7015  arch_prctl(ARCH_SET_FS, 0x7f71bc810740) = 0
+7015  exit_group(0)                     = ?
+7015  +++ exited with 0 +++
+7014  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7015
+7014  exit_group(0)                     = ?
+7014  +++ exited with 0 +++
+7013  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7014
+7013  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7014, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7013  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f39b6b009d0) = 7016
+7016  execve("/usr/bin/c++", ["/usr/bin/c++", "-o", "CMakeFiles/main.dir/main.cpp.o", "-c", "@cwd@/source/main.cpp"], [/* 24 vars */] <unfinished ...>
+7013  wait4(-1,  <unfinished ...>
+7016  <... execve resumed> )            = 0
+7016  arch_prctl(ARCH_SET_FS, 0x7fc059df0740) = 0
+7016  vfork()                           = 7017
+7017  execve("/usr/lib/gcc/x86_64-linux-gnu/5/cc1plus", ["/usr/lib/gcc/x86_64-linux-gnu/5/cc1plus", "-quiet", "-imultiarch", "x86_64-linux-gnu", "-D_GNU_SOURCE", "@cwd@/source/main.cpp", "-quiet", "-dumpbase", "main.cpp", "-mtune=generic", "-march=x86-64", "-auxbase-strip", "CMakeFiles/main.dir/main.cpp.o", "-fstack-protector-strong", "-Wformat", "-Wformat-security", "-o", "/tmp/ccQ6jMSL.s"], [/* 26 vars */] <unfinished ...>
+7016  wait4(7017,  <unfinished ...>
+7017  <... execve resumed> )            = 0
+7017  arch_prctl(ARCH_SET_FS, 0x7fd2fce30840) = 0
+7017  exit_group(0)                     = ?
+7017  +++ exited with 0 +++
+7016  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7017
+7016  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7017, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7016  vfork()                           = 7018
+7016  wait4(7018,  <unfinished ...>
+7018  execve("/home/pixel/sonar-scanner/sonar-scanner-3.3.0.1492-linux/bin/as", ["as", "--64", "-o", "CMakeFiles/main.dir/main.cpp.o", "/tmp/ccQ6jMSL.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7018  execve("/home/pixel/bin/as", ["as", "--64", "-o", "CMakeFiles/main.dir/main.cpp.o", "/tmp/ccQ6jMSL.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7018  execve("/home/pixel/.local/bin/as", ["as", "--64", "-o", "CMakeFiles/main.dir/main.cpp.o", "/tmp/ccQ6jMSL.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7018  execve("/opt/cmake-3.11/bin/as", ["as", "--64", "-o", "CMakeFiles/main.dir/main.cpp.o", "/tmp/ccQ6jMSL.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7018  execve("/usr/local/sbin/as", ["as", "--64", "-o", "CMakeFiles/main.dir/main.cpp.o", "/tmp/ccQ6jMSL.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7018  execve("/usr/local/bin/as", ["as", "--64", "-o", "CMakeFiles/main.dir/main.cpp.o", "/tmp/ccQ6jMSL.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7018  execve("/usr/sbin/as", ["as", "--64", "-o", "CMakeFiles/main.dir/main.cpp.o", "/tmp/ccQ6jMSL.s"], [/* 26 vars */]) = -1 ENOENT (No such file or directory)
+7018  execve("/usr/bin/as", ["as", "--64", "-o", "CMakeFiles/main.dir/main.cpp.o", "/tmp/ccQ6jMSL.s"], [/* 26 vars */]) = 0
+7018  arch_prctl(ARCH_SET_FS, 0x7fdbbc6e0700) = 0
+7018  exit_group(0)                     = ?
+7018  +++ exited with 0 +++
+7016  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7018
+7016  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7018, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7016  exit_group(0)                     = ?
+7016  +++ exited with 0 +++
+7013  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7016
+7013  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7016, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7013  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f39b6b009d0) = 7019
+7013  wait4(-1,  <unfinished ...>
+7019  execve("/bin/sh", ["/bin/sh", "-c", "/opt/cmake-3.11/bin/cmake -E cmake_echo_color --switch= --green --bold --progress-dir=@cwd@/build/CMakeFiles --progress-num=4 \"Linking CXX executable main\""], [/* 24 vars */]) = 0
+7019  arch_prctl(ARCH_SET_FS, 0x7f04d4860700) = 0
+7019  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f04d48609d0) = 7020
+7019  wait4(-1,  <unfinished ...>
+7020  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_echo_color", "--switch=", "--green", "--bold", "--progress-dir=@cwd@/build/CMakeFiles", "--progress-num=4", "Linking CXX executable main"], [/* 24 vars */]) = 0
+7020  arch_prctl(ARCH_SET_FS, 0x7ff43bc80740) = 0
+7020  exit_group(0)                     = ?
+7020  +++ exited with 0 +++
+7019  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7020
+7019  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7020, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7019  exit_group(0)                     = ?
+7019  +++ exited with 0 +++
+7013  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7019
+7013  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7019, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7013  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f39b6b009d0) = 7021
+7013  wait4(-1,  <unfinished ...>
+7021  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_link_script", "CMakeFiles/main.dir/link.txt", "--verbose="], [/* 24 vars */]) = 0
+7021  arch_prctl(ARCH_SET_FS, 0x7f59c3910740) = 0
+7021  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f59c3910a10) = 7022
+7022  execve("/usr/bin/c++", ["/usr/bin/c++", "-rdynamic", "CMakeFiles/main.dir/main.cpp.o", "-o", "main", "liblib.a"], [/* 24 vars */]) = 0
+7022  arch_prctl(ARCH_SET_FS, 0x7f4ea13a0740) = 0
+7022  vfork()                           = 7023
+7023  execve("/usr/lib/gcc/x86_64-linux-gnu/5/collect2", ["/usr/lib/gcc/x86_64-linux-gnu/5/collect2", "-plugin", "/usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so", "-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper", "-plugin-opt=-fresolution=/tmp/ccrIYCTi.res", "-plugin-opt=-pass-through=-lgcc_s", "-plugin-opt=-pass-through=-lgcc", "-plugin-opt=-pass-through=-lc", "-plugin-opt=-pass-through=-lgcc_s", "-plugin-opt=-pass-through=-lgcc", "--sysroot=/", "--build-id", "--eh-frame-hdr", "-m", "elf_x86_64", "--hash-style=gnu", "--as-needed", "-export-dynamic", "-dynamic-linker", "/lib64/ld-linux-x86-64.so.2", "-z", "relro", "-o", "main", "/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o", "/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o", "/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o", "-L/usr/lib/gcc/x86_64-linux-gnu/5", "-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu", "-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib", "-L/lib/x86_64-linux-gnu", "-L/lib/../lib", "-L/usr/lib/x86_64-linux-gnu", "-L/usr/lib/../lib", "-L/usr/lib/gcc/x86_64-linux-gnu/5/../../..", "CMakeFiles/main.dir/main.cpp.o", "liblib.a", "-lstdc++", "-lm", "-lgcc_s", "-lgcc", "-lc", "-lgcc_s", "-lgcc", "/usr/lib/gcc/x86_64-linux-gnu/5/crtend.o", "/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o"], [/* 29 vars */] <unfinished ...>
+7022  wait4(7023,  <unfinished ...>
+7023  <... execve resumed> )            = 0
+7023  arch_prctl(ARCH_SET_FS, 0x7f38f17f0740) = 0
+7023  vfork()                           = 7024
+7023  wait4(7024,  <unfinished ...>
+7024  execve("/usr/bin/ld", ["/usr/bin/ld", "-plugin", "/usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so", "-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper", "-plugin-opt=-fresolution=/tmp/ccrIYCTi.res", "-plugin-opt=-pass-through=-lgcc_s", "-plugin-opt=-pass-through=-lgcc", "-plugin-opt=-pass-through=-lc", "-plugin-opt=-pass-through=-lgcc_s", "-plugin-opt=-pass-through=-lgcc", "--sysroot=/", "--build-id", "--eh-frame-hdr", "-m", "elf_x86_64", "--hash-style=gnu", "--as-needed", "-export-dynamic", "-dynamic-linker", "/lib64/ld-linux-x86-64.so.2", "-z", "relro", "-o", "main", "/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o", "/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o", "/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o", "-L/usr/lib/gcc/x86_64-linux-gnu/5", "-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu", "-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib", "-L/lib/x86_64-linux-gnu", "-L/lib/../lib", "-L/usr/lib/x86_64-linux-gnu", "-L/usr/lib/../lib", "-L/usr/lib/gcc/x86_64-linux-gnu/5/../../..", "CMakeFiles/main.dir/main.cpp.o", "liblib.a", "-lstdc++", "-lm", "-lgcc_s", "-lgcc", "-lc", "-lgcc_s", "-lgcc", "/usr/lib/gcc/x86_64-linux-gnu/5/crtend.o", "/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o"], [/* 29 vars */]) = 0
+7024  arch_prctl(ARCH_SET_FS, 0x7f92edae0700) = 0
+7024  exit_group(0)                     = ?
+7024  +++ exited with 0 +++
+7023  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7024
+7023  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7024, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7023  exit_group(0)                     = ?
+7023  +++ exited with 0 +++
+7022  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7023
+7022  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7023, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7022  exit_group(0)                     = ?
+7022  +++ exited with 0 +++
+7021  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7022, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7021  wait4(7022, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 7022
+7021  exit_group(0)                     = ?
+7021  +++ exited with 0 +++
+7013  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7021
+7013  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7021, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7013  chdir("@cwd@/build") = 0
+7013  exit_group(0)                     = ?
+7013  +++ exited with 0 +++
+6992  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7013
+6992  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7013, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6992  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f9539c309d0) = 7025
+7025  execve("/bin/sh", ["/bin/sh", "-c", "/opt/cmake-3.11/bin/cmake -E cmake_echo_color --switch= --progress-dir=@cwd@/build/CMakeFiles --progress-num=3,4 \"Built target main\""], [/* 24 vars */] <unfinished ...>
+6992  wait4(-1,  <unfinished ...>
+7025  <... execve resumed> )            = 0
+7025  arch_prctl(ARCH_SET_FS, 0x7f06d1510700) = 0
+7025  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f06d15109d0) = 7026
+7026  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_echo_color", "--switch=", "--progress-dir=@cwd@/build/CMakeFiles", "--progress-num=3,4", "Built target main"], [/* 24 vars */] <unfinished ...>
+7025  wait4(-1,  <unfinished ...>
+7026  <... execve resumed> )            = 0
+7026  arch_prctl(ARCH_SET_FS, 0x7f6c99740740) = 0
+7026  exit_group(0)                     = ?
+7026  +++ exited with 0 +++
+7025  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7026
+7025  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7026, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+7025  exit_group(0)                     = ?
+7025  +++ exited with 0 +++
+6992  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7025
+6992  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7025, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6992  chdir("@cwd@/build") = 0
+6992  exit_group(0)                     = ?
+6992  +++ exited with 0 +++
+6989  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 6992
+6989  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=6992, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+6989  clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f76d03909d0) = 7027
+6989  wait4(-1,  <unfinished ...>
+7027  execve("/opt/cmake-3.11/bin/cmake", ["/opt/cmake-3.11/bin/cmake", "-E", "cmake_progress_start", "@cwd@/build/CMakeFiles", "0"], [/* 24 vars */]) = 0
+7027  arch_prctl(ARCH_SET_FS, 0x7ff4000e0740) = 0
+7027  exit_group(0)                     = ?
+7027  +++ exited with 0 +++
+6989  <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 7027
+6989  chdir("@cwd@/build") = 0
+6989  exit_group(0)                     = ?
+6989  +++ exited with 0 +++

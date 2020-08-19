@@ -1,0 +1,2 @@
+gcc ../source/a.c -shared -Wl,-z -Wl,relro -o liba.so
+gcc ../source/b.c -shared -Wl,-z,relro -o libb.so

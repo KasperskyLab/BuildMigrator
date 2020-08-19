@@ -1,0 +1,1 @@
+gcc -c -DA=B -Iinclude -fno-rtti -m32 -pthread -Wl,-z,relro,-z,now ../source/a.cpp -o a.o

@@ -1,0 +1,8 @@
+cl /c -DIGNORE -Iignore ../source/1.c /Fo1.obj
+cl /c -Iignore -DIGNORE ../source/2.cpp /Fo2.obj
+ml /c -DIGNORE -Iignore ../source/3.asm /Fo3.obj
+nasm -fwin32 -DIGNORE -Iignore ../source/4.asm -o 4.obj
+rc -DIGNORE -Iignore ..\source\5.rc /fo5.res
+yasm -fwin32 -DIGNORE -Iignore ../source/6.asm -o 6.obj
+
+link.exe /machine:6510 /OUT:./out.exe 1.obj 2.obj 3.obj 4.obj 5.res 6.obj

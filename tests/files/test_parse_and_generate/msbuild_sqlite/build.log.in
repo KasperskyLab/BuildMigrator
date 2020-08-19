@@ -1,0 +1,40 @@
+Microsoft (R) Build Engine version 15.9.21+g9802d43bc3 for .NET Framework
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Building the projects in this solution one at a time. To enable parallel build, please add the "/m" switch.
+Build started 2/28/2020 9:58:23 AM.
+Project "@cwd@\source\sqlite2015.sln" on node 1 (Build target(s)).
+ValidateSolutionConfiguration:
+  Building solution configuration "Release|Win32".
+Project "@cwd@\source\sqlite2015.sln" (1) is building "@cwd@\source\sqlite2015.vcxproj" (2) on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "@cwd@\build\sqlite2015.tlog\".
+InitializeBuildStatus:
+  Creating "@cwd@\build\sqlite2015.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  cl.exe /c /Zi /nologo /W3 /WX- /diagnostics:classic /sdl- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D SQLITE_EXPORTS /D NO_TCL /D THREADSAFE=1 /D SQLITE_ENABLE_COLUMN_METADATA /D SQLITE_ENABLE_UNLOCK_NOTIFY /D SQLITE_HAS_CODEC /D SQLITE_ENABLE_DBSTAT_VTAB /D _WINDLL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"@cwd@\build\\" /Fd"@cwd@\build\vc141.pdb" /Gd /TP /analyze- /FC /errorReport:queue /Zc:threadSafeInit- /arch:IA32 /Gw /Gy DllMain.cpp
+  DllMain.cpp
+  cl.exe /c /Zi /nologo /W3 /WX- /diagnostics:classic /sdl- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D SQLITE_EXPORTS /D NO_TCL /D THREADSAFE=1 /D SQLITE_ENABLE_COLUMN_METADATA /D SQLITE_ENABLE_UNLOCK_NOTIFY /D SQLITE_HAS_CODEC /D SQLITE_ENABLE_DBSTAT_VTAB /D _WINDLL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"@cwd@\build\\" /Fd"@cwd@\build\vc141.pdb" /Gd /TC /analyze- /FC /errorReport:queue /Zc:threadSafeInit- /arch:IA32 /Gw /Gy sqlite3.c
+  sqlite3.c
+ResourceCompile:
+  rc.exe /l"0x0409" /nologo /fo"@cwd@\build\sqlite3.res" sqlite3.rc 
+Link:
+  link.exe /ERRORREPORT:QUEUE /OUT:"@cwd@\build\dblite.dll" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /DEF:"./sqlite3.x86.def" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"@cwd@\build\dblite.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"@cwd@\build\dblite.lib" /MACHINE:X86 /SAFESEH /DLL @cwd@\build\sqlite3.res
+  @cwd@\build\DllMain.obj
+  @cwd@\build\sqlite3.obj
+     Creating library @cwd@\build\dblite.lib and object @cwd@\build\dblite.exp
+  Generating code
+  All 2168 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  sqlite2015.vcxproj -> @cwd@\build\dblite.dll
+FinalizeBuildStatus:
+  Deleting file "@cwd@\build\sqlite2015.tlog\unsuccessfulbuild".
+  Touching "@cwd@\build\sqlite2015.tlog\sqlite2015.lastbuildstate".
+Done Building Project "@cwd@\source\sqlite2015.vcxproj" (default targets).
+Done Building Project "@cwd@\source\sqlite2015.sln" (Build target(s)).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:06.94

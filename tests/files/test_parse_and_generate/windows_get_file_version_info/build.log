@@ -1,0 +1,9 @@
+CL.exe /c /nologo /W3 /WX- /diagnostics:classic /O2 /Ob2 /Oy- /D WIN32 /D _WINDOWS /D NDEBUG /D test_EXPORTS /D _WINDLL /D _MBCS /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fodllmain.obj /Gd /TP /analyze- /FC /errorReport:queue ..\source\dllmain.cpp
+
+rc.exe /D WIN32 /D _WINDOWS /D NDEBUG /l"0x0409" /nologo /fo"version.res" ..\source\version.rc
+
+link.exe /ERRORREPORT:QUEUE /OUT:"test_lib.dll" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"test_lib.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /DLL version.res dllmain.obj
+
+CL.exe /c /nologo /W3 /WX- /diagnostics:classic /O2 /Ob2 /Oy- /D WIN32 /D _WINDOWS /D NDEBUG /D _MBCS /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo".\\" /Gd /TP /analyze- /FC /errorReport:queue ..\source\main.cpp
+
+link.exe /ERRORREPORT:QUEUE /OUT:"test_app.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"test_app.lib" /MACHINE:X86 /SAFESEH  /machine:X86 version.res main.obj

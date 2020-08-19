@@ -1,0 +1,2 @@
+cl.exe /c /DFOO=1 /unknown-compile-flag ../source/foo.c /Fofoo.obj
+link.exe /DLL /unknown-link-flag /out:libfoo.dll foo.obj

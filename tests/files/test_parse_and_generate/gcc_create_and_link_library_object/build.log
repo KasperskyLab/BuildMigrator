@@ -1,0 +1,8 @@
+gcc -fPIC -c ../source/foo.c -o foo.o
+gcc -c ../source/static.c -o static.o
+ar rc libstatic.a foo.o static.o
+
+# create library object (=object file compiled with -fPIC)
+mv foo.o foo.lo
+
+gcc ../source/main.c foo.lo -o main

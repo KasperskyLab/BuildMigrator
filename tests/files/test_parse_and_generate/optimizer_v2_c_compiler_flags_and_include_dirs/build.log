@@ -1,0 +1,6 @@
+gcc -c ../source/c1.c -I. -Iinclude_a -DC=1 -DF1 -o c1.o
+gcc -c ../source/c2.c -Iinclude_a -Iinclude_b -DC=1 -DF2 -o c2.o
+g++ -c ../source/cpp1.cpp -o cpp1.o
+
+gcc -shared c1.o cpp1.o -o libshared.so
+gcc c2.o -o app

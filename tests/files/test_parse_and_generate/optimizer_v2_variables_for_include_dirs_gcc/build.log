@@ -1,0 +1,10 @@
+gcc -c -Iaaaaaaaaaaaaaaaaaaaaaa -Ibbbbbbbbbbbbbbbbbbb ../source/1.c -o 1.o
+gcc -c ../source/2.c -o 2.o
+
+g++ -c -Iaaaaaaaaaaaaaaaaaaaaaa -Ibbbbbbbbbbbbbbbbbbb ../source/3.cpp -o 3.o
+g++ -c ../source/4.cpp -o 4.o
+
+gcc -c -Iaaaaaaaaaaaaaaaaaaaaaa -Ibbbbbbbbbbbbbbbbbbb ../source/5.S -o 5.o
+gcc -c ../source/6.S -o 6.o
+
+gcc 1.o 2.o 3.o 4.o 5.o 6.o -o test

@@ -1,0 +1,10 @@
+gcc -o impl_c.o -c ../source/impl_c.c
+ar cr libimpl_c_s.a impl_c.o
+
+gcc -shared -lm -z noexecstack -Wl,-z,defs -L. -o libimpl_c.so -Wl,--whole-archive libimpl_c_s.a
+
+
+g++ -o impl_cpp.o -c ../source/impl_cpp.cpp
+ar cr libimpl_cpp_s.a impl_cpp.o
+
+g++ -shared -lm -z noexecstack -Wl,-z,defs -L. -o libimpl_cpp.so -Wl,--whole-archive libimpl_cpp_s.a

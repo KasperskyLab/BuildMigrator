@@ -1,0 +1,3 @@
+ml64.exe /c /nologo /Zi /Fo"embedded.obj" /W3 /errorReport:prompt /Ta..\source\embedded.S
+nasm.exe "-f win64" "-DNEAR" "-Ox" "-g" "-o" "aes-x86_64.obj" "..\source\aes-x86_64.asm"
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.12.25827\bin\HostX64\x64\Lib.exe /OUT:"test.lib" /NOLOGO /MACHINE:X64 aes-x86_64.obj embedded.obj

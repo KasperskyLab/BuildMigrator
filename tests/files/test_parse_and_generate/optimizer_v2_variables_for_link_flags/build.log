@@ -1,0 +1,9 @@
+gcc -c ../source/a.c -o a.o
+gcc -c ../source/b.c -o b.o
+gcc -c ../source/c.c -o c.o
+gcc -c ../source/d.c -o d.o
+
+gcc -pie -pthread -static-libgcc -Wl,-z,relro,-z,now -Wl,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a.o -o test1
+gcc -fuse-ld=gold -nolibc -nostdlib -Wl,bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb b.o -o test2
+gcc -shared -pthread -static-libgcc -Wl,-z,relro,-z,now -Wl,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa c.o -o libtest3.so
+gcc -shared -fuse-ld=gold -nolibc -nostdlib -Wl,bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb  d.o -o libtest4.so
