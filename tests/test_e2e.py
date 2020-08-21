@@ -48,6 +48,10 @@ class TestE2E(base.TestBase):
             logger.warn("CMake or Ninja not found: skipping build")
             return
 
+        with open(os.path.join(out_dir, "CMakeLists.txt"), "r") as f:
+            content = f.read()
+            logger.debug("Generated CMakeLists.txt:\n%s", content)
+
         # build with native toolchain
         build_dir = os.path.join(self.test_method_out_dir, "_cmake_build")
         self.build_with_cmake_and_ninja(source_dir=out_dir, build_dir=build_dir)
