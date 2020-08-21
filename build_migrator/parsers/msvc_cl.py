@@ -3,6 +3,7 @@ import logging
 import os
 import re
 
+from build_migrator.common.algorithm import flatten_list
 from build_migrator.common.argument_parser_ex import ArgumentParserEx
 import build_migrator.common.os_ext as os_ext
 from build_migrator.common import subprocess_ex
@@ -14,7 +15,6 @@ from build_migrator.helpers import (
     format_flag_gnu,
     format_flag_msvc,
     filter_flags,
-    flatten_list,
 )
 from .msvc_link import get_msvc_link_parser
 

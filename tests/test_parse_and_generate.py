@@ -4176,3 +4176,9 @@ class TestParseAndGenerate(base.TestBase):
         self.parse_and_generate(
             "windows", flag_optimizer_ver="2", log_type="make"
         )
+
+    def test_clang_install_name(self):
+        if not self.has_clang:
+            self.skipTest("Clang not found in PATH")
+
+        self.parse_and_generate("darwin")

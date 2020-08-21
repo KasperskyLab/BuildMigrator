@@ -74,7 +74,7 @@ add_custom_target(lib_icudata ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/lib/libicu
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/stubdata)
 
 add_library(stubdata_icudata.58.2 SHARED ${ICU_SOURCE_DIR}/stubdata/stubdata.c)
-target_link_options(stubdata_icudata.58.2 PRIVATE "-install_name @loader_path/libicudata.58.dylib")
+target_link_options(stubdata_icudata.58.2 PRIVATE -install_name @loader_path/libicudata.58.dylib)
 set_target_properties(stubdata_icudata.58.2 PROPERTIES OUTPUT_NAME icudata)
 set_target_output_subdir(stubdata_icudata.58.2 LIBRARY_OUTPUT_DIRECTORY stubdata)
 set_target_output_subdir(stubdata_icudata.58.2 RUNTIME_OUTPUT_DIRECTORY stubdata)
@@ -89,7 +89,7 @@ add_library(icuuc.58.2 SHARED
     ${ICU_SOURCE_DIR}/common/unistr_case_locale.cpp
     ${ICU_SOURCE_DIR}/common/uniset.cpp
 )
-target_link_options(icuuc.58.2 PRIVATE "-install_name @loader_path/libicuuc.58.dylib")
+target_link_options(icuuc.58.2 PRIVATE -install_name @loader_path/libicuuc.58.dylib)
 target_link_libraries(icuuc.58.2 PRIVATE stubdata_icudata.58.2)
 target_compile_options(icuuc.58.2 PRIVATE -DU_COMMON_IMPLEMENTATION)
 target_language_compile_options(icuuc.58.2 C PRIVATE -fvisibility=hidden)
@@ -107,7 +107,7 @@ add_library(icui18n.58.2 SHARED
     ${ICU_SOURCE_DIR}/i18n/decContext.c
     ${ICU_SOURCE_DIR}/i18n/decimfmtimpl.cpp
 )
-target_link_options(icui18n.58.2 PRIVATE "-install_name @loader_path/libicui18n.58.dylib")
+target_link_options(icui18n.58.2 PRIVATE -install_name @loader_path/libicui18n.58.dylib)
 target_link_libraries(icui18n.58.2 PRIVATE icuuc.58.2 stubdata_icudata.58.2)
 target_compile_options(icui18n.58.2 PRIVATE -DU_I18N_IMPLEMENTATION)
 target_include_directories(icui18n.58.2 PRIVATE ${ICU_SOURCE_DIR}/i18n)
@@ -127,7 +127,7 @@ add_library(icuio.58.2 SHARED
     ${ICU_SOURCE_DIR}/io/ufile.c
     ${ICU_SOURCE_DIR}/io/ucln_io.cpp
 )
-target_link_options(icuio.58.2 PRIVATE "-install_name @loader_path/libicuio.58.dylib")
+target_link_options(icuio.58.2 PRIVATE -install_name @loader_path/libicuio.58.dylib)
 target_link_libraries(icuio.58.2 PRIVATE icuuc.58.2 stubdata_icudata.58.2 icui18n.58.2)
 target_compile_options(icuio.58.2 PRIVATE -DU_IO_IMPLEMENTATION)
 target_include_directories(icuio.58.2 PRIVATE ${ICU_SOURCE_DIR}/i18n)
@@ -147,7 +147,7 @@ add_library(icutu.58.2 SHARED
     ${ICU_SOURCE_DIR}/tools/toolutil/ucm.c
     ${ICU_SOURCE_DIR}/tools/toolutil/ucln_tu.cpp
 )
-target_link_options(icutu.58.2 PRIVATE "-install_name @loader_path/libicutu.58.dylib")
+target_link_options(icutu.58.2 PRIVATE -install_name @loader_path/libicutu.58.dylib)
 target_link_libraries(icutu.58.2 PRIVATE icui18n.58.2 icuuc.58.2 stubdata_icudata.58.2)
 target_compile_options(icutu.58.2 PRIVATE
     -DU_TOOLUTIL_IMPLEMENTATION

@@ -7,8 +7,10 @@ include(extensions)
 
 set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
 
-add_library(a SHARED ${SOURCE_DIR}/a.c)
-target_link_options(a PRIVATE -Wl,-z -Wl,relro)
-
-add_library(b SHARED ${SOURCE_DIR}/b.c)
-target_link_options(b PRIVATE -Wl,-z,relro)
+add_library(foo SHARED ${SOURCE_DIR}/foo.c)
+target_link_options(foo PRIVATE
+    -Wl,-headerpad_max_install_names
+    -Wl,-search_paths_first
+    -install_name
+    /usr/local/lib/libfoo.dylib
+)

@@ -1,4 +1,4 @@
-from build_migrator.helpers import flatten_list
+from build_migrator.common.algorithm import flatten_list
 from build_migrator.modules import Generator
 
 

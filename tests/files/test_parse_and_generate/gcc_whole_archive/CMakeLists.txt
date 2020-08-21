@@ -21,7 +21,7 @@ if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/empty.c)
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/empty.c "")
 endif()
 add_library(public SHARED ${CMAKE_CURRENT_BINARY_DIR}/empty.c)
-target_link_options(public PRIVATE "-z noexecstack" -Wl,-z,defs)
+target_link_options(public PRIVATE -z noexecstack -Wl,-z,defs)
 target_link_libraries(public PRIVATE
     m
     -Wl,-whole-archive
