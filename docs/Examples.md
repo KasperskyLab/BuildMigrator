@@ -1,6 +1,6 @@
 # Examples
 
-All example scripts and CMakeLists are located [in Examples subfolder](/Examples).
+All example scripts and CMakeLists are located [in Examples subfolder](Examples).
 
 ## OpenSSL
 
@@ -10,7 +10,7 @@ It was tested on OpenSSL version 1.1.1g.
 
 ### OpenSSL: Linux
 
-Command line [for_linux.sh](/Examples/openssl/for_linux.sh)
+Command line [for_linux.sh](Examples/openssl/for_linux.sh)
 
 ```
 build_migrator --build_command "{source_dir}/config" \
@@ -23,7 +23,7 @@ build_migrator --build_command "{source_dir}/config" \
     --verbose
 ```
 
-Resulting CMakeLists.txt: [CMakeLists_linux.txt](/Examples/openssl/CMakeLists_linux.txt)
+Resulting CMakeLists.txt: [CMakeLists_linux.txt](Examples/openssl/CMakeLists_linux.txt)
 
 Notes:
 
@@ -38,7 +38,7 @@ Notes:
 
 ### OpenSSL: Windows
 
-Command line [for_windows.bat](/Examples/openssl/for_windows.bat)
+Command line [for_windows.bat](Examples/openssl/for_windows.bat)
 
 ```
 build_migrator --build_command "perl {source_dir}/Configure VC-WIN64A" ^
@@ -52,11 +52,11 @@ build_migrator --build_command "perl {source_dir}/Configure VC-WIN64A" ^
     --verbose
 ```
 
-Resulting CMakeLists.txt: [CMakeLists_windows.txt](/Examples/openssl/CMakeLists_windows.txt)
+Resulting CMakeLists.txt: [CMakeLists_windows.txt](Examples/openssl/CMakeLists_windows.txt)
 
 ### OpenSSL: Darwin
 
-Command line [for_darwin.sh](/Examples/openssl/for_darwin.sh)
+Command line [for_darwin.sh](Examples/openssl/for_darwin.sh)
 
 ```
 build_migrator --build_command "{source_dir}/config" \
@@ -76,7 +76,7 @@ tested on ICU version 67.1.
 
 ### ICU: Linux
 
-Command line [for_linux.sh](/Examples/icu/for_linux.sh)
+Command line [for_linux.sh](Examples/icu/for_linux.sh)
 
 ```
 build_migrator --build_command "{source_dir}/configure --enable-static --enable-shared=no --enable-tests=no --enable-samples=no  --enable-dyload=no" \
@@ -90,7 +90,7 @@ build_migrator --build_command "{source_dir}/configure --enable-static --enable-
     --verbose
 ```
 
-Resulting CMakeLists.txt: [CMakeLists_linux.txt](/Examples/icu/CMakeLists_linux.txt)
+Resulting CMakeLists.txt: [CMakeLists_linux.txt](Examples/icu/CMakeLists_linux.txt)
 
 Notes:
 
@@ -108,7 +108,7 @@ This example shows the following:
 
 ### Boost with ICU support: Linux
 
-Build Boost: [1_build_for_linux.sh](/Examples/boost_with_icu/1_build_for_linux.sh)
+Build Boost: [1_build_for_linux.sh](Examples/boost_with_icu/1_build_for_linux.sh)
 
 ```
 build_migrator --commands build \
@@ -121,7 +121,7 @@ build_migrator --commands build \
 
 Note: `library-path` and `-sICU_PATH` should point to original (Autotools-based) ICU `make install` directory.
 
-Parse Boost logs: [2_parse_for_linux.sh](/Examples/boost_with_icu/2_parse_for_linux.sh)
+Parse Boost logs: [2_parse_for_linux.sh](Examples/boost_with_icu/2_parse_for_linux.sh)
 
 ```
 build_migrator --commands parse \
@@ -140,7 +140,7 @@ Notes:
 - `--path_alias` creates a configurable CMake variable (CACHE) that points to ICU include directory.
 - Boost.Build prints some system messages starting with `compile-c-c++`, which Clang/GCC parser considers to be a compiler command line, which it's not. `--replace_line` argument fixes this.
 
-Generate CMakeLists.txt: [3_generate_for_linux.sh](/Examples/boost_with_icu/3_generate_for_linux.sh)
+Generate CMakeLists.txt: [3_generate_for_linux.sh](Examples/boost_with_icu/3_generate_for_linux.sh)
 
 ```
 build_migrator --commands optimize generate --aggressive_optimization \
@@ -157,7 +157,7 @@ Notes:
 - `--flat_build_dir` allows to ignore Boost's highly nested build tree when generating CMakeLists.txt.
   For example, `@build_dir@/1/2/3/4/libboost_system.a` becomes `@build_dir@/libboost_system.a` in CMake build output.
 
-Resulting CMakeLists.txt: [CMakeLists_linux.txt](/Examples/icu/CMakeLists_linux.txt)
+Resulting CMakeLists.txt: [CMakeLists_linux.txt](Examples/boost_with_icu/CMakeLists_linux.txt)
 
 Generated CMakeLists for Boost and ICU can be built together using such entry point:
 

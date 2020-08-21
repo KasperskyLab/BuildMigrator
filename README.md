@@ -44,7 +44,7 @@ BuildMigrator was battle-tested on many libraries, including:
 **Important:** `Ninja` or `Unix Makefiles` CMake generators are recommended for building
 CMakeLists.txt created by BuildMigrator.
 Usage of `Visual Studio` generator is strongly discouraged due to a lack of correct compiler
-option control in VS. See explanation: [/docs/VisualStudioGenerator.md](VisualStudioGenerator.md).
+option control in VS. See explanation: [VisualStudioGenerator.md](docs/VisualStudioGenerator.md).
 
 ## Installation
 
