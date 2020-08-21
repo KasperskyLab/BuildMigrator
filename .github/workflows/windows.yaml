@@ -18,4 +18,4 @@ jobs:
 
     - name: Test
       shell: cmd
-      run: bin/test.bat
+      run: 'set "PATH=C:\Program Files\NASM;C:\Program Files\LLVM\bin;%PATH%" && bin\test.bat'
