@@ -1,0 +1,3 @@
+# Preserve line endings in these files
+*.log binary
+*.log.in binary
