@@ -2725,6 +2725,10 @@ class TestParseAndGenerate(base.TestBase):
         self.parse_and_generate("windows", flag_optimizer_ver="2")
 
     def test_clang_multiarch(self):
+        on_linux = not self.on_windows() and not self.on_darwin()
+        if on_linux:
+            self.skipTest("Clang on Linux (Ubuntu) doesn't support -arch argument")
+
         if not self.has_clang:
             self.skipTest("Clang not found in PATH")
 
