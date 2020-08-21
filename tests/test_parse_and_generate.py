@@ -4118,7 +4118,7 @@ class TestParseAndGenerate(base.TestBase):
         )
 
         target_file = os.path.join(
-            self.test_method_out_dir, "out/external/C_/temp/1.def"
+            self.test_method_out_dir, "out/external/C_/somedir/1.def"
         )
         expected_file = os.path.join(self.test_method_dir, "files", "1.def")
         self.assertFilesEqual(expected_file, target_file)
