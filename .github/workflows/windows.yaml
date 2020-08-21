@@ -1,0 +1,21 @@
+name: Windows
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Install dependencies
+      shell: cmd
+      run: choco install cmake python ninja nasm yasm mingw llvm
+
+    - name: Test
+      shell: cmd
+      run: bin/test.bat

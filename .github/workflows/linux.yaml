@@ -1,0 +1,18 @@
+name: Linux
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get install cmake build-essential ninja-build python
+
+    - name: Test
+      run: ./bin/test.sh
