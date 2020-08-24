@@ -5,7 +5,9 @@ on:
   push:
 
 jobs:
-  build:
+  test:
+    name: Test
+
     runs-on: macOS-latest
 
     steps:
