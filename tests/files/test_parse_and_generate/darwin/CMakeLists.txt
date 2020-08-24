@@ -28,10 +28,12 @@ set_source_files_properties(${SOURCE_DIR}/bar.c PROPERTIES INCLUDE_DIRECTORIES "
 add_library(bar SHARED ${SOURCE_DIR}/bar.c)
 target_link_options(bar PRIVATE
     -all_load
-    "-install_name @executable_path/libbar.dylib"
+    -install_name
+    @executable_path/libbar.dylib
     -headerpad_max_install_names
     -stdlib=libc++
-    "-exported_symbols_list ${CMAKE_CURRENT_BINARY_DIR}/libbar.def"
+    -exported_symbols_list
+    ${CMAKE_CURRENT_BINARY_DIR}/libbar.def
     -Wl,-search_paths_first
     -Wl,-headerpad_max_install_names
 )

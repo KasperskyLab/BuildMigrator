@@ -1,0 +1,32 @@
+name: Linux
+
+on:
+  release:
+    types: published
+
+jobs:
+  upload_release:
+    name: Upload Release
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get install p7zip-full
+
+    - name: Create Archive
+      run: |
+        7z a -spf build-migrator.zip ./bin/build_migrator ./bin/build_migrator.bat ./bin/merge_cmake  ./bin/merge_cmake.bat build_migrator docs merge_cmake LICENSE README.md
+
+    - name: Upload Release Asset
+      if: github.event.action == 'published'
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: build-migrator.zip
+        asset_name: build-migrator.zip
+        asset_content_type: application/zip

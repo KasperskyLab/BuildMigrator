@@ -2725,6 +2725,10 @@ class TestParseAndGenerate(base.TestBase):
         self.parse_and_generate("windows", flag_optimizer_ver="2")
 
     def test_clang_multiarch(self):
+        on_linux = not self.on_windows() and not self.on_darwin()
+        if on_linux:
+            self.skipTest("Clang on Linux (Ubuntu) doesn't support -arch argument")
+
         if not self.has_clang:
             self.skipTest("Clang not found in PATH")
 
@@ -4114,7 +4118,7 @@ class TestParseAndGenerate(base.TestBase):
         )
 
         target_file = os.path.join(
-            self.test_method_out_dir, "out/external/C_/temp/1.def"
+            self.test_method_out_dir, "out/external/C_/somedir/1.def"
         )
         expected_file = os.path.join(self.test_method_dir, "files", "1.def")
         self.assertFilesEqual(expected_file, target_file)
@@ -4172,3 +4176,9 @@ class TestParseAndGenerate(base.TestBase):
         self.parse_and_generate(
             "windows", flag_optimizer_ver="2", log_type="make"
         )
+
+    def test_clang_install_name(self):
+        if not self.has_clang:
+            self.skipTest("Clang not found in PATH")
+
+        self.parse_and_generate("darwin")

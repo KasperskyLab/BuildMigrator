@@ -1,0 +1,1 @@
+clang -c ../source/foo.c -o foo.oclang -dynamiclib -Wl,-headerpad_max_install_names -Wl,-search_paths_first -install_name /usr/local/lib/libfoo.dylib -o libfoo.dylib foo.o

@@ -3,7 +3,8 @@ import operator
 from build_migrator.common.algorithm import join_nested_lists
 from build_migrator.common.os_ext import Windows
 from build_migrator.generators._cmake.cmake_cmd import CMakeCmd
-from build_migrator.helpers import flatten_list, ModuleTypes, get_target_output_dir
+from build_migrator.common.algorithm import flatten_list
+from build_migrator.helpers import ModuleTypes, get_target_output_dir
 from build_migrator.modules import Generator
 
 

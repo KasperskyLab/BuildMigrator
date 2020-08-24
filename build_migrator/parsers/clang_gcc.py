@@ -4,12 +4,12 @@ import os
 import platform
 import re
 import subprocess
+from build_migrator.common.algorithm import flatten_list
 from build_migrator.helpers import (
     get_module_target,
     ModuleTypes,
     get_source_file_reference,
     filter_flags,
-    flatten_list,
     format_flag_gnu,
 )
 from build_migrator.common.os_ext import get_platform

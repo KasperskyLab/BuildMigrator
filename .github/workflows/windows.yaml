@@ -1,0 +1,23 @@
+name: Windows
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  test:
+    name: Test
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Install dependencies
+      shell: cmd
+      run: choco install cmake python ninja nasm yasm mingw llvm
+
+    - name: Test
+      shell: cmd
+      run: 'set "PATH=C:\Program Files\NASM;C:\Program Files\LLVM\bin;%PATH%" && bin\test.bat'

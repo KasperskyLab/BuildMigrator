@@ -9,7 +9,7 @@ set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/1)
 
 add_library(a SHARED ${SOURCE_DIR}/1.c)
-target_link_options(a PRIVATE "-Wl,-rpath -Wl,${CMAKE_CURRENT_BINARY_DIR}/1")
+target_link_options(a PRIVATE -Wl,-rpath -Wl,${CMAKE_CURRENT_BINARY_DIR}/1)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/2)
 
 add_library(b SHARED ${SOURCE_DIR}/2.c)
@@ -17,7 +17,7 @@ target_link_options(b PRIVATE -Wl,-rpath,${CMAKE_CURRENT_BINARY_DIR}/2)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/3)
 
 add_library(c SHARED ${SOURCE_DIR}/3.c)
-target_link_options(c PRIVATE "-Wl,--rpath -Wl,${CMAKE_CURRENT_BINARY_DIR}/3")
+target_link_options(c PRIVATE -Wl,--rpath -Wl,${CMAKE_CURRENT_BINARY_DIR}/3)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/4)
 
 add_library(d SHARED ${SOURCE_DIR}/4.c)
@@ -33,4 +33,4 @@ target_link_options(f_so PRIVATE -Wl,-rpath=${CMAKE_CURRENT_BINARY_DIR}/6)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/7)
 
 add_library(g SHARED ${SOURCE_DIR}/7.c)
-target_link_options(g PRIVATE "-rpath ${CMAKE_CURRENT_BINARY_DIR}/7")
+target_link_options(g PRIVATE -rpath ${CMAKE_CURRENT_BINARY_DIR}/7)

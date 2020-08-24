@@ -90,6 +90,16 @@ def join_nested_lists(flags, delim=" "):
     return flags
 
 
+def flatten_list(lst):
+    result = []
+    for elem in lst:
+        if isinstance(elem, list):
+            result.extend(flatten_list(elem))
+        else:
+            result.append(elem)
+    return result
+
+
 # Replaces lists with tuples
 def make_hashable(v):
     if isinstance(v, Hashable):

@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from .cmake_module import system_library_map
-from build_migrator.helpers import flatten_list
+from build_migrator.common.algorithm import flatten_list
 from build_migrator.modules import Generator
 
 

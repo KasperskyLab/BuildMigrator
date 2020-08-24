@@ -11,7 +11,7 @@ import shutil
 import sys
 import traceback
 
-from build_migrator.common.algorithm import join_nested_lists
+from build_migrator.common.algorithm import flatten_list
 from build_migrator.common.os_ext import Unix
 
 from build_migrator.parsers.build_log_parser import (
@@ -613,7 +613,7 @@ class CMakeContext(EntryPoint, Generator):
 
     def format_link_flags(self, target_name, flags):
         return self.format_call(
-            "target_link_options", [target_name, "PRIVATE"], join_nested_lists(flags)
+            "target_link_options", [target_name, "PRIVATE"], flatten_list(flags)
         )
 
     def format_header(

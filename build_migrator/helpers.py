@@ -410,17 +410,6 @@ def filter_flags(delete_rxs, flags):
     return filtered_flags
 
 
-# TODO: improve
-def flatten_list(lst):
-    result = []
-    for elem in lst:
-        if isinstance(elem, list):
-            result.extend(flatten_list(elem))
-        else:
-            result.append(elem)
-    return result
-
-
 def format_flag_msvc_lowercase(lst):
     return "".join(format_flag_msvc(lst)).lower()
 

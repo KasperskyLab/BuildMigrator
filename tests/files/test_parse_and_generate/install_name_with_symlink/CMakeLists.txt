@@ -10,7 +10,8 @@ set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
 add_library(jsoncpp SHARED ${SOURCE_DIR}/libjsoncpp.cpp)
 target_link_options(jsoncpp PRIVATE
     -Wl,-headerpad_max_install_names
-    "-install_name libjsoncpp.1.dylib"
+    -install_name
+    libjsoncpp.1.dylib
 )
 target_compile_options(jsoncpp PRIVATE -std=c++11 -fstack-protector)
 set_target_properties(jsoncpp PROPERTIES VERSION 1.7.2)
