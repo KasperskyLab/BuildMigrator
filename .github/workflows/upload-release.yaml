@@ -18,7 +18,7 @@ jobs:
 
     - name: Create Archive
       run: |
-        7z a -spf build-migrator.zip ./bin/build_migrator ./bin/build_migrator.bat ./bin/merge_cmake  ./bin/merge_cmake.bat build_migrator docs merge_cmake LICENSE README.md
+        7z a -spf build-migrator.zip bin/build_migrator bin/build_migrator.bat bin/merge_cmake bin/merge_cmake.bat build_migrator docs merge_cmake LICENSE README.md
 
     - name: Upload Release Asset
       if: github.event.action == 'published'
