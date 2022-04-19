@@ -14,14 +14,9 @@ class Libtool(Parser):
     def add_arguments(arg_parser):
         pass
 
-    @staticmethod
-    def is_applicable(project=None, log_type=None):
-        return True
-
-    def __init__(self, context, project_version=None, platform=None):
+    def __init__(self, context):
         self.context = context
-        self.platform = get_platform(platform)
-        self.project_version = project_version
+        self.platform = context.platform
         self.program_re = self.platform.get_program_path_re("libtool")
 
         # see https://www.gnu.org/software/libtool/manual/libtool.html
@@ -62,7 +57,6 @@ class Libtool(Parser):
             output,
             objects=objects,
             dependencies=dependencies,
-            module_name=descr["module_name"],
         )
 
 

@@ -1,15 +1,14 @@
-# BuildMigrator - migrate your builds to CMake
+# BuildMigrator - migrate your builds to Bazel or CMake
 
 BuildMigrator automates migration from Autotools (make), Ninja or MSBuild
-to CMake. It achieves that by parsing build logs and generating a CMakeLists.txt
-for discovered build artifacts. Additionally, it helps remove unused files
-by keeping track of files that were used during compilation.
+to Bazel or CMake. It achieves that by parsing build logs and generating a
+CMakeLists.txt or BUILD.bazel script for discovered build artifacts. Additionally,
+it helps remove unused files by keeping track of files that were used during
+compilation.
 
 BuildMigrator is intended for use in Monorepo-style projects with lots of
 third party dependencies that require a homogenous build process and clean
 source tree.
-
-Support for target build systems other than CMake is planned (Bazel).
 
 Supported log types:
 

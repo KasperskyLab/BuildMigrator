@@ -35,7 +35,7 @@ class CMakeVariable(Generator):
             if target["name"] in self.default_values:
                 target["value"] = self.default_values[target["name"]]
 
-            if self.context.platform == "windows" and target["name"].startswith("libs"):
+            if self.context.platform_name == "windows" and target["name"].startswith("libs"):
                 # process MSVC library lists
                 target["value"] = [
                     x[:-4] if x.endswith(".lib") else x for x in target["value"]
@@ -49,8 +49,8 @@ class CMakeVariable(Generator):
 
             # Join link flags created by v1 optimizer into single string.
             # This is needed to avoid deviating from previously generated CMakeLists.txt content
-            if self.context.project:
-                link_flags_v1_var_name = self.context.project.upper() + "_LINK_FLAGS"
+            if self.context.project_name:
+                link_flags_v1_var_name = self.context.project_name.upper() + "_LINK_FLAGS"
             else:
                 link_flags_v1_var_name = "LINK_FLAGS"
             if target["name"] == link_flags_v1_var_name:

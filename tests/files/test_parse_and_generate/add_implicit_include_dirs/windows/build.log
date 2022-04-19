@@ -1,0 +1,20 @@
+cl.exe /c ../../source/a.c -I../../source/include /Fo a.obj
+lib.exe /out:default.lib a.obj
+
+cl.exe /c ../../source/b.c -I../../source/include /Fo b.obj
+lib.exe /out:header_in_dir_with_src.lib b.obj
+
+cl.exe /c ../../source/c.c /Fo c.obj
+lib.exe /out:header_in_not_declare_dir.lib c.obj
+
+cl.exe /c ../../source/d.c /Fo d.obj
+lib.exe /out:double_header_in_not_declare_dir.lib d.obj
+
+cl.exe /c ../../source/e.c /Fo e.obj
+lib.exe /out:without_headers.lib e.obj
+
+cl.exe /c ../../source/incl/f.c -I../../source/incl /Fo f.obj
+lib.exe /out:similar_declared_include_dirs.lib f.obj
+
+cl.exe /c ../../source/incl/f.c /Fo g.obj
+lib.exe /out:similar_source_dirs.lib g.obj

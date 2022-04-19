@@ -1,0 +1,16 @@
+cc_binary(
+    linkstatic = False,
+    name = "test",
+    srcs = [
+        "source/a.c",
+    ],
+    copts = [
+    ],
+    includes = [
+    ],
+    linkopts = [
+        "-pthread",
+    ],
+    deps = [
+    ],
+)

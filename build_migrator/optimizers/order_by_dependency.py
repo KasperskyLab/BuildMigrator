@@ -26,7 +26,7 @@ class OrderTargetByDependency(Optimizer):
             deps = filter(order_index.get, targets[i].get("dependencies") or [])
             unordered_dependencies = []
             for d in deps:
-                if d not in _targets_ready:
+                if d not in _targets_ready and d not in unordered_dependencies:
                     unordered_dependencies.append(d)
             if unordered_dependencies:
                 unordered_dependencies = sorted(

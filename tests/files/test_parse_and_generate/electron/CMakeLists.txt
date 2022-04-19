@@ -156,7 +156,6 @@ set_target_properties(egl PROPERTIES OUTPUT_NAME libEGL)
 set_target_properties(egl PROPERTIES ARCHIVE_OUTPUT_NAME libEGL.dll)
 set_target_output_subdir(egl RUNTIME_OUTPUT_DIRECTORY swiftshader)
 set_target_output_subdir(egl ARCHIVE_OUTPUT_DIRECTORY swiftshader)
-set_target_properties(egl PROPERTIES VERSION 5.0.5)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/obj/third_party/swiftshader/src/OpenGL/libGLESv2)
 
 add_library(swiftshader_libglesv2_static.static STATIC
@@ -169,7 +168,6 @@ target_compile_options(swiftshader_libglesv2_static.static PRIVATE ${compile_fla
 target_include_directories(swiftshader_libglesv2_static.static PRIVATE ${include_dirs_2})
 set_target_properties(swiftshader_libglesv2_static.static PROPERTIES OUTPUT_NAME swiftshader_libGLESv2_static)
 set_target_output_subdir(swiftshader_libglesv2_static.static ARCHIVE_OUTPUT_DIRECTORY obj/third_party/swiftshader/src/OpenGL/libGLESv2)
-set_target_properties(swiftshader_libglesv2_static.static PROPERTIES VERSION 5.0.5)
 
 add_library(swiftshader_glesv2 SHARED
     ${ELECTRON_SOURCE_DIR}/third_party/swiftshader/src/OpenGL/libGLESv2/entry_points.cpp
@@ -183,7 +181,6 @@ set_target_properties(swiftshader_glesv2 PROPERTIES OUTPUT_NAME libGLESv2)
 set_target_properties(swiftshader_glesv2 PROPERTIES ARCHIVE_OUTPUT_NAME libGLESv2.dll)
 set_target_output_subdir(swiftshader_glesv2 RUNTIME_OUTPUT_DIRECTORY swiftshader)
 set_target_output_subdir(swiftshader_glesv2 ARCHIVE_OUTPUT_DIRECTORY swiftshader)
-set_target_properties(swiftshader_glesv2 PROPERTIES VERSION 5.0.5)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/gen/protoc_out)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/gen/third_party/webrtc)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/gen/v8/include)
@@ -203,7 +200,6 @@ target_include_directories(usrsctp.static PRIVATE
 target_language_compile_options(usrsctp.static C PRIVATE ${compile_flags_1} ${compile_flags_4})
 set_target_properties(usrsctp.static PROPERTIES OUTPUT_NAME usrsctp)
 set_target_output_subdir(usrsctp.static ARCHIVE_OUTPUT_DIRECTORY obj/third_party/usrsctp)
-set_target_properties(usrsctp.static PROPERTIES VERSION 5.0.5)
 
 set_source_files_properties(${ELECTRON_SOURCE_DIR}/third_party/skia/src/opts/SkOpts_hsw.cpp PROPERTIES COMPILE_OPTIONS /arch:AVX2)
 set_source_files_properties(${ELECTRON_SOURCE_DIR}/third_party/skia/src/opts/SkOpts_sse42.cpp PROPERTIES COMPILE_OPTIONS "-DSK_CPU_SSE_LEVEL=42;-msse4.2")
@@ -346,7 +342,6 @@ target_yasm_sources(electron PRIVATE
     ${ELECTRON_SOURCE_DIR}/third_party/blink/renderer/platform/heap/asm/SaveRegisters_x86.asm
 )
 set_target_properties(electron PROPERTIES ARCHIVE_OUTPUT_NAME electron.dll)
-set_target_properties(electron PROPERTIES VERSION 5.0.5)
 
 add_library(glesv2 SHARED
     ${ELECTRON_SOURCE_DIR}/third_party/angle/src/libGLESv2/entry_points_egl.cpp
@@ -383,4 +378,3 @@ target_include_directories(glesv2 PRIVATE
 target_language_compile_options(glesv2 CXX PRIVATE /Oi)
 set_target_properties(glesv2 PROPERTIES OUTPUT_NAME libGLESv2)
 set_target_properties(glesv2 PROPERTIES ARCHIVE_OUTPUT_NAME libGLESv2.dll)
-set_target_properties(glesv2 PROPERTIES VERSION 5.0.5)

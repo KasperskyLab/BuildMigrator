@@ -1,5 +1,4 @@
 import logging
-import platform
 from build_migrator.helpers import get_command_target
 from build_migrator.common.os_ext import get_platform
 from build_migrator.common.argument_parser_ex import ArgumentParserEx
@@ -12,10 +11,10 @@ logger = logging.getLogger(__name__)
 class Icupkg(ParserBase):
     priority = 7
 
-    def __init__(self, context, platform=platform.system().lower()):
+    def __init__(self, context):
         ParserBase.__init__(self, context)
 
-        self.platform = get_platform(platform)
+        self.platform = context.platform
         self.program_re = self.platform.get_program_path_re("icupkg")
 
         # https://helpmanual.io/help/icupkg/

@@ -167,9 +167,7 @@ class Yasm(CompilerParser):
             return target
 
         compiler = tokens.pop(0)
-        compiler_nrm = self.context.platform.normalize_path(compiler)
-        if compiler_nrm in self.context.path_aliases:
-            compiler = self.context.path_aliases[compiler_nrm]
+        compiler = self.context.apply_path_aliases(self.context.normalize_path(compiler, ignore_working_dir=True))
 
         namespace = self.parser.parse_args(tokens)
 

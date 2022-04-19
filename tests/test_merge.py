@@ -69,7 +69,6 @@ class TestMerge(base.TestBase):
     def test_merge_empty_lines_reverse(self):
         self._test_merge_impl("empty_lines", True)
 
-    @unittest.skip("Bug #4103439")
     def test_zlib(self):
         self._test_merge_impl("zlib", True)
 
@@ -79,10 +78,11 @@ class TestMerge(base.TestBase):
     def test_icu(self):
         self._test_merge_impl("icu", True)
 
-    @unittest.skip("Bug #4103439")
     def test_conflicting_order_1(self):
         self._test_merge_impl("conflicting_order_1", True)
 
-    @unittest.skip("Bug #4103439")
     def test_conflicting_order_2(self):
         self._test_merge_impl("conflicting_order_2", True)
+
+    def test_conflicting_order_3(self):
+        self._test_merge_impl("conflicting_order_3", True)

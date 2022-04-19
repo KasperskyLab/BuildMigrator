@@ -103,7 +103,10 @@ args:
                         Replaces occurences of regex in syscall arguments in build log.
                         Applicable only for --log_type strace.
   --tokenizer_ruleset {windows,posix}
-                        Change command tokenization rules. Default is inferred from --platform.
+                        Change command tokenization rules. Default is inferred
+                        from --platform. It is recommended to use
+                        posix_on_windows to correctly parse make/ninja logs
+                        from Windows builds.
   --command_substitution
                         Enable command substitution in Posix-style (e.g. Makefile) logs.
                         Examples: 'gcc `pwd`/a.c' or 'gcc $(pwd)/a.c' will expand into
@@ -127,11 +130,12 @@ Build Object Model is automatically loaded during the execution of subsequent co
 ### 3. Optimize Build Object Model, generate CMakeLists.txt
 
 ```
-build_migrator --commands optimize generate [optimizer args...] [generator args...]
+build_migrator --commands optimize generate --generator cmake [optimizer args...] [generator args...]
 
 optimizer args:
   --keep_flags REGEX [REGEX ...]
                         Keep only matching compiler and linker flags in Build Object Model.
+                        This argument doesn't affect link libraries (-lpthread etc).
                         By default, all flags are kept.
   --delete_flags REGEX [REGEX ...]
                         Delete matching compiler and linker flags.
@@ -154,8 +158,9 @@ optimizer args:
                         CMakeLists.txt size at the expense of its readability.
 
 generator args:
-  --project NAME        Value of project(PROJECT-NAME) argument.
-  --project_version VERSION
+  --cmake_project_name NAME
+                        Value of project(PROJECT-NAME) argument.
+  --cmake_project_version VERSION
                         Value of project(VERSION) argument.
   --rename REGEX REPL   Modify automatic CMake target names.
   --default_var_value VAR_NAME VALUE
@@ -230,6 +235,52 @@ if (APPLE)
     target_compile_options(bar PRIVATE /DFOR_APPLE)
 endif()
 ```
+
+### 5. Generate BUILD.bazel
+
+```
+build_migrator --commands optimize generate --generator bazel [optimizer args...] [generator args...]
+
+optimizer args:
+  --keep_flags REGEX [REGEX ...]
+                        Keep only matching compiler and linker flags in Build Object Model.
+                        This argument doesn't affect link libraries (-lpthread etc).
+                        By default, all flags are kept.
+  --delete_flags REGEX [REGEX ...]
+                        Delete matching compiler and linker flags.
+                        This option comes into effect after --keep_flags.
+                        Keep in mind, that this option is processed after build log object model
+                        has already been constructed. This means that if some flag introduces an
+                        unwanted dependency, this option will not delete that dependency.
+                        If this behavior is not desired, --ignore_compile_flags and
+                        --ignore_link_flags should be used.
+  --replace_flag REGEX REPL
+                        Replace matching compiler and linker flags.
+                        This option comes into effect after --delete_flags.
+  --file_target_change_encoding PATHMASK SOURCE_ENC DEST_ENC
+                        Change encoding for files matching specified mask.
+                        Supported encoding names are the same as for io module.
+  --file_target_gsub PATHMASK REGEX REPL
+                        Substitute content for files matching specified mask.
+
+generator args:
+  --prebuilt_subdir DIRNAME
+                        Directory for files that were generated during
+                        original build, but have no associated command line.
+                        Files like these may appear if there's no parser for
+                        command line that generates them, or command line is
+                        not listed in build logs. Default: prebuilt.
+  --source_subdir DIRNAME
+                        Subdirectory for captured source files. Default:
+                        source.
+```
+
+Above commands create BUILD.bazel script as well as `source` and `prebuilt` directories.
+
+- `source` directory contains required build files that originally were in --source_dir
+- `prebuilt` directory contains required files that originally were in --build_dirs and have no command that produce them as output.
+
+Original source tree is no longer needed, generated BUILD.bazel script is self-contained.
 
 ## Presets
 

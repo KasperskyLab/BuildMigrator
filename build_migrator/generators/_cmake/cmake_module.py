@@ -133,7 +133,7 @@ class CMakeModule(Generator):
                     specify_linker_language = True
 
             for source in target["sources"]:
-                compile_flags = join_nested_lists(source.get("compile_flags"))
+                compile_flags = source.get("compile_flags")
                 if compile_flags:
                     compile_flags = self.context.process_compile_flags(compile_flags)
                     # TODO: use source_compile_options()
@@ -372,21 +372,35 @@ class CMakeModule(Generator):
                 s = self.context.format_dependencies(target)
                 f.write(s)
 
-            if target["module_type"] != ModuleTypes.interface:
-                if target["module_name"] and target["module_name"] != target["name"]:
+            module_name = None
+            if target["module_type"] not in (ModuleTypes.interface, ModuleTypes.object_lib):
+                output = target["output"]
+                platform = self.context.platform
+                descr = None
+                if target["module_type"] == ModuleTypes.static_lib:
+                    descr = platform.parse_static_lib(output)
+                elif target["module_type"] == ModuleTypes.shared_lib:
+                    descr = platform.parse_shared_lib(output)
+                elif target["module_type"] == ModuleTypes.executable:
+                    descr = platform.parse_executable(output)
+                if descr is not None:
+                    module_name = descr["module_name"]
+                if module_name and module_name != target["name"]:
                     s = self.context.format_call(
                         "set_target_properties",
                         [target["name"], "PROPERTIES", "OUTPUT_NAME"],
-                        [target["module_name"]],
+                        [module_name],
                     )
                     f.write(s)
 
             msvc_import_lib = target.get("msvc_import_lib")
-            if msvc_import_lib and self.context.platform == "windows":
+            if msvc_import_lib and self.context.platform_name == "windows":
+                if module_name is None:
+                    raise ValueError("Invalid state: module_name is None")
                 if isinstance(msvc_import_lib, list):
                     msvc_import_lib = msvc_import_lib[0]
                 descr = Windows.parse_import_lib(msvc_import_lib)
-                if descr["module_name"] != target["module_name"]:
+                if descr["module_name"] != module_name:
                     # Custom import lib name
                     s = self.context.format_call(
                         "set_target_properties",
@@ -407,7 +421,7 @@ class CMakeModule(Generator):
                     requires_archive_output_dir = False
                     requires_runtime_output_dir = False
                     if target["module_type"] == ModuleTypes.shared_lib:
-                        if self.context.platform == "windows":
+                        if self.context.platform_name == "windows":
                             requires_runtime_output_dir = True
                             requires_archive_output_dir = True
                         else:
@@ -447,12 +461,18 @@ class CMakeModule(Generator):
 
             compatibility_version = target.get("compatibility_version")
             if compatibility_version is not None:
-                s = self.context.format_call(
-                    "set_target_properties",
-                    [target["name"], "PROPERTIES", "SOVERSION"],
-                    [compatibility_version],
-                )
-                f.write(s)
+                if self.context.platform_name == "darwin":
+                    parts = compatibility_version.split('.')
+                    while parts[-1] == '0':
+                        parts = parts[0:-1]
+                    compatibility_version = '.'.join(parts)
+                if compatibility_version:
+                    s = self.context.format_call(
+                        "set_target_properties",
+                        [target["name"], "PROPERTIES", "SOVERSION"],
+                        [compatibility_version],
+                    )
+                    f.write(s)
 
         post_build_commands = target.get("post_build_commands") or []
         for cmd_target in post_build_commands:

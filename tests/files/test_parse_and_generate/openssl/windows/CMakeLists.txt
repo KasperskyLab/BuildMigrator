@@ -26,7 +26,6 @@ set_source_files_properties(${OPENSSL_SOURCE_DIR}/apps/app_rand.c PROPERTIES INC
 add_library(apps.static STATIC ${OPENSSL_SOURCE_DIR}/apps/app_rand.c)
 set_target_properties(apps.static PROPERTIES OUTPUT_NAME libapps)
 set_target_output_subdir(apps.static ARCHIVE_OUTPUT_DIRECTORY apps)
-set_target_properties(apps.static PROPERTIES VERSION 1.1.1)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/crypto/include)
 
 set_source_files_properties(${OPENSSL_SOURCE_DIR}/crypto/dllmain.c PROPERTIES COMPILE_OPTIONS
@@ -55,7 +54,6 @@ add_library(openssl_1_1 SHARED
     ${CMAKE_CURRENT_BINARY_DIR}/crypto/aes/aes-586.asm
 )
 target_link_libraries(openssl_1_1 PRIVATE ws2_32 crypt32)
-set_target_properties(openssl_1_1 PROPERTIES VERSION 1.1.1)
 
 set_source_files_properties(${OPENSSL_SOURCE_DIR}/apps/asn1pars.c PROPERTIES COMPILE_OPTIONS
     "/bigobj;/GL;-Zc:threadSafeInit-;-Gw;-DOPENSSL_SYS_WIN32;-DWIN32_LEAN_AND_MEAN;-DOPENSSL_USE_APPLINK"
@@ -67,4 +65,3 @@ add_executable(openssl ${OPENSSL_SOURCE_DIR}/apps/asn1pars.c)
 target_link_options(openssl PRIVATE setargv.obj)
 target_link_libraries(openssl PRIVATE apps.static openssl_1_1 ws2_32 crypt32)
 set_target_output_subdir(openssl RUNTIME_OUTPUT_DIRECTORY apps)
-set_target_properties(openssl PROPERTIES VERSION 1.1.1)

@@ -77,7 +77,6 @@ set_target_properties(stubdata_icudata.58.2 PROPERTIES OUTPUT_NAME icudt58)
 set_target_properties(stubdata_icudata.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icudt)
 set_target_output_subdir(stubdata_icudata.58.2 RUNTIME_OUTPUT_DIRECTORY stubdata)
 set_target_output_subdir(stubdata_icudata.58.2 ARCHIVE_OUTPUT_DIRECTORY stubdata)
-set_target_properties(stubdata_icudata.58.2 PROPERTIES VERSION 58.2)
 
 add_library(icuuc.58.2 SHARED
     ${ICU_SOURCE_DIR}/common/ucnv.c
@@ -93,7 +92,6 @@ set_target_properties(icuuc.58.2 PROPERTIES OUTPUT_NAME icuuc58)
 set_target_properties(icuuc.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icuuc)
 set_target_output_subdir(icuuc.58.2 RUNTIME_OUTPUT_DIRECTORY lib)
 set_target_output_subdir(icuuc.58.2 ARCHIVE_OUTPUT_DIRECTORY lib)
-set_target_properties(icuuc.58.2 PROPERTIES VERSION 58.2)
 
 add_library(icui18n.58.2 SHARED
     ${ICU_SOURCE_DIR}/i18n/ucln_in.cpp
@@ -109,7 +107,6 @@ set_target_properties(icui18n.58.2 PROPERTIES OUTPUT_NAME icuin58)
 set_target_properties(icui18n.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icuin)
 set_target_output_subdir(icui18n.58.2 RUNTIME_OUTPUT_DIRECTORY lib)
 set_target_output_subdir(icui18n.58.2 ARCHIVE_OUTPUT_DIRECTORY lib)
-set_target_properties(icui18n.58.2 PROPERTIES VERSION 58.2)
 
 add_library(icuio.58.2 SHARED
     ${ICU_SOURCE_DIR}/io/locbund.cpp
@@ -121,11 +118,12 @@ target_link_libraries(icuio.58.2 PRIVATE icuuc.58.2 stubdata_icudata.58.2 icui18
 target_include_directories(icuio.58.2 PRIVATE ${ICU_SOURCE_DIR}/i18n)
 target_language_compile_options(icuio.58.2 C PRIVATE -DU_IO_IMPLEMENTATION)
 target_language_compile_options(icuio.58.2 CXX PRIVATE -DU_IO_IMPLEMENTATION)
+target_language_include_directories(icuio.58.2 C PRIVATE ${ICU_SOURCE_DIR}/io)
+target_language_include_directories(icuio.58.2 CXX PRIVATE ${ICU_SOURCE_DIR}/io)
 set_target_properties(icuio.58.2 PROPERTIES OUTPUT_NAME icuio58)
 set_target_properties(icuio.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icuio)
 set_target_output_subdir(icuio.58.2 RUNTIME_OUTPUT_DIRECTORY lib)
 set_target_output_subdir(icuio.58.2 ARCHIVE_OUTPUT_DIRECTORY lib)
-set_target_properties(icuio.58.2 PROPERTIES VERSION 58.2)
 
 add_library(icutu.58.2 SHARED
     ${ICU_SOURCE_DIR}/tools/toolutil/filestrm.c
@@ -135,11 +133,11 @@ add_library(icutu.58.2 SHARED
 target_link_libraries(icutu.58.2 PRIVATE icui18n.58.2 icuuc.58.2 stubdata_icudata.58.2)
 target_compile_options(icutu.58.2 PRIVATE ${compile_flags_1})
 target_include_directories(icutu.58.2 PRIVATE ${ICU_SOURCE_DIR}/i18n)
+target_language_include_directories(icutu.58.2 C PRIVATE ${ICU_SOURCE_DIR}/tools/toolutil)
 set_target_properties(icutu.58.2 PROPERTIES OUTPUT_NAME icutu58)
 set_target_properties(icutu.58.2 PROPERTIES ARCHIVE_OUTPUT_NAME icutu)
 set_target_output_subdir(icutu.58.2 RUNTIME_OUTPUT_DIRECTORY lib)
 set_target_output_subdir(icutu.58.2 ARCHIVE_OUTPUT_DIRECTORY lib)
-set_target_properties(icutu.58.2 PROPERTIES VERSION 58.2)
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lib/sicudt.lib
     COMMAND
@@ -161,7 +159,6 @@ target_compile_options(icui18n.static PRIVATE -DU_I18N_IMPLEMENTATION -DU_STATIC
 target_include_directories(icui18n.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
 set_target_properties(icui18n.static PROPERTIES OUTPUT_NAME sicuin)
 set_target_output_subdir(icui18n.static ARCHIVE_OUTPUT_DIRECTORY lib)
-set_target_properties(icui18n.static PROPERTIES VERSION 58.2)
 
 add_library(icuio.static STATIC
     ${ICU_SOURCE_DIR}/io/locbund.cpp
@@ -169,10 +166,9 @@ add_library(icuio.static STATIC
     ${ICU_SOURCE_DIR}/io/ucln_io.cpp
 )
 target_compile_options(icuio.static PRIVATE -DU_IO_IMPLEMENTATION -DU_STATIC_IMPLEMENTATION)
-target_include_directories(icuio.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+target_include_directories(icuio.static PRIVATE ${ICU_SOURCE_DIR}/i18n ${ICU_SOURCE_DIR}/io)
 set_target_properties(icuio.static PROPERTIES OUTPUT_NAME sicuio)
 set_target_output_subdir(icuio.static ARCHIVE_OUTPUT_DIRECTORY lib)
-set_target_properties(icuio.static PROPERTIES VERSION 58.2)
 
 add_library(icutu.static STATIC
     ${ICU_SOURCE_DIR}/tools/toolutil/filestrm.c
@@ -181,9 +177,9 @@ add_library(icutu.static STATIC
 )
 target_compile_options(icutu.static PRIVATE ${compile_flags_1} -DU_STATIC_IMPLEMENTATION)
 target_include_directories(icutu.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+target_language_include_directories(icutu.static C PRIVATE ${ICU_SOURCE_DIR}/tools/toolutil)
 set_target_properties(icutu.static PROPERTIES OUTPUT_NAME sicutu)
 set_target_output_subdir(icutu.static ARCHIVE_OUTPUT_DIRECTORY lib)
-set_target_properties(icutu.static PROPERTIES VERSION 58.2)
 
 add_library(icuuc.static STATIC
     ${ICU_SOURCE_DIR}/common/ucnv.c
@@ -194,4 +190,3 @@ add_library(icuuc.static STATIC
 target_compile_options(icuuc.static PRIVATE -DU_COMMON_IMPLEMENTATION -DU_STATIC_IMPLEMENTATION)
 set_target_properties(icuuc.static PROPERTIES OUTPUT_NAME sicuuc)
 set_target_output_subdir(icuuc.static ARCHIVE_OUTPUT_DIRECTORY lib)
-set_target_properties(icuuc.static PROPERTIES VERSION 58.2)

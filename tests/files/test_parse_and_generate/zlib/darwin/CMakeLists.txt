@@ -63,3 +63,4 @@ target_include_directories(zlib_object_lib_1 PRIVATE
 add_library(z SHARED $<TARGET_OBJECTS:zlib_object_lib_1>)
 set_target_properties(z PROPERTIES LINKER_LANGUAGE C)
 set_target_properties(z PROPERTIES VERSION 1.2.11)
+set_target_properties(z PROPERTIES SOVERSION 1)

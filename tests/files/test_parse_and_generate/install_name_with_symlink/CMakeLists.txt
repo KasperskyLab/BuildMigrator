@@ -15,7 +15,7 @@ target_link_options(jsoncpp PRIVATE
 )
 target_compile_options(jsoncpp PRIVATE -std=c++11 -fstack-protector)
 set_target_properties(jsoncpp PROPERTIES VERSION 1.7.2)
-set_target_properties(jsoncpp PROPERTIES SOVERSION 1.0.0)
+set_target_properties(jsoncpp PROPERTIES SOVERSION 1)
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libjsoncpp.1.dylib
     COMMAND

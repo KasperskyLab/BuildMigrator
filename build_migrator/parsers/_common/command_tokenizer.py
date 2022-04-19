@@ -1,68 +1,39 @@
 import os
-import platform
 import re
 import subprocess
 from build_migrator.modules import Parser
 
 
-posix_rx = re.compile(
+# Regular expression should provide the following capture groups (in order):
+# * Double-quoted string
+# * Single-quoted string
+# * Escape characters
+# * Pipe operator
+# * Word
+# * Whitespace
+# * Fail
+# 
+# Each match is appended to an accumulator string until Pipe, Whitespace or Fail is found.
+# * Whitespace/Pipe/End: accumulated string is considered a full argument and appended
+#                        to the resulting list.
+# * Fail: ValueError is raised.
+
+POSIX_RX = re.compile(
     r""""((?:\\["\\]|[^"])*)"|'([^']*)'|(\\.)|(&&?|\|\|?|\d?\>|[<])|([^\s'"\\&|<>]+)|(\s+)|(.)"""
 )
-windows_rx = re.compile(
+WINDOWS_RX = re.compile(
     r""""((?:""|\\["\\]|[^"])*)"?()|(\\\\(?=\\*")|\\")|(&&?|\|\|?|\d?>|[<])|([^\s"&|<>]+)|(\s+)|(.)"""
+)
+# Posix parser with Windows flavour
+POSIX_ON_WINDOWS_RX = re.compile(
+    r""""((?:\\"|[^"])*)"?()|(\\["\\&|<>*])|(&&?|\|\|?|\d?\>|[<])|((?:[^\s"\\&|<>]|\\(?!["\\&|<>*]))+)|(\s+)|(.)"""
 )
 
 
-# TODO: Make our own implementation
-# Current implementation is taken from here:
-# https://stackoverflow.com/revisions/35900070/2 (by user kxr)
-def cmdline_split(s, platform="this"):
-    """Multi-platform variant of shlex.split() for command-line splitting.
-    For use with subprocess, for argv injection etc. Using fast REGEX.
-
-    platform: 'this' = auto from current platform;
-              1 = POSIX;
-              0 = Windows/CMD
-              (other values reserved)
-    """
-    if platform == "this":
-        platform = platform.system() != "Windows"
-    if platform == 1:
-        rx = posix_rx
-    elif platform == 0:
-        rx = windows_rx
-    else:
-        raise AssertionError("unkown platform %r" % platform)
-
-    args = []
-    accu = None  # collects pieces of one arg
-    for qs, qss, esc, pipe, word, white, fail in rx.findall(s):
-        if word:
-            pass  # most frequent
-        elif esc:
-            word = esc[1]
-        elif white or pipe:
-            if accu is not None:
-                args.append(accu)
-            if pipe:
-                args.append(pipe)
-            accu = None
-            continue
-        elif fail:
-            raise ValueError("invalid or incomplete shell string")
-        elif qs:
-            if platform == 0:
-                word = word.replace('""', '"')
-            word = qs.replace('\\"', '"').replace("\\\\", "\\")
-        else:
-            word = qss  # may be even empty; must be last
-
-        accu = (accu or "") + word
-
-    if accu is not None:
-        args.append(accu)
-
-    return args
+class Platforms:
+    Windows = "windows"
+    Posix = "posix"
+    PosixOnWindows = "posix_on_windows"
 
 
 class CommandTokenizer(Parser):
@@ -85,8 +56,9 @@ class CommandTokenizer(Parser):
     def add_arguments(arg_parser):
         arg_parser.add_argument(
             "--tokenizer_ruleset",
-            choices=["windows", "posix"],
-            help="Change command tokenization rules. Default is inferred from --platform.",
+            choices=[Platforms.Windows, Platforms.Posix, Platforms.PosixOnWindows],
+            help="Change command tokenization rules. Default is inferred from --platform. "
+            "It is recommended to use {} to correctly parse make/ninja logs from Windows builds.".format(Platforms.PosixOnWindows),
         )
         arg_parser.add_argument(
             "--command_substitution",
@@ -100,11 +72,11 @@ class CommandTokenizer(Parser):
         )
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return log_type in ["make", "ninja", "msbuild"]
 
     def __init__(
-        self, context, platform=None, tokenizer_ruleset=None, command_substitution=None
+        self, context, tokenizer_ruleset=None, command_substitution=None
     ):
         if command_substitution is None:
             command_substitution = False
@@ -113,7 +85,13 @@ class CommandTokenizer(Parser):
         self.platform = tokenizer_ruleset
         self.command_substitution = command_substitution
         if self.platform is None:
-            self.platform = platform
+            self.platform = context.platform_name
+        if self.platform == Platforms.Windows:
+            self.regex = WINDOWS_RX
+        elif self.platform == Platforms.PosixOnWindows:
+            self.regex = POSIX_ON_WINDOWS_RX
+        else:
+            self.regex = POSIX_RX
 
     def parse(self, target):
         line = target.get("line")
@@ -121,7 +99,7 @@ class CommandTokenizer(Parser):
         if not line:
             return target
 
-        if self.platform != "windows" and self.command_substitution:
+        if self.platform != Platforms.Windows and self.command_substitution:
             res = self.subcommand_split_re.split(line)
             if len(res) >= 2:
                 line = ""
@@ -138,7 +116,7 @@ class CommandTokenizer(Parser):
                     line += literal + result
                 line += res[-1]
 
-        if self.platform == "windows":
+        if self.platform == Platforms.Windows:
             lines = self.command_split_win32_re.split(line)
         else:
             lines = self.command_split_posix_re.split(line)
@@ -152,7 +130,7 @@ class CommandTokenizer(Parser):
             if not line:
                 continue
 
-            if self.platform != "windows":
+            if self.platform != Platforms.Windows:
                 # Process subshell commands recursively
                 if line.startswith("(") and line.endswith(")"):
                     targets.extend(
@@ -181,9 +159,8 @@ class CommandTokenizer(Parser):
 
             # From https://www.gnu.org/software/bash/manual/bash.html#Definitions:
             # token: A sequence of characters considered a single unit by the shell. It is either a word or an operator.
-            _platform = 0 if self.platform == "windows" else 1
-            tokens = cmdline_split(line, _platform)
-            if tokens and platform.system() == "Windows" and tokens[0] == "set":
+            tokens = self.cmdline_split(line)
+            if tokens and self.platform == Platforms.Windows and tokens[0] == "set":
                 # set VAR=VALUE
                 tokens = tokens[1:]
             last_parameter_token_idx = -1
@@ -229,6 +206,41 @@ class CommandTokenizer(Parser):
             )
 
         return targets
+
+    # Current implementation is mostly taken from here:
+    # https://stackoverflow.com/revisions/35900070/2 (by user kxr)
+    def cmdline_split(self, s):
+        """Multi-platform variant of shlex.split() for command-line splitting.
+        """
+        args = []
+        accu = None  # collects pieces of one arg
+        for qs, qss, esc, pipe, word, white, fail in self.regex.findall(s):
+            if word:
+                pass  # most frequent
+            elif esc:
+                word = esc[1]
+            elif white or pipe:
+                if accu is not None:
+                    args.append(accu)
+                if pipe:
+                    args.append(pipe)
+                accu = None
+                continue
+            elif fail:
+                raise ValueError("invalid or incomplete shell string")
+            elif qs:
+                if self.platform == Platforms.Windows:
+                    word = word.replace('""', '"')
+                word = qs.replace('\\"', '"').replace("\\\\", "\\")
+            else:
+                word = qss  # may be even empty; must be last
+
+            accu = (accu or "") + word
+
+        if accu is not None:
+            args.append(accu)
+
+        return args
 
 
 __all__ = ["CommandTokenizer"]

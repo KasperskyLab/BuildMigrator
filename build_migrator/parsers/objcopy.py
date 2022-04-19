@@ -11,10 +11,10 @@ logger = logging.getLogger(__name__)
 
 
 class Objcopy(ParserBase):
-    def __init__(self, context, platform=None):
+    def __init__(self, context):
         ParserBase.__init__(self, context)
 
-        self.platform = get_platform(platform)
+        self.platform = context.platform
         self.program_re = self.platform.get_program_path_re("objcopy")
 
         # https://sourceware.org/binutils/docs/binutils/objcopy.html
@@ -86,7 +86,9 @@ class Objcopy(ParserBase):
                 )
                 infile_target["dependencies"].extend(namespace.dependencies)
                 infile_target["dependencies"].remove(infile_target["output"])
-                self.context.update_target(infile_target)
+                _, dependencies = self.context.split_target_dependencies(infile_target)
+                for dep_target in dependencies:
+                    self.context.register_target(dep_target)
                 return []
         return get_command_target(
             None,

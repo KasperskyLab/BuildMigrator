@@ -13,10 +13,10 @@ class Pkgdata(ParserBase):
     # Should be lower than MsvcRc (because we expect that rc target should present)
     priority = 7.1
 
-    def __init__(self, context, platform=None):
+    def __init__(self, context):
         ParserBase.__init__(self, context)
 
-        self.platform = get_platform(platform)
+        self.platform = context.platform
         self.program_re = self.platform.get_program_path_re("pkgdata")
 
         # https://helpmanual.io/help/icupkg/

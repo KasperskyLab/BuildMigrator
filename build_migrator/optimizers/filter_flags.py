@@ -23,6 +23,7 @@ class FilterFlags(Optimizer):
             metavar="REGEX",
             nargs="+",
             help="Keep only matching compiler and linker flags in Build Object Model. "
+            "This argument doesn't affect link libraries (-lpthread etc). "
             "By default, all flags are kept.",
             action=Extend,
         )
@@ -55,7 +56,6 @@ class FilterFlags(Optimizer):
         keep_flags=None,
         delete_flags=None,
         replace_flags=None,
-        platform=None,
     ):
         self._keep_compile_flags_rxs = []
         self._delete_compile_flags_rxs = []
@@ -81,6 +81,9 @@ class FilterFlags(Optimizer):
         for pattern, repl in replace_flags or []:
             self._compile_flags_replacements.append((re.compile(pattern), repl))
             self._link_flags_replacements.append((re.compile(pattern), repl))
+
+        self.for_unix = not context.platform_name.startswith("win")
+
         self.context = context
 
     @staticmethod
@@ -116,19 +119,74 @@ class FilterFlags(Optimizer):
 
         return filtered_flags
 
+    @staticmethod
+    def _filter_libs(delete_rxs, libs, unix_mode=False):
+        filtered_libs = []
+        for f in libs:
+            value = f
+            if not isinstance(value, str):
+                value = value['value']
+            if unix_mode:
+                value = "-l" + value
+
+            remove = False
+            for r in delete_rxs:
+                if r.search(value):
+                    remove = True
+                    break
+
+            if not remove:
+                filtered_libs.append(f)
+            else:
+                logger.debug(" * FilterFlags: removed: %r" % f)
+
+        return filtered_libs
+
     @classmethod
-    def _replace_flags(cls, repls, flags):
+    def _replace_flags(cls, repls, flags, include_dir_mode=False):
         replaced_flags = []
         for f in flags:
             for r, repl in repls:
                 if isinstance(f, str):
-                    f = r.sub(repl, f)
+                    if include_dir_mode:
+                        f_dir = '-I' + f
+                        result = r.sub(repl, f_dir)
+                        if result != f_dir:
+                            if not result.startswith('-I'):
+                                raise ValueError("Invalid include directory replacement: {}".format(result))
+                            f = result[2:]
+                    else:
+                        f = r.sub(repl, f)
                 else:
                     f = cls._replace_flags(repls, f)
 
             replaced_flags.append(f)
 
         return replaced_flags
+
+    @classmethod
+    def _replace_libs(cls, repls, libs, link_flags, unix_mode=False):
+        replaced_libs = []
+        for f in libs:
+            add_lib = True
+            for r, repl in repls:
+                if unix_mode:
+                    f_lib = '-l' + f
+                    result = r.sub(repl, f_lib)
+                    if result != f_lib:
+                        if result.startswith('-l'):
+                            f = result[2:]
+                        else:
+                            # -l<lib> replaced with a (hopefully) link flag
+                            link_flags.append(result)
+                            add_lib = False
+                else:
+                    f = r.sub(repl, f)
+
+            if add_lib:
+                replaced_libs.append(f)
+
+        return replaced_libs
 
     def optimize(self, targets):
         for target in targets:
@@ -154,10 +212,11 @@ class FilterFlags(Optimizer):
                     self._keep_compile_flags_rxs,
                     self._delete_compile_flags_rxs,
                     src["include_dirs"],
-                    True,
+                    include_dir_mode=True,
                 )
                 src["include_dirs"] = self._replace_flags(
-                    self._compile_flags_replacements, src["include_dirs"]
+                    self._compile_flags_replacements, src["include_dirs"],
+                    include_dir_mode=True,
                 )
 
             logger.debug(target["output"])
@@ -181,10 +240,11 @@ class FilterFlags(Optimizer):
                 self._keep_compile_flags_rxs,
                 self._delete_compile_flags_rxs,
                 target["include_dirs"],
-                True,
+                include_dir_mode=True,
             )
             target["include_dirs"] = self._replace_flags(
-                self._compile_flags_replacements, target["include_dirs"]
+                self._compile_flags_replacements, target["include_dirs"],
+                include_dir_mode=True,
             )
 
             if target.get("link_flags"):
@@ -195,6 +255,17 @@ class FilterFlags(Optimizer):
                 )
                 target["link_flags"] = self._replace_flags(
                     self._link_flags_replacements, target["link_flags"]
+                )
+
+            if target.get("libs"):
+                target["libs"] = self._filter_libs(
+                    self._delete_link_flags_rxs,
+                    target["libs"],
+                    unix_mode=self.for_unix,
+                )
+                target["libs"] = self._replace_libs(
+                    self._link_flags_replacements, target["libs"],
+                    target.get("link_flags"), unix_mode=self.for_unix,
                 )
 
         return targets

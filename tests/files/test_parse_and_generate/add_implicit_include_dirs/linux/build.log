@@ -1,0 +1,20 @@
+gcc -c ../../source/a.c -I../../source/include -o a.o
+ar rcs libdefault.a a.o
+
+gcc -c ../../source/b.c -I../../source/include -o b.o
+ar rcs libheader_in_dir_with_src.a b.o
+
+gcc -c ../../source/c.c -o c.o
+ar rcs libheader_in_not_declare_dir.a c.o
+
+gcc -c ../../source/d.c -o d.o
+ar rcs libdouble_header_in_not_declare_dir.a d.o
+
+gcc -c ../../source/e.c -o e.o
+ar rcs libwithout_headers.a e.o
+
+gcc -c ../../source/incl/f.c -I../../source/incl -o f.o
+ar rcs libsimilar_declared_include_dirs.a f.o
+
+gcc -c ../../source/incl/f.c -o g.o
+ar rcs libsimilar_source_dirs.a g.o

@@ -1,7 +1,7 @@
 from copy import deepcopy
+from itertools import chain
 import logging
 import os
-import platform
 import re
 import subprocess
 from build_migrator.common.algorithm import flatten_list
@@ -12,7 +12,7 @@ from build_migrator.helpers import (
     filter_flags,
     format_flag_gnu,
 )
-from build_migrator.common.os_ext import get_platform
+from build_migrator.common.os_ext import get_host_system_name
 from build_migrator.common.argument_parser_ex import ArgumentParserEx
 from .base.compiler_parser import CompilerParser
 from .base.linker_parser import LinkerParser
@@ -51,8 +51,6 @@ class Clang_Gcc(CompilerParser, LinkerParser):
     def __init__(
         self,
         context,
-        project_version=None,
-        platform=platform.system().lower(),
         ignore_link_flags=None,
         ignore_compile_flags=None,
     ):
@@ -61,9 +59,8 @@ class Clang_Gcc(CompilerParser, LinkerParser):
         )
         LinkerParser.__init__(self, context, ignore_link_flags=ignore_link_flags)
 
-        self.platform_name = platform
-        self.platform = get_platform(platform)
-        self.project_version = project_version
+        self.platform_name = context.platform_name
+        self.platform = context.platform
         self.program_re = self.platform.get_program_path_re(
             "cc", "c++", "clang", "clang++", "gcc", "g++"
         )
@@ -121,6 +118,7 @@ class Clang_Gcc(CompilerParser, LinkerParser):
         self.parser.add_argument("-exported_symbols_list")
         self.parser.add_argument("-framework")
         self.parser.add_argument("-rpath")
+        self.parser.add_argument("-rpath-link")
         self.parser.add_argument("-headerpad_max_install_names", action="store_true")
         self.parser.add_argument("-no-undefined", action="store_true")
         self.parser.add_argument("-install_name")
@@ -143,15 +141,15 @@ class Clang_Gcc(CompilerParser, LinkerParser):
         self.parser.add_argument(
             "static_libs", nargs="*", args_regexp=re.compile(r"^(?!-Wl).+\.a$")
         )
-        if platform == "linux":
-            self.parser.add_argument(
-                "shared_libs", nargs="*", args_regexp=re.compile(r"^(?!-Wl).+\.so$")
-            )
-        if platform == "darwin":
+        if self.platform_name == "linux":
             self.parser.add_argument(
                 "shared_libs",
                 nargs="*",
-                args_regexp=re.compile(r"^(?!-Wl).+\.dylib(?:\.\d+)*$"),
+                args_regexp=re.compile(r"^(?!-Wl).+\.so(?:\.\d+)*$"),
+            )
+        if self.platform_name == "darwin":
+            self.parser.add_argument(
+                "shared_libs", nargs="*", args_regexp=re.compile(r"^(?!-Wl).+\.dylib$"),
             )
 
         # compiler flags
@@ -228,7 +226,7 @@ class Clang_Gcc(CompilerParser, LinkerParser):
         include_dir_args = ["-I" + d for d in include_dirs]
         sources = [s for s in sources]
 
-        host_system = platform.system().lower()
+        host_system = get_host_system_name()
         if compiler.find("clang") != -1:
             if host_system == "windows" and target_platform != host_system:
                 # to avoid errors like:
@@ -333,27 +331,32 @@ class Clang_Gcc(CompilerParser, LinkerParser):
         ns.link_flags = remaining_flags
         ns.libs.extend(libs)
 
-    _capture_next_arg = [
+    _capture_next_arg = {
         "-Wl,-soname",
         "-Wl,-compatibility_version",
         "-Wl,-current_version",
         "-Wl,-z",
         "-Wl,-version-script",
         "-Wl,--version-script",
+        "-Wl,-rpath-link",
+        "-Wl,--rpath-link",
         "-Wl,-rpath",
         "-Wl,--rpath",
-    ]
+    }
     _file_arg = {
         "-exported_symbols_list": "",
         "-Wl,-version-script": "-Wl,",
         "-Wl,--version-script": "-Wl,",
     }
     _dir_arg = {
+        "-Wl,-rpath-link": "-Wl,",
+        "-Wl,--rpath-link": "-Wl,",
+        "-rpath-link": "",
         "-Wl,-rpath": "-Wl,",
         "-Wl,--rpath": "-Wl,",
         "-rpath": "",
     }
-    _arg_set = set(_file_arg.keys()) | set(_dir_arg.keys())
+    _args_prefixes = [s for s in chain(_file_arg.keys(), _dir_arg.keys())]
 
     def _process_link_flags(self, flags, dependencies):
         result = []
@@ -363,9 +366,11 @@ class Clang_Gcc(CompilerParser, LinkerParser):
                 if f in self._capture_next_arg:
                     f = [f, next(it)]
                 else:
-                    for s in self._arg_set:
+                    for s in self._args_prefixes:
                         if f.startswith(s):
                             delim = f[len(s)]
+                            if delim not in ('=', ','):
+                                continue
                             tmp = f.split(delim)
                             if s in self._file_arg:
                                 tmp[-1] = self.context.get_file_arg(
@@ -376,7 +381,7 @@ class Clang_Gcc(CompilerParser, LinkerParser):
                                     tmp[-1], dependencies
                                 )
                             f = delim.join(tmp)
-                            continue
+                            break
 
             if isinstance(f, list):
                 prefix = None
@@ -391,7 +396,7 @@ class Clang_Gcc(CompilerParser, LinkerParser):
                     if not f[-1].startswith(prefix):
                         prefix = ""
                     else:
-                        f[-1] = f[-1][len(prefix):]
+                        f[-1] = f[-1][len(prefix) :]
                     f[-1] = prefix + get_arg_func(f[-1], dependencies)
             result.append(f)
         return result
@@ -407,10 +412,8 @@ class Clang_Gcc(CompilerParser, LinkerParser):
             return target
 
         gcc = tokens.pop(0)
+        gcc = self.context.apply_path_aliases(self.context.normalize_path(gcc, ignore_working_dir=True))
 
-        gcc_nrm = self.context.platform.normalize_path(gcc)
-        if gcc_nrm in self.context.path_aliases:
-            gcc = self.context.path_aliases[gcc_nrm]
         namespace, _ = self.parser.parse_known_args(
             tokens, unknown_dest=["compile_flags", "link_flags"]
         )
@@ -486,7 +489,6 @@ class Clang_Gcc(CompilerParser, LinkerParser):
                 )
             module_type = ModuleTypes.object_lib
             name = None
-            module_name = None
             version = None
         elif namespace.mode == self.Mode.link:
             if namespace.output is None:
@@ -499,16 +501,14 @@ class Clang_Gcc(CompilerParser, LinkerParser):
                 descr = self.platform.parse_executable(namespace.output)
                 module_type = ModuleTypes.executable
             if descr:
-                module_name = descr["module_name"]
                 name = descr["target_name"]
-                version = descr["version"] or self.project_version
+                version = descr["version"]
             else:
-                module_name = None
                 name = None
-                version = self.project_version
+                version = None
 
         namespace.output = self.context.normalize_path(namespace.output)
-        self._add_implicit_dependencies(
+        normalize_implicit_dependencies = self._add_implicit_dependencies(
             gcc,
             dependencies,
             namespace.compile_flags,
@@ -519,13 +519,20 @@ class Clang_Gcc(CompilerParser, LinkerParser):
         )
         namespace.output = self.context.get_output(namespace.output, dependencies)
 
+        namespace.include_dirs.extend(
+            self.context.get_implicit_include_dirs(
+                sources,
+                namespace.include_dirs,
+                normalize_implicit_dependencies,
+            )
+        )
+
         target = get_module_target(
             module_type,
             name,
             namespace.output,
             compile_flags=namespace.compile_flags,
             dependencies=dependencies,
-            module_name=module_name,
             include_dirs=namespace.include_dirs,
             link_flags=namespace.link_flags,
             libs=namespace.libs,

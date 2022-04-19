@@ -1,0 +1,8 @@
+gcc -c ../source/test1.c -o test1.o
+gcc -o test1 test1.o ../external/liba.a ../external/libb.a ../external/libc.a ../external/libd.a
+
+gcc -c ../source/test1.c -o test2.o
+gcc -o test2 test2.o ../external/liba.a ../external/libb.a ../external/libc.a ../external/libd.a
+
+gcc -c ../source/test3.c -o test3.o
+gcc -o test3 test3.o ../external/liba.a ../external/libb.a ../external/libc.a ../external/libd.a

@@ -1,0 +1,6 @@
+gcc -shared ../source/foo.c -Wl,-soname=liba.so.1 -o c/liba.so.1.2.3
+gcc -shared ../source/foo.c -Wl,-soname -Wl,libb.so.1 -o c/libb.so.1.2.3
+gcc -shared ../source/foo.c -Wl,-soname,libc.so.1 -o c/libc.so.1.2.3
+gcc -shared ../source/foo.c -Wl,-soname,libd.so.1 -o c/libd.so.1.2
+gcc -shared ../source/foo.c -Wl,-soname,libe.so.1 -o c/libe.so.1
+gcc -shared ../source/foo.c -o c/libf.so.1

@@ -12,9 +12,8 @@ class CMakeClass(Generator):
     def add_arguments(arg_parser):
         pass
 
-    def __init__(self, context, platform=None):
+    def __init__(self, context):
         self.context = context
-        self.platform = platform
         self.handlers = {
             "compile_flags": self._compile_flags,
             "include_dirs": self._include_dirs,
@@ -56,7 +55,7 @@ class CMakeClass(Generator):
             return
 
         if not conditions:
-            if self.context.platform == "windows":
+            if self.context.platform_name == "windows":
                 functions = ["add_link_options", "static_library_options"]
             else:
                 functions = ["add_link_options"]

@@ -5,7 +5,6 @@ import glob
 import io
 import logging
 import os
-import platform
 from pprint import pformat
 import sys
 import traceback
@@ -19,6 +18,7 @@ from build_migrator.helpers import (
     get_module_copy,
 )
 from build_migrator.modules import EntryPoint, Parser
+from build_migrator.common.algorithm import add_unique_stable
 from build_migrator.common.argparse_actions import Extend
 import build_migrator.common.os_ext as os_ext
 import build_migrator.common.path_ext as path_ext
@@ -38,6 +38,19 @@ class BuildLogParserContext(Parser, EntryPoint):
                 "--source_dir",
                 help="Source directory of the project that you want to migrate.",
                 metavar="DIR",
+            )
+        except argparse.ArgumentError:
+            # Already added somewhere else
+            # TODO: make a better solution for cases when multiple extensions require the same argument
+            pass
+        try:
+            arg_parser.add_argument(
+                "--platform",
+                choices=["linux", "windows", "darwin"],
+                help="Platform under which the build log was obtained. "
+                "Mac and Linux builds can be parsed on any platform. "
+                "Windows build logs can be parsed only on Windows. "
+                "Default: current platform.",
             )
         except argparse.ArgumentError:
             # Already added somewhere else
@@ -80,14 +93,6 @@ class BuildLogParserContext(Parser, EntryPoint):
             "ALIAS can be made into a configurable variable by specifying "
             "a value like this: @VARIBLE_NAME@. After a variable is created, "
             "it can be used in other ALIASES like this: @DIR@/path-to-file.txt.",
-        )
-        arg_parser.add_argument(
-            "--platform",
-            choices=["linux", "windows", "darwin"],
-            help="Platform under which the build log was obtained. "
-            "Mac and Linux builds can be parsed on any platform. "
-            "Windows build logs can be parsed only on Windows. "
-            "Default: current platform.",
         )
         arg_parser.add_argument(
             "--max_relpath_level",
@@ -181,8 +186,7 @@ class BuildLogParserContext(Parser, EntryPoint):
         logs,
         source_dir,
         build_dirs,
-        project=None,
-        platform=platform.system().lower(),
+        platform=None,
         working_dir=None,
         path_aliases=None,
         max_relpath_level=0,
@@ -192,6 +196,9 @@ class BuildLogParserContext(Parser, EntryPoint):
         log_type=None,
         dont_capture_sources=None,
     ):
+        if platform is None:
+            platform = os_ext.get_host_system_name()
+
         if not logs:
             raise ValueError("Specify at least one log (--logs argument)")
 
@@ -201,9 +208,9 @@ class BuildLogParserContext(Parser, EntryPoint):
             )
 
         self.current_target = None
+        self.platform_name = platform
         self.platform = os_ext.get_platform(platform)
         self.logs = self._parse_logs(logs, log_type)
-        self.project = project
         self.build_dirs = [
             self.platform.normalize_path(os.path.abspath(os.path.join(os.curdir, bd)))
             for bd in build_dirs
@@ -221,6 +228,7 @@ class BuildLogParserContext(Parser, EntryPoint):
         self.path_aliases = None
         self.target_index = None  # target_output => target
         self.targets = None
+        self._variable_targets = {}
         self._arg_path_aliases = path_aliases
         self._arg_dont_capture_sources = dont_capture_sources
         self._arg_capture_sources = capture_sources
@@ -230,6 +238,13 @@ class BuildLogParserContext(Parser, EntryPoint):
             self.dir_mapping[build_dir] = self.build_dir_placeholder
             if source_dir == build_dir:
                 raise ValueError("Source dir cannot be the same as build directory")
+
+        # Without some form of caching, path normalization / resolution
+        # can take up to 90% of parsing time
+        self._path_normalizer_cache = {
+            0: {},
+            1: {},
+        }
 
         self.required_targets = None
         if targets:
@@ -264,7 +279,7 @@ class BuildLogParserContext(Parser, EntryPoint):
                 raise ValueError("Pattern did not match any source files: %r" % src)
 
     def _initialize_path_aliases(self, path_aliases):
-        self.path_aliases = {}
+        self.path_aliases = []
         for path, alias in path_aliases or []:
             if alias.startswith("@") and alias.endswith("@"):
                 # it's a variable
@@ -274,9 +289,9 @@ class BuildLogParserContext(Parser, EntryPoint):
                     target = get_variable_target(var_name, alias, relocatable_path)
                     self.register_target(target)
             else:
-                alias = self.platform.normalize_path(alias)
+                alias = self.normalize_path(alias, ignore_working_dir=True)
             path = self.normalize_path(path)
-            self.path_aliases[path] = alias
+            self.path_aliases.append((path, alias))
 
     def parse(self, targets, parsers):
         self.target_index = {}
@@ -311,14 +326,14 @@ class BuildLogParserContext(Parser, EntryPoint):
                         line = line.encode("utf-8")
                     targets = [{"line": line}]
                     parse_targets(
-                        targets, self, parsers, log_type=log.type, project=self.project
+                        targets, self, parsers, log_type=log.type
                     )
 
                 logger.info(" > (EOF)")
                 # 'end of file' instructs parsers like line_accumulator and response_file to pass on any accumulated data
                 targets = [{"eof": True}]
                 parse_targets(
-                    targets, self, parsers, log_type=log.type, project=self.project
+                    targets, self, parsers, log_type=log.type
                 )
 
         finalize(self)
@@ -335,10 +350,32 @@ class BuildLogParserContext(Parser, EntryPoint):
     def working_dir(self, value):
         self._working_dir = value
 
-    def normalize_path(self, path, working_dir=None):
-        if working_dir is None:
-            working_dir = self.working_dir
-        return self.platform.normalize_path(self.platform.path_join(working_dir, path))
+    def normalize_path(self, path, working_dir=None, ignore_working_dir=False):
+        result = None
+        if not ignore_working_dir:
+            if working_dir is None:
+                working_dir = self.working_dir
+            cache = self._path_normalizer_cache[0]
+            if working_dir not in cache:
+                cache[working_dir] = {}
+            cache = cache[working_dir]
+            result = cache.get(path)
+            if result is not None:
+                return result
+            result = self.platform.normalize_path(
+                self.platform.path_join(working_dir, path)
+            )
+            cache[path] = result
+        else:
+            cache = self._path_normalizer_cache[1]
+            result = cache.get(path)
+            if result is not None:
+                return result
+            result = self.platform.normalize_path(path)
+            cache[path] = result
+
+        return result
+
 
     def _select_parent_dir(self, path, cwd=None):
         if cwd is None:
@@ -374,7 +411,7 @@ class BuildLogParserContext(Parser, EntryPoint):
         relocatable_path = None
         if self.path_aliases:
             # apply path aliases
-            for src, dest in self.path_aliases.items():
+            for src, dest in self.path_aliases:
                 if path.startswith(src):
                     if len(path) == len(src) or path[len(src)] == "/":
                         relocatable_path = dest + path[len(src):]
@@ -400,6 +437,9 @@ class BuildLogParserContext(Parser, EntryPoint):
                 dependencies.append(target)
             # Don't capture files not under build or source directory yet
         else:
+            for _output, _ in self._variable_targets.items():
+                if _output in relocatable_path:
+                    dependencies.append(_output)
             if capture_parent_dir:
                 parent = self._construct_path_arg(os.path.split(path)[0])
                 target = self._get_directory_target(parent.full, parent.relocatable)
@@ -443,12 +483,22 @@ class BuildLogParserContext(Parser, EntryPoint):
                 name = name_without_ext + ".o"
         return name.replace("/", "_").replace(".", "_")
 
+    def apply_path_aliases(self, path):
+        for src, dest in self.path_aliases:
+            if path.startswith(src):
+                if len(path) == len(src) or path[len(src)] == "/":
+                    path = dest + path[len(src):]
+                    break
+        return path
+
     def get_file_arg(self, path, dependencies=None, relative=False):
         path_arg = self._construct_path_arg(
             path, relative_arg=relative, capture_file=True
         )
         if dependencies is not None:
-            dependencies.extend(path_arg.dependencies)
+            for dep in path_arg.dependencies:
+                if dep not in dependencies:
+                    dependencies.append(dep)
         return path_arg.argument
 
     def get_dir_arg(self, path, dependencies=None, relative=False):
@@ -456,7 +506,9 @@ class BuildLogParserContext(Parser, EntryPoint):
             path, relative_arg=relative, capture_dir=True
         )
         if dependencies is not None:
-            dependencies.extend(path_arg.dependencies)
+            for dep in path_arg.dependencies:
+                if dep not in dependencies:
+                    dependencies.append(dep)
         return path_arg.argument
 
     def get_lib_arg(
@@ -491,7 +543,9 @@ class BuildLogParserContext(Parser, EntryPoint):
             path, relative_arg=relative, capture_file=True
         )
         if dependencies is not None:
-            dependencies.extend(path_arg.dependencies)
+            for dep in path_arg.dependencies:
+                if dep not in dependencies:
+                    dependencies.append(dep)
         return path_arg.argument
 
     def get_output(self, path, dependencies=None, relative=False):
@@ -499,7 +553,9 @@ class BuildLogParserContext(Parser, EntryPoint):
             path, relative_arg=relative, capture_parent_dir=True
         )
         if dependencies is not None:
-            dependencies.extend(path_arg.dependencies)
+            for dep in path_arg.dependencies:
+                if dep not in dependencies:
+                    dependencies.append(dep)
         return path_arg.relocatable
 
     def _force_capture_source_file(self, path):
@@ -646,7 +702,6 @@ class BuildLogParserContext(Parser, EntryPoint):
                 target_name,
                 source,
                 output,
-                module_name=target_descr["module_name"],
                 dependencies=dependencies,
             )
         elif source_target and source_target["type"] == "directory":
@@ -731,6 +786,7 @@ class BuildLogParserContext(Parser, EntryPoint):
 
         if "dependencies" not in target:
             target["dependencies"] = []
+        target, dependencies = self.split_target_dependencies(target, log=False)
 
         existing_target = self.find_target(target["output"])
         if existing_target:
@@ -763,8 +819,6 @@ class BuildLogParserContext(Parser, EntryPoint):
         if "name" in target:
             target["name"] = self._get_target_name(target)
 
-        registered_targets.extend(self.update_target(target, log=False))
-
         working_dir = target.get("working_dir")
         if working_dir:
             target["working_dir"] = self.get_dir_arg(working_dir)
@@ -775,18 +829,18 @@ class BuildLogParserContext(Parser, EntryPoint):
         self._add_target_to_index(target)
         registered_targets.append(target)
 
+        for dep_target in dependencies:
+            registered_targets.extend(self.register_target(dep_target))
+
         return registered_targets
 
-    def update_target(self, target, log=True):
-        registered_targets = []
+    def split_target_dependencies(self, target, log=True):
+        dependencies = []
         for idx, dep in enumerate(target["dependencies"] or []):
             if type(dep) is dict:
-                registered_targets.extend(self.register_target(dep))
+                dependencies.append(dep)
                 target["dependencies"][idx] = dep["output"]
-        if log:
-            logger.info(" > Target updated:")
-            logger.info(pformat(get_minified_target(target)))
-        return registered_targets
+        return target, dependencies
 
     def _add_target_to_index(self, target):
         if "output" in target:
@@ -796,6 +850,40 @@ class BuildLogParserContext(Parser, EntryPoint):
         else:
             logger.warn("Target has no output:")
             logger.warn(pformat(get_minified_target(target)))
+        if target["type"] == "variable":
+            self._variable_targets[target["output"]] = target
+
+    def get_implicit_include_dirs(
+        self,
+        sources,
+        include_dirs,
+        dependencies,
+    ):
+        if not (dependencies and sources):
+            return include_dirs
+
+        include_dirs = set(include_dirs)
+        implicit_include_dirs = []
+
+        for dep in dependencies:
+            if (
+                os.path.splitext(dep)[-1] not in [".h", ".hpp", ".inc", ".ipp"]
+                or not dep.startswith((BuildLogParserContext.build_dir_placeholder, BuildLogParserContext.source_dir_placeholder))  # skip if dependency in /usr....
+            ):
+                continue
+
+            declare_include_dir = False
+
+            for i_d in include_dirs:
+                if path_ext.is_subpath(i_d, os.path.dirname(dep)):
+                    declare_include_dir = True
+                    break
+            if not declare_include_dir:
+                for s_d in map(lambda x: os.path.dirname(x['path']), sources):
+                    if s_d not in include_dirs:
+                        implicit_include_dirs.append(s_d)
+
+        return implicit_include_dirs
 
 
 def _group_by_duplicate_names(targets):
@@ -813,7 +901,7 @@ def _group_by_duplicate_names(targets):
     return duplicate_name_groups
 
 
-def parse_targets(targets, context, parsers, log_type=None, project=None):
+def parse_targets(targets, context, parsers, log_type=None):
     result_targets = []
 
     for target in targets:
@@ -822,9 +910,7 @@ def parse_targets(targets, context, parsers, log_type=None, project=None):
 
         for idx, parser in enumerate(parsers):
             is_applicable = getattr(parser, "is_applicable", None)
-            if is_applicable is None or is_applicable(
-                project=project, log_type=log_type
-            ):
+            if is_applicable is None or is_applicable(log_type=log_type):
                 logger.debug(type(parser).__name__)
                 try:
                     context.current_target = target
@@ -838,7 +924,6 @@ def parse_targets(targets, context, parsers, log_type=None, project=None):
                             context,
                             parsers[idx + 1:],
                             log_type=log_type,
-                            project=project,
                         )
                         break
                     else:

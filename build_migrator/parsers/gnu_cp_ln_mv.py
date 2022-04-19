@@ -17,10 +17,6 @@ class GnuCpLnMv(Parser):
     def add_arguments(arg_parser):
         pass
 
-    @staticmethod
-    def is_applicable(project=None, log_type=None):
-        return True
-
     def __init__(self, context):
         self.context = context
         self.parser = ArgumentParserNoExit(prog="cp+ln+mv")
@@ -44,7 +40,7 @@ class GnuCpLnMv(Parser):
 
         dependencies = []
         output_full = os.path.join(self.context.working_dir, namespace.output)
-        output_full = self.context.platform.normalize_path(output_full)
+        output_full = self.context.normalize_path(output_full, ignore_working_dir=True)
         output = self.context.get_output(output_full)
         if not self.context.is_in_build_or_source_dir(output):
             logger.info(
@@ -59,7 +55,7 @@ class GnuCpLnMv(Parser):
                 os.path.dirname(output_full), namespace.infile
             )
         source = self.context.get_file_arg(
-            self.context.platform.normalize_path(namespace.infile), dependencies
+            self.context.normalize_path(namespace.infile, ignore_working_dir=True), dependencies
         )
 
         return self.context.process_target_copy(source, output, dependencies) or []

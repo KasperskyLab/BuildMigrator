@@ -68,7 +68,7 @@ add_library(icuio.static STATIC
     ${ICU_SOURCE_DIR}/io/ucln_io.cpp
 )
 target_compile_options(icuio.static PRIVATE -DU_IO_IMPLEMENTATION)
-target_include_directories(icuio.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+target_include_directories(icuio.static PRIVATE ${ICU_SOURCE_DIR}/i18n ${ICU_SOURCE_DIR}/io)
 set_target_properties(icuio.static PROPERTIES OUTPUT_NAME icuio)
 set_target_output_subdir(icuio.static ARCHIVE_OUTPUT_DIRECTORY lib)
 
@@ -83,6 +83,7 @@ target_compile_options(icutu.static PRIVATE
     -DU_TOOLUTIL_IMPLEMENTATION
 )
 target_include_directories(icutu.static PRIVATE ${ICU_SOURCE_DIR}/i18n)
+target_language_include_directories(icutu.static C PRIVATE ${ICU_SOURCE_DIR}/tools/toolutil)
 set_target_properties(icutu.static PROPERTIES OUTPUT_NAME icutu)
 set_target_output_subdir(icutu.static ARCHIVE_OUTPUT_DIRECTORY lib)
 

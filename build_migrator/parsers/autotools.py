@@ -22,7 +22,7 @@ class LineAccumulator(Parser):
         pass
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return log_type in ["make", "ninja"]
 
     def __init__(self, context):
@@ -56,7 +56,7 @@ class MakeLog(Parser):
         pass
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return log_type == "make"
 
     def __init__(self, context):
@@ -88,7 +88,7 @@ class MakeLog(Parser):
         match = self.directory_re.search(line)
         if match:
             path = match.group("path")
-            dir = os_ext.normalize_path(self.context.normalize_path(path))
+            dir = self.context.normalize_path(path)
 
             if match.group("mode") == "Entering":
                 self.enter(dir)

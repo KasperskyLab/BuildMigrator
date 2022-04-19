@@ -1,0 +1,37 @@
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+copy_file("a_c", "source/a.c", "prebuilt/a.c", allow_symlink=True)
+copy_file("include_a_h", "source/include/a.h", "prebuilt/include/a.h", allow_symlink=True)
+cc_binary(
+    linkshared = True,
+    linkstatic = False,
+    name = "a",
+    srcs = [
+        "prebuilt/a.c",
+        "prebuilt/include/a.h",
+    ],
+    copts = [
+    ],
+    includes = [
+        "prebuilt/include",
+    ],
+    linkopts = [
+    ],
+    deps = [
+    ],
+)
+cc_binary(
+    linkstatic = False,
+    name = "build",
+    srcs = [
+        "source/main.c",
+    ],
+    copts = [
+    ],
+    includes = [
+    ],
+    linkopts = [
+    ],
+    deps = [
+        ":a",
+    ],
+)

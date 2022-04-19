@@ -1,0 +1,7 @@
+gcc -c ../source/a.c -DTEST=1 -o a.o
+gcc -c ../source/b.c -DTEST=1 -o b.o
+gcc -c ../source/common.c -DCOMMON=1 -o common.o
+
+ar cru libcommon.a common.o
+
+gcc -shared  -fPIC -DPIC a.o b.o -Wl,--whole-archive libcommon.a  -ldl -lresolv -Wl,--no-whole-archive -g -O2 -Wl,-soname -Wl,libtest.so.3 -o libtest.so.3.0.0

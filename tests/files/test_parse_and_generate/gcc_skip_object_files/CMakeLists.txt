@@ -13,3 +13,4 @@ add_executable(test
     ${SOURCE_DIR}/main.cpp
 )
 target_compile_options(test PRIVATE -DMSG_A=a -DMSG_B=b)
+target_include_directories(test PRIVATE ${SOURCE_DIR})

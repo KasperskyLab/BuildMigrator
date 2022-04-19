@@ -21,12 +21,8 @@ class GnuAr(Parser):
     def add_arguments(arg_parser):
         pass
 
-    @staticmethod
-    def is_applicable(project=None, log_type=None):
-        return True
-
-    def __init__(self, context, platform=None):
-        self.platform = get_platform(platform)
+    def __init__(self, context):
+        self.platform = context.platform
         self.program_re = self.platform.get_program_path_re("ar")
         self.context = context
 
@@ -99,7 +95,6 @@ class GnuAr(Parser):
             output,
             objects=objects,
             dependencies=dependencies,
-            module_name=descr["module_name"],
         )
 
     def extract_targets_from_archive(self, namespace, tokens):

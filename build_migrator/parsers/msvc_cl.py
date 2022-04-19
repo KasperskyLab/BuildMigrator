@@ -262,6 +262,8 @@ class MsvcCl(CompilerParser, LinkerParser):
         self.clang_cl_parser.add_argument("-no-canonical-prefixes", action="store_true")
         self.clang_cl_parser.add_argument(prefixes=["-std="])
         self.clang_cl_parser.add_argument(prefixes=["-W"])
+        self.clang_cl_parser.add_argument(prefixes=["-fcrash-diagnostics-dir="])
+        self.clang_cl_parser.add_argument(prefixes=["-fprofile-instr-use="])
 
         self.link_parser = get_msvc_link_parser(
             context, ignore_link_flags=ignore_link_flags
@@ -295,6 +297,7 @@ class MsvcCl(CompilerParser, LinkerParser):
             logger.error("{}\nstderr:\n{}stdout:\n{}".format(e, e.stderr, e.stdout))
             return
 
+        normalize_implicit_dependencies = []
         toolchain_include_dirs = self.msvc_include_dirs
         if is_clang_cl and self.clang_cl_include_dirs:
             toolchain_include_dirs = self.clang_cl_include_dirs
@@ -309,10 +312,11 @@ class MsvcCl(CompilerParser, LinkerParser):
                             is_toolchain_header = True
                             break
                     if not is_toolchain_header:
-                        self.context.get_file_arg(path, dependencies)
+                        normalize_implicit_dependencies.append(self.context.get_file_arg(path, dependencies))
                 except ValueError:
                     # Path is on drive c:, build dir on drive d:
                     pass
+        return normalize_implicit_dependencies
 
     def _get_clang_cl_toolchain_include_dirs(self, compiler):
         try:
@@ -346,10 +350,10 @@ class MsvcCl(CompilerParser, LinkerParser):
             return target
 
         compiler = tokens.pop(0)
-        compiler_nrm = self.context.platform.normalize_path(compiler)
         is_clang_cl = bool(self.clang_cl_re.match(compiler))
-        if compiler_nrm in self.context.path_aliases:
-            compiler = self.context.path_aliases[compiler_nrm]
+        compiler = self.context.apply_path_aliases(self.context.normalize_path(
+            compiler, ignore_working_dir=True
+        ))
 
         if not is_clang_cl:
             namespace, _ = self.parser.parse_known_args(
@@ -477,6 +481,27 @@ class MsvcCl(CompilerParser, LinkerParser):
                 cur_output = os.path.join(output_dir, objfile)
                 output_dict[cur_output] = [s]
 
+        compile_flags_not_relocatable = namespace.compile_flags
+        if namespace.compile_flags:
+            prefix_flag_definitions = [
+                ("-fcrash-diagnostics-dir=", self.context.get_dir_arg),
+                ("-fprofile-instr-use=", self.context.get_file_arg),
+            ]
+            compile_flags = []
+            for f in namespace.compile_flags:
+                if isinstance(f, str):
+                    for prefix, resolver in prefix_flag_definitions:
+                        if f.startswith(prefix):
+                            path = f[len(prefix):]
+                            relocatable_path = resolver(path)
+                            # keep non-relocatable paths as-is
+                            if relocatable_path.startswith("@"):
+                                resolver(path, dependencies)
+                                f = prefix + relocatable_path
+                            break
+                compile_flags.append(f)
+            namespace.compile_flags = compile_flags
+
         targets = []
         for output, sources in output_dict.items():
             deps_local = deepcopy(dependencies)
@@ -484,14 +509,21 @@ class MsvcCl(CompilerParser, LinkerParser):
             for s in sources:
                 deps_local.extend(src_info[s["path"]]["dependencies"])
                 original_sources.append(src_info[s["path"]]["unmodified_path"])
-            self._add_implicit_dependencies(
+            normalize_implicit_dependencies = self._add_implicit_dependencies(
                 compiler,
                 deps_local,
-                namespace.compile_flags,
+                compile_flags_not_relocatable,
                 include_dirs_not_relocatable,
                 original_sources,
                 self.context.working_dir,
                 is_clang_cl=is_clang_cl,
+            )
+            namespace.include_dirs.extend(
+                self.context.get_implicit_include_dirs(
+                    sources,
+                    namespace.include_dirs,
+                    normalize_implicit_dependencies,
+                )
             )
             import_lib = None
             descr = {}
@@ -509,7 +541,6 @@ class MsvcCl(CompilerParser, LinkerParser):
                 descr = os_ext.Windows.parse_executable(output)
 
             output = self.context.get_output(output, deps_local)
-            module_name = descr.get("module_name")
             name = descr.get("target_name")
 
             LinkerParser.process_namespace(self, namespace)
@@ -520,7 +551,6 @@ class MsvcCl(CompilerParser, LinkerParser):
                     name,
                     output,
                     msvc_import_lib=import_lib,
-                    module_name=module_name,
                     compile_flags=namespace.compile_flags,
                     dependencies=deps_local,
                     include_dirs=namespace.include_dirs,

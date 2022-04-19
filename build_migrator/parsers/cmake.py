@@ -16,17 +16,14 @@ class CMake(Parser):
     def add_arguments(arg_parser):
         pass
 
-    @staticmethod
-    def is_applicable(project=None, log_type=None):
-        return True
-
-    def __init__(self, context, platform=None):
+    def __init__(self, context):
         self.context = context
-        self.platform = get_platform(platform)
+        self.platform = context.platform
         self.program_re = self.platform.get_program_path_re("cmake")
 
         self.parser = ArgumentParserEx(prog="cmake")
         self.parser.add_argument("-E", dest="command", nargs="+")
+        self.parser.add_argument("-f", action="append", dest="command", nargs="+")
 
     def parse(self, target):
         tokens = target.get("tokens")
@@ -49,7 +46,7 @@ class CMake(Parser):
         if command == "cmake_symlink_library":
             # on Mac
             source = self.context.get_file_arg(
-                self.context.platform.normalize_path(args[0]), dependencies
+                self.context.normalize_path(args[0], ignore_working_dir=True), dependencies
             )
             destinations = args[1:]
             for dest in destinations:

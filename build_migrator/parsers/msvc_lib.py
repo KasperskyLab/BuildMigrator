@@ -18,13 +18,8 @@ class MsvcLib(Parser):
     def add_arguments(arg_parser):
         pass
 
-    @staticmethod
-    def is_applicable(project=None, log_type=None):
-        return True
-
-    def __init__(self, context, project_version=None):
+    def __init__(self, context):
         self.context = context
-        self.project_version = project_version
 
         # Visual Studio lib.exe arguments
         # https://docs.microsoft.com/en-us/cpp/build/reference/running-lib?view=vs-2019
@@ -102,9 +97,8 @@ class MsvcLib(Parser):
 
         output = self.context.normalize_path(namespace.output)
         descr = os_ext.parse_static_lib(output)
-        module_name = descr["module_name"]
         name = descr["target_name"]
-        version = descr["version"] or self.project_version
+        version = descr["version"]
         output = self.context.get_output(output, dependencies)
 
         return get_module_target(
@@ -112,7 +106,6 @@ class MsvcLib(Parser):
             name,
             output,
             dependencies=dependencies,
-            module_name=module_name,
             libs=libs,
             objects=objects,
             version=version,

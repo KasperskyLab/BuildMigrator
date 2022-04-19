@@ -35,7 +35,7 @@ class MSBuildLog(Parser):
         pass
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return log_type == "msbuild"
 
     def __init__(self, context):
@@ -59,7 +59,7 @@ class MSBuildLog(Parser):
         self.nodes[node] = dir
 
     def _get_project_dir(self, path):
-        return os_ext.normalize_path(self.context.normalize_path(os.path.dirname(path)))
+        return self.context.normalize_path(os.path.dirname(path))
 
     def parse(self, target):
         if self.nodes is None:

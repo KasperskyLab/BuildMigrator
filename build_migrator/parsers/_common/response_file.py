@@ -1,7 +1,7 @@
 import logging
 import os
 from build_migrator.modules import Parser
-from build_migrator.parsers._common.command_tokenizer import cmdline_split
+from build_migrator.parsers._common.command_tokenizer import CommandTokenizer
 
 
 logger = logging.getLogger(__name__)
@@ -14,42 +14,37 @@ class ResponseFile(Parser):
     def add_arguments(arg_parser):
         pass
 
-    @staticmethod
-    def is_applicable(project=None, log_type=None):
-        return True
-
-    def __init__(self, context, platform=None):
+    def __init__(self, context):
         self.context = context
-        self.platform = platform
         self.rspfiles = {}
+        self.tokenizer = CommandTokenizer(context)
 
     def _get_args(self, cmdline):
-        cmdline = cmdline.replace("\n", " ")
-        platform = 0 if self.platform == "windows" else 1
-        return cmdline_split(cmdline, platform=platform)
+        return self.tokenizer.cmdline_split(cmdline.replace("\n", " "))
 
     def parse(self, target):
         tokens = target.get("tokens")
         if not tokens:
             return target
 
-        if tokens[-1].startswith("@"):
-            path = self.context.normalize_path(target["tokens"][-1][1:])
-            if os.path.exists(path):
-                with open(path, "rt") as f:
-                    target["tokens"][-1:] = self._get_args(f.read())
-            else:
-                output = self.context.get_output(path)
-                response_file_target = self.context.target_index.get(output)
-                if response_file_target is not None:
-                    target["tokens"][-1:] = self._get_args(
-                        response_file_target["content"]
-                    )
+        for idx in reversed(range(len(tokens))):
+            if tokens[idx].startswith("@"):
+                path = self.context.normalize_path(tokens[idx][1:])
+                if os.path.exists(path):
+                    with open(path, "rt") as f:
+                        tokens[idx:idx+1] = self._get_args(f.read())
                 else:
-                    logger.error(
-                        "Response file not found: %s. Log may be parsed incorrectly.",
-                        path,
-                    )
+                    output = self.context.get_output(path)
+                    response_file_target = self.context.target_index.get(output)
+                    if response_file_target is not None:
+                        tokens[idx:idx+1] = self._get_args(
+                            response_file_target["content"]
+                        )
+                    else:
+                        logger.error(
+                            "Response file not found: %s. Log may be parsed incorrectly.",
+                            path,
+                        )
 
         return target
 
