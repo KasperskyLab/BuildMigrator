@@ -14,9 +14,14 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Install dependencies (except YASM)
+    - name: Install dependencies
       shell: cmd
-      run: choco install cmake python ninja nasm mingw llvm
+      run: choco install cmake python ninja mingw llvm
+
+    - name: Install NASM 2.14.02
+      shell: cmd
+      # newer NASM has a bug with -M flag
+      run: choco install nasm --version 2.14.02
 
     - name: Install YASM from local package
       shell: cmd
