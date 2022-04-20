@@ -35,7 +35,7 @@ class StraceLog(Parser):
         pass
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return log_type == "strace"
 
     def __init__(self, context):
@@ -167,7 +167,7 @@ class StraceTokenizer(Parser):
         pass
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return log_type == "strace"
 
     def __init__(self, context):
@@ -248,7 +248,7 @@ class StraceTokenizer(Parser):
             working_dir = self.working_dir_cache[target["strace.pid"]]
             self.working_dir_cache[
                 target["strace.pid"]
-            ] = self.context.platform.normalize_path(os.path.join(working_dir, path))
+            ] = self.context.normalize_path(os.path.join(working_dir, path), ignore_working_dir=True)
 
         return []
 
@@ -284,7 +284,7 @@ class ReplaceStrace(Parser):
         self.context = context
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return log_type == "strace"
 
     def _replace(self, raw_arguments):

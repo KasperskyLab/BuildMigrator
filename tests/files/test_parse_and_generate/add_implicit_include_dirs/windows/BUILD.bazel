@@ -1,0 +1,122 @@
+cc_library(
+    linkstatic = True,
+    name = "default",
+    srcs = [
+        "source/a.c",
+        "source/include/a.h",
+        "source/include/include_sub/a_sub.h",
+    ],
+    copts = [
+    ],
+    includes = [
+        "source/include",
+    ],
+    linkopts = [
+    ],
+    deps = [
+    ],
+)
+cc_library(
+    linkstatic = True,
+    name = "header_in_dir_with_src",
+    srcs = [
+        "source/b.c",
+        "source/include/b.h",
+        "source/b_src.h",
+        "source/include/include_sub/b_sub.h",
+    ],
+    copts = [
+    ],
+    includes = [
+        "source/include",
+        "source",
+    ],
+    linkopts = [
+    ],
+    deps = [
+    ],
+)
+cc_library(
+    linkstatic = True,
+    name = "header_in_not_declare_dir",
+    srcs = [
+        "source/c.c",
+        "source/include/c.h",
+    ],
+    copts = [
+    ],
+    includes = [
+        "source",
+    ],
+    linkopts = [
+    ],
+    deps = [
+    ],
+)
+cc_library(
+    linkstatic = True,
+    name = "double_header_in_not_declare_dir",
+    srcs = [
+        "source/d.c",
+        "source/include/a.h",
+        "source/include/b.h",
+    ],
+    copts = [
+    ],
+    includes = [
+        "source",
+    ],
+    linkopts = [
+    ],
+    deps = [
+    ],
+)
+cc_library(
+    linkstatic = True,
+    name = "without_headers",
+    srcs = [
+        "source/e.c",
+    ],
+    copts = [
+    ],
+    includes = [
+    ],
+    linkopts = [
+    ],
+    deps = [
+    ],
+)
+cc_library(
+    linkstatic = True,
+    name = "similar_declared_include_dirs",
+    srcs = [
+        "source/incl/f.c",
+        "source/include/f.h",
+    ],
+    copts = [
+    ],
+    includes = [
+        "source/incl",
+    ],
+    linkopts = [
+    ],
+    deps = [
+    ],
+)
+cc_library(
+    linkstatic = True,
+    name = "similar_source_dirs",
+    srcs = [
+        "source/incl/f.c",
+        "source/include/f.h",
+    ],
+    copts = [
+    ],
+    includes = [
+        "source/incl",
+    ],
+    linkopts = [
+    ],
+    deps = [
+    ],
+)

@@ -6,6 +6,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 include(extensions)
 
 set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "")
+include_directories(${SOURCE_DIR})
 
 add_library(b.static STATIC ${SOURCE_DIR}/b.cpp)
 set_target_properties(b.static PROPERTIES OUTPUT_NAME b)

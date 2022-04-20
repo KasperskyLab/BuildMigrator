@@ -16,7 +16,16 @@ jobs:
 
     - name: Install dependencies
       shell: cmd
-      run: choco install cmake python ninja nasm yasm mingw llvm
+      run: choco install cmake python ninja mingw llvm
+
+    - name: Install NASM 2.14.02
+      shell: cmd
+      # newer NASM has a bug with -M flag
+      run: choco install nasm --version 2.14.02
+
+    - name: Install YASM from local package
+      shell: cmd
+      run: choco install -source .github/workflows/ yasm
 
     - name: Test
       shell: cmd

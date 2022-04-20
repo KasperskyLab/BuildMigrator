@@ -22,7 +22,7 @@ class TestParseAndGenerate(base.TestBase):
 
         # ignore_compile_flags: workaround for SailfishOS
         self.parse_and_generate(
-            "linux", project="openssl", ignore_compile_flags=["-m(32|64)"]
+            "linux", cmake_project_name="openssl", ignore_compile_flags=["-m(32|64)"]
         )
 
         path = os.path.join(prebuilt_dir, "crypto/aes/aes-x86_64.s")
@@ -41,7 +41,7 @@ class TestParseAndGenerate(base.TestBase):
 
         # ignore_compile_flags: workaround for SailfishOS
         self.parse_and_generate(
-            "linux", project="openssl", ignore_compile_flags=["-m(32|64)"]
+            "linux", cmake_project_name="openssl", ignore_compile_flags=["-m(32|64)"]
         )
 
         prebuilt_dir = os.path.join(self.test_method_out_dir, "out", "prebuilt")
@@ -59,7 +59,7 @@ class TestParseAndGenerate(base.TestBase):
 
         self.set_test_data_subdir("abspath_windows")
 
-        self.parse_and_generate("windows", project="openssl")
+        self.parse_and_generate("windows", cmake_project_name="openssl")
 
         prebuilt_dir = os.path.join(self.test_method_out_dir, "out", "prebuilt")
         path = os.path.join(prebuilt_dir, "crypto/aes/aes-586.asm")
@@ -80,7 +80,7 @@ class TestParseAndGenerate(base.TestBase):
 
         self.set_test_data_subdir("relpath_windows")
 
-        self.parse_and_generate("windows", project="openssl")
+        self.parse_and_generate("windows", cmake_project_name="openssl")
 
         prebuilt_dir = os.path.join(self.test_method_out_dir, "out", "prebuilt")
         path = os.path.join(prebuilt_dir, "crypto/aes/aes-586.asm")
@@ -149,6 +149,16 @@ class TestParseAndGenerate(base.TestBase):
             self.skipTest("GCC not found in PATH")
 
         self.set_test_data_subdir("response_file_unix")
+
+        self.parse_and_generate("linux")
+
+    def test_response_file_in_the_middle(self):
+        """
+        Check that reponse file is processed correctly even if it's not the last argument
+        """
+
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
 
         self.parse_and_generate("linux")
 
@@ -454,6 +464,18 @@ class TestParseAndGenerate(base.TestBase):
             self.skipTest("MSVC not found in PATH")
 
         self.set_test_data_subdir("rc_dependencies")
+
+        self.parse_and_generate("windows")
+
+    def test_rc_unknown_args(self):
+        """
+        Check that unknown args don't break rc.exe arguments parser
+        """
+
+        if not self.has_msvc:
+            self.skipTest("MSVC not found in PATH")
+
+        self.set_test_data_subdir("rc_unknown_args")
 
         self.parse_and_generate("windows")
 
@@ -2393,7 +2415,11 @@ class TestParseAndGenerate(base.TestBase):
         if not self.has_gcc:
             self.skipTest("GCC not found in PATH")
 
-        self.set_test_data_subdir("gcc_link_shared_object_file_by_path")
+        self.parse_and_generate("linux")
+
+    def test_gcc_link_shared_object_file_by_path_2(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
 
         self.parse_and_generate("linux")
 
@@ -2442,7 +2468,7 @@ class TestParseAndGenerate(base.TestBase):
         """
         Check that GetFileVersionInfo wrapper works correctly
 
-        Note: CMake target property 'VERSION' doesn't do aything
+        Note: CMake target property 'VERSION' doesn't do anything
         when building for MSVC.
         """
 
@@ -2454,7 +2480,7 @@ class TestParseAndGenerate(base.TestBase):
 
         self.set_test_data_subdir("windows_get_file_version_info")
 
-        self.parse_and_generate("windows", keep_module_version=True)
+        self.parse_and_generate("windows")
 
     def test_mac_library_version_from_filename(self):
         """
@@ -2466,7 +2492,7 @@ class TestParseAndGenerate(base.TestBase):
 
         self.set_test_data_subdir("mac_library_version_from_filename")
 
-        self.parse_and_generate("darwin", keep_module_version=True)
+        self.parse_and_generate("darwin")
 
     def test_linux_library_version_from_filename(self):
         """
@@ -2478,7 +2504,7 @@ class TestParseAndGenerate(base.TestBase):
 
         self.set_test_data_subdir("linux_library_version_from_filename")
 
-        self.parse_and_generate("linux", keep_module_version=True)
+        self.parse_and_generate("linux")
 
     def _try_set_short_path(self, cwd, long, short):
         from build_migrator.common.win32 import GetShortPathName
@@ -3114,6 +3140,44 @@ class TestParseAndGenerate(base.TestBase):
             ]
         )
 
+    def test_path_alias_to_lib_dir_1(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        lid_dir = os.path.normpath(os.path.join(self.test_method_dir, "external")).replace(
+            "\\", "/"
+        )
+        self.parse_and_generate(
+            "linux",
+            path_aliases=[
+                [lid_dir, "@LIB_DIR@"],
+            ],
+            default_var_values=[
+                ["LIB_DIR", "predictable_default_value"]
+            ],
+            flag_optimizer_ver="2",
+            aggressive_optimization=True,
+        )
+
+    def test_path_alias_to_lib_dir_2(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        lid_dir = os.path.normpath(os.path.join(self.test_method_dir, "external")).replace(
+            "\\", "/"
+        )
+        self.parse_and_generate(
+            "linux",
+            path_aliases=[
+                [lid_dir, "@LIB_DIR@"],
+            ],
+            default_var_values=[
+                ["LIB_DIR", "predictable_default_value"]
+            ],
+            flag_optimizer_ver="2",
+            aggressive_optimization=True,
+        )
+
     def test_variable_dependency_1(self):
         if not self.has_gcc:
             self.skipTest("GCC not found in PATH")
@@ -3222,6 +3286,42 @@ class TestParseAndGenerate(base.TestBase):
             cmakelists_name="CMakeLists3.txt",
             flag_optimizer_ver="2",
             replace_flags=[["include", "dir"]],
+        )
+
+    def test_replace_flags_libs(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        self.parse_and_generate(
+            "linux",
+            log_type="make",
+            cmakelists_name="CMakeLists_replace_lpthread.txt",
+            replace_flags=[("-lpthread", "-pthread")],
+        )
+
+    def test_replace_flags_libs_bazel(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        self.set_test_data_subdir('replace_flags_libs')
+
+        self.parse_and_generate_bazel(
+            "linux",
+            log_type="make",
+            replace_flags=[("-lpthread", "-pthread")],
+        )
+
+    def test_delete_flags_libs(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        self.set_test_data_subdir('replace_flags_libs')
+
+        self.parse_and_generate(
+            "linux",
+            log_type="make",
+            cmakelists_name="CMakeLists_delete_lpthread.txt",
+            delete_flags=['-lpthread'],
         )
 
     def test_gcc_windows(self):
@@ -3401,16 +3501,46 @@ class TestParseAndGenerate(base.TestBase):
             add_presets=False,
             presets=["darwin", "ninja"],
             replace_line=replace_line,
-            project="zlib",
-            project_version="1.2.11",
+            cmake_project_name="zlib",
+            cmake_project_version="1.2.11",
             prebuilt_subdir="darwin",
             build_condition='CMAKE_SYSTEM_NAME STREQUAL "Darwin"',
             targets=["z.static", "z"],
             source_dir=os.path.join(self.test_method_dir, "../source"),
             ignore_compile_flags=ignore_flags,
             ignore_link_flags=ignore_flags,
-            keep_flags=["^-D"],
+            keep_flags=["^-D", "^-compatibility_version", "^-current_version"],
             source_subdir="source",
+        )
+
+    def test_zlib_darwin_bazel(self):
+        if not self.has_clang:
+            self.skipTest("Clang not found in PATH")
+
+        replace_line = None
+        ignore_flags = None
+        if not self.on_darwin():
+            if not self.has_gcc:
+                self.skipTest("GCC not found in PATH")
+            replace_line = [(" clang ", " gcc ")]
+            ignore_flags = [r"-mmacosx-version-min=", r"-arch ", r"-isysroot "]
+        else:
+            ignore_flags = [r"-isysroot "]
+
+        self.set_test_data_subdir("zlib/darwin")
+
+        self.parse_and_generate_bazel(
+            "darwin",
+            add_presets=False,
+            presets=["darwin", "ninja"],
+            parsers=["cmake"],
+            replace_line=replace_line,
+            cmake_project_name="zlib",
+            targets=["libz.a*", "libz.*dylib"],
+            source_dir=os.path.join(self.test_method_dir, "../source"),
+            ignore_compile_flags=ignore_flags,
+            ignore_link_flags=ignore_flags,
+            keep_flags=["^-D", "^-compatibility_version", "^-current_version"],
         )
 
     def test_zlib_linux(self):
@@ -3423,8 +3553,8 @@ class TestParseAndGenerate(base.TestBase):
             "linux",
             add_presets=False,
             presets=["linux", "ninja"],
-            project="zlib",
-            project_version="1.2.11",
+            cmake_project_name="zlib",
+            cmake_project_version="1.2.11",
             prebuilt_subdir="linux",
             build_condition='CMAKE_SYSTEM_NAME STREQUAL "Linux"',
             targets=["z.static", "z"],
@@ -3432,6 +3562,23 @@ class TestParseAndGenerate(base.TestBase):
             keep_flags=["^-D", "^-Wl,--version-script", "^-Wl,-soname,libz.so"],
             delete_flags=["^-DNDEBUG$"],
             source_subdir="source",
+        )
+
+    def test_zlib_linux_bazel(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        self.set_test_data_subdir("zlib/linux")
+
+        self.parse_and_generate_bazel(
+            "linux",
+            add_presets=False,
+            presets=["linux", "ninja"],
+            cmake_project_name="zlib",
+            targets=["z.static", "z"],
+            source_dir=os.path.join(self.test_method_dir, "../source"),
+            keep_flags=["^-D", "^-Wl,--version-script", "^-Wl,-soname,libz.so"],
+            delete_flags=["^-DNDEBUG$"],
         )
 
     def test_zlib_windows(self):
@@ -3444,14 +3591,14 @@ class TestParseAndGenerate(base.TestBase):
             "windows",
             add_presets=False,
             presets=["windows", "ninja"],
-            project="zlib",
-            project_version="1.2.11",
+            cmake_project_name="zlib",
+            cmake_project_version="1.2.11",
             prebuilt_subdir="windows",
             build_condition='CMAKE_SYSTEM_NAME STREQUAL "Windows"',
             targets=["zlib1", "zlib.static", "zlib1mt", "zlibmt.static"],
             source_dir=os.path.join(self.test_method_dir, "../source"),
-            keep_flags=["^-D"],
-            delete_flags=["^-D_", "^-DNDEBUG", "^-DNTDDI_VERSION", "^-DWIN32"],
+            keep_flags=["^[-/]D", "^[-/]MT"],
+            delete_flags=["^[-/]D_", "^-DNDEBUG", "^-DNTDDI_VERSION", "^-DWIN32"],
             replace_line=[
                 (r"print-response-file-cl.bat", "cl.exe"),
                 (r"C:.*cmake.exe.*link\.exe", "link.exe"),
@@ -3461,6 +3608,31 @@ class TestParseAndGenerate(base.TestBase):
             ],
             ignore_compile_flags=[r"^/FS$"],  # vs10 doesn't support this flag
             source_subdir="source",
+        )
+
+    def test_zlib_windows_bazel(self):
+        if not self.has_msvc:
+            self.skipTest("MSVC not found in PATH")
+
+        self.set_test_data_subdir("zlib/windows")
+
+        self.parse_and_generate_bazel(
+            "windows",
+            add_presets=False,
+            presets=["windows", "ninja"],
+            cmake_project_name="zlib",
+            targets=["zlib1", "zlib.static", "zlib1mt", "zlibmt.static"],
+            source_dir=os.path.join(self.test_method_dir, "../source"),
+            keep_flags=["^[-/]D", "^[-/]MT"],
+            delete_flags=["^[-/]D_", "^-DNDEBUG", "^-DNTDDI_VERSION", "^-DWIN32"],
+            replace_line=[
+                (r"print-response-file-cl.bat", "cl.exe"),
+                (r"C:.*cmake.exe.*link\.exe", "link.exe"),
+                ("C:.*cmcldeps.exe.*zlib1.rc.*C:.*rc.exe", "rc.exe"),
+                (r"^cl : ", ""),
+                (r"^LINK : ", ""),
+            ],
+            ignore_compile_flags=[r"^/FS$"],  # vs10 doesn't support this flag
         )
 
     def test_openssl_darwin(self):
@@ -3491,8 +3663,8 @@ class TestParseAndGenerate(base.TestBase):
             add_presets=False,
             presets=["darwin", "autotools"],
             replace_line=replace_line,
-            project="openssl",
-            project_version="1.1.1",
+            cmake_project_name="openssl",
+            cmake_project_version="1.1.1",
             prebuilt_subdir="darwin",
             build_condition='CMAKE_SYSTEM_NAME STREQUAL "Darwin"',
             targets=["openssl"],
@@ -3536,6 +3708,52 @@ class TestParseAndGenerate(base.TestBase):
 
         self.assertTrue(opensslconf_h_checked)
 
+    def test_openssl_darwin_bazel(self):
+        if not self.has_clang:
+            self.skipTest("Clang not found in PATH")
+
+        replace_line = None
+        ignore_flags = None
+        if not self.on_darwin():
+            if not self.has_gcc:
+                self.skipTest("GCC not found in PATH")
+            replace_line = [
+                ("clang ", " gcc "),
+                (r"clang\+\+ ", " g++ "),
+            ]
+            ignore_flags = [
+                r"-mmacosx-version-min=",
+                r"-arch ",
+                r"-isysroot",
+            ]
+        else:
+            ignore_flags = [r"-isysroot "]
+
+        self.set_test_data_subdir("openssl/darwin")
+
+        self.parse_and_generate_bazel(
+            "darwin",
+            add_presets=False,
+            presets=["darwin", "autotools"],
+            replace_line=replace_line,
+            cmake_project_name="openssl",
+            targets=["openssl"],
+            source_dir=os.path.join(self.test_method_dir, "../source"),
+            ignore_compile_flags=ignore_flags,
+            ignore_link_flags=ignore_flags,
+            keep_flags=[
+                "^-D",
+                "^-fPIC",
+                "^-current_version",
+                "^-compatibility_version",
+            ],
+            delete_flags=["^-D_", "^-DNDEBUG"],
+            replace_flags=[
+                (r"^(-DENGINESDIR)=.+$", r'\g<1>="."'),
+                (r"^(-DOPENSSLDIR)=.+$", r'\g<1>="/usr/local/ssl"'),
+            ],
+        )
+
     def test_openssl_linux(self):
         if not self.has_gcc:
             self.skipTest("GCC not found in PATH")
@@ -3546,8 +3764,8 @@ class TestParseAndGenerate(base.TestBase):
             "linux",
             add_presets=False,
             presets=["linux", "autotools"],
-            project="openssl",
-            project_version="1.1.1",
+            cmake_project_name="openssl",
+            cmake_project_version="1.1.1",
             prebuilt_subdir="linux",
             build_condition='CMAKE_SYSTEM_NAME STREQUAL "Linux"',
             targets=["openssl"],
@@ -3596,6 +3814,39 @@ class TestParseAndGenerate(base.TestBase):
 
         self.assertTrue(opensslconf_h_checked)
 
+    def test_openssl_linux_bazel(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        self.set_test_data_subdir("openssl/linux")
+
+        self.parse_and_generate_bazel(
+            "linux",
+            add_presets=False,
+            presets=["linux", "autotools"],
+            cmake_project_name="openssl",
+            targets=["openssl"],
+            source_dir=os.path.join(self.test_method_dir, "../source"),
+            ignore_compile_flags=["^-m64$", "^-fstack-protector-strong"],
+            ignore_link_flags=["^-m64$", "^-fstack-protector-strong"],
+            keep_flags=[
+                "^-D",
+                "^-Wa,--noexecstack",
+                "^-fno-exceptions",
+                "^-fno-rtti",
+                "^-Wl,-z",
+                "^-static-",
+                "^-fPIC$",
+                "^-pthread$",
+                "^-Wl,--version-script=",
+            ],
+            delete_flags=["^-D_", "^-DNDEBUG"],
+            replace_flags=[
+                (r"^(-DENGINESDIR)=.+$", r'\g<1>="."'),
+                (r"^(-DOPENSSLDIR)=.+$", r'\g<1>="/usr/local/ssl"'),
+            ],
+        )
+
     def test_openssl_windows(self):
         if not self.has_msvc:
             self.skipTest("MSVC not found in PATH")
@@ -3606,8 +3857,8 @@ class TestParseAndGenerate(base.TestBase):
             "windows",
             add_presets=False,
             presets=["windows", "autotools"],
-            project="openssl",
-            project_version="1.1.1",
+            cmake_project_name="openssl",
+            cmake_project_version="1.1.1",
             prebuilt_subdir="windows",
             build_condition='CMAKE_SYSTEM_NAME STREQUAL "Windows"',
             targets=["openssl"],
@@ -3626,7 +3877,7 @@ class TestParseAndGenerate(base.TestBase):
                 (r"^(-DENGINESDIR)=.+$", r'\g<1>="."'),
                 (
                     r"^(-DOPENSSLDIR)=.+$",
-                    r'\g<1>="C:\\Program Files\\Common Files\\SSL"',
+                    r'\g<1>="C:\\\\Program Files\\\\Common Files\\\\SSL"',
                 ),
             ],
             source_subdir="source",
@@ -3654,6 +3905,39 @@ class TestParseAndGenerate(base.TestBase):
                 self.assertFilesEqualBinary(expected, result)
 
         self.assertTrue(opensslconf_h_checked)
+
+    def test_openssl_windows_bazel(self):
+        if not self.has_msvc:
+            self.skipTest("MSVC not found in PATH")
+
+        self.set_test_data_subdir("openssl/windows")
+
+        self.parse_and_generate_bazel(
+            "windows",
+            add_presets=False,
+            presets=["windows", "autotools"],
+            cmake_project_name="openssl",
+            targets=["openssl"],
+            source_dir=os.path.join(self.test_method_dir, "../source"),
+            keep_flags=[
+                "^-D",
+                "-fwin32",
+                "-Gw",
+                "-Zc:threadSafeInit-",
+                "-arch:",
+                "/GL",
+                "/bigobj",
+                "^/def:",
+            ],
+            delete_flags=["^-D_", "^-DNDEBUG$", "^-DUNICODE$"],
+            replace_flags=[
+                (r"^(-DENGINESDIR)=.+$", r'\g<1>="."'),
+                (
+                    r"^(-DOPENSSLDIR)=.+$",
+                    r'\g<1>="C:\\\\Program Files\\\\Common Files\\\\SSL"',
+                ),
+            ],
+        )
 
     def test_electron(self):
         if not (
@@ -3753,8 +4037,8 @@ class TestParseAndGenerate(base.TestBase):
             ignore_compile_flags=[r"(?i)(.*c:[/\\]program files.*|^/X$|^/Brepro$)"],
             ignore_link_flags=[r"(?i).*c:[/\\]program files.*"],
             preserve_output_path=True,
-            project="electron",
-            project_version="5.0.5",
+            cmake_project_name="electron",
+            cmake_project_version="5.0.5",
             replace_line=[
                 ("-Xclang -add-plugin -Xclang blink-gc-plugin ", ""),
                 ("-Xclang -add-plugin -Xclang find-bad-constructs ", ""),
@@ -3841,12 +4125,11 @@ class TestParseAndGenerate(base.TestBase):
             "darwin",
             add_presets=False,
             presets=["darwin", "autotools", "icu"],
-            project="icu",
-            project_version="58.2",
+            cmake_project_name="icu",
+            cmake_project_version="58.2",
             source_dir=os.path.join(self.test_method_dir, "../source"),
             flag_optimizer_ver=2,
             aggressive_optimization=True,
-            keep_module_version=True,
             target_order=["."],
             replace_line=replace_line
             + [
@@ -3926,12 +4209,11 @@ class TestParseAndGenerate(base.TestBase):
             "windows",
             add_presets=False,
             presets=["windows", "autotools", "icu"],
-            project="icu",
-            project_version="58.2",
+            cmake_project_name="icu",
+            cmake_project_version="58.2",
             source_dir=os.path.join(self.test_method_dir, "../source"),
             flag_optimizer_ver=2,
             aggressive_optimization=True,
-            keep_module_version=True,
             target_order=["."],
             # Keep all flags by default
             keep_flags=[".+"],
@@ -4008,12 +4290,11 @@ class TestParseAndGenerate(base.TestBase):
         kwargs = {
             "add_prests": False,
             "presets": ["linux", "autotools", "icu"],
-            "project": "icu",
-            "project_version": "58.2",
+            "cmake_project_name": "icu",
+            "cmake_project_version": "58.2",
             "source_dir": os.path.join(self.test_method_dir, "../source"),
             "flag_optimizer_ver": 2,
             "aggressive_optimization": True,
-            "keep_module_version": True,
             "target_order": ["."],
             "replace_line": [
                 # remove messages from pkgdata
@@ -4182,3 +4463,125 @@ class TestParseAndGenerate(base.TestBase):
             self.skipTest("Clang not found in PATH")
 
         self.parse_and_generate("darwin")
+
+    def test_msvc_pragma_comment_lib(self):
+        if not self.has_msvc:
+            self.skipTest("MSVC not found in PATH")
+
+        # pragma comment(lib) isn't supported yet
+        self.parse_and_generate("windows", log_type="make")
+
+    def test_character_escaping_posix_on_windows(self):
+        """On Windows, ninja/make print build logs in a manner that cannot be
+        correctly parsed by either Windows or Posix rules.
+        For such logs, special tokenizer ruleset was introduced: posix_on_windows.
+        """
+        if not self.has_msvc:
+            self.skipTest("MSVC not found in PATH")
+
+        self.parse_and_generate(
+            "windows",
+            presets=["windows", "ninja"],
+            tokenizer_ruleset="posix_on_windows",
+            path_aliases=[(
+                r"C:\BuildTools\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x86\cl.exe",
+                "cl.exe",
+            )],
+        )
+
+    def test_character_escaping_posix_on_windows_bazel(self):
+        if not self.has_msvc:
+            self.skipTest("MSVC not found in PATH")
+
+        self.set_test_data_subdir("character_escaping_posix_on_windows")
+
+        self.parse_and_generate_bazel(
+            "windows",
+            presets=["windows", "ninja"],
+            tokenizer_ruleset="posix_on_windows",
+            path_aliases=[(
+                r"C:\BuildTools\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x86\cl.exe",
+                "cl.exe",
+            )],
+        )
+
+    def test_character_escaping_posix(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        self.parse_and_generate("linux", presets=["linux", "ninja"])
+
+    def test_gcc_whole_archive_with_optimizer_v2_and_flag_filter(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        self.parse_and_generate(
+            "linux", log_type="make",
+            flag_optimizer_ver="2",
+            delete_flags=["-lresolv"],
+            aggressive_optimization=True
+        )
+
+    def test_linux_soname(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        self.parse_and_generate("linux")
+
+    def test_darwin_compatibility_version(self):
+        if not self.has_clang:
+            self.skipTest("Clang not found in PATH")
+
+        self.parse_and_generate("darwin")
+
+    def test_windows_dll_version_info(self):
+        if not self.on_windows():
+            self.skipTest("Only Windows is supported")
+
+        if not self.has_msvc:
+            self.skipTest("MSVC not found in PATH")
+
+        self.parse_and_generate(
+            "windows",
+            add_presets=False,
+            presets=["windows", "autotools"],
+            cmake_project_name="icu",
+            cmake_project_version="60.1",
+            flag_optimizer_ver=2,
+            tokenizer_ruleset="posix_on_windows",
+        )
+
+    def test_optimizer_v2_clang_cl(self):
+        if not self.has_msvc or not self.has_clang_cl:
+            self.skipTest("MSVC or clang-cl not found in PATH")
+
+        self.parse_and_generate(
+            "windows",
+            flag_optimizer_ver="2",
+            aggressive_optimization=True,
+        )
+
+    def test_add_implicit_include_dirs_linux(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+
+        self.set_test_data_subdir("add_implicit_include_dirs/linux")
+        self.parse_and_generate_bazel(
+            "linux",
+            source_dir=os.path.join(self.test_method_dir, "../source"),
+        )
+
+    def test_add_implicit_include_dirs_windows(self):
+        if not self.has_msvc:
+            self.skipTest("MSVC not found in PATH")
+
+        self.set_test_data_subdir("add_implicit_include_dirs/windows")
+        self.parse_and_generate_bazel(
+            "windows",
+            source_dir=os.path.join(self.test_method_dir, "../source"),
+        )
+    
+    def test_bazel_copy_file(self):
+        if not self.has_gcc:
+            self.skipTest("GCC not found in PATH")
+        self.parse_and_generate_bazel("linux")

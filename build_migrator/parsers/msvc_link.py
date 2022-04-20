@@ -27,10 +27,8 @@ class MsvcLink(LinkerParser):
 
     priority = 7
 
-    def __init__(self, context, project_version=None, ignore_link_flags=None):
+    def __init__(self, context, ignore_link_flags=None):
         LinkerParser.__init__(self, context, ignore_link_flags=ignore_link_flags)
-
-        self.project_version = project_version
 
         # Visual Studio link.exe arguments
         # https://docs.microsoft.com/en-us/cpp/build/reference/linker-options?view=vs-2017
@@ -231,9 +229,8 @@ class MsvcLink(LinkerParser):
             descr = os_ext.Windows.parse_executable(output)
             module_type = ModuleTypes.executable
 
-        module_name = descr["module_name"]
         name = descr["target_name"]
-        version = descr["version"] or self.project_version
+        version = descr["version"]
         output = self.context.get_output(output, dependencies)
 
         self.process_namespace(namespace)
@@ -244,7 +241,6 @@ class MsvcLink(LinkerParser):
             output,
             msvc_import_lib=import_lib,
             dependencies=dependencies,
-            module_name=module_name,
             objects=objects,
             libs=libs,
             link_flags=namespace.link_flags,

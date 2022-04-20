@@ -52,4 +52,3 @@ set_source_files_properties(${OPENSSL_SOURCE_DIR}/apps/asn1pars.c PROPERTIES INC
 add_executable(openssl ${OPENSSL_SOURCE_DIR}/apps/asn1pars.c)
 target_link_libraries(openssl PRIVATE apps.static openssl_1_1)
 set_target_output_subdir(openssl RUNTIME_OUTPUT_DIRECTORY apps)
-set_target_properties(openssl PROPERTIES VERSION 1.1.1)

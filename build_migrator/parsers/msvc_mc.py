@@ -17,10 +17,10 @@ class MsvcMc(ParserBase):
     def add_arguments(arg_parser):
         pass
 
-    def __init__(self, context, platform=None):
+    def __init__(self, context):
         ParserBase.__init__(self, context)
 
-        self.platform = get_platform(platform)
+        self.platform = context.platform
         self.program_re = self.platform.get_program_path_re("mc")
 
         # https://docs.microsoft.com/en-us/windows/windows/wes/message-compiler--mc-exe-

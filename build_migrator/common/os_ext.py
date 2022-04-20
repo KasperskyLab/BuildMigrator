@@ -11,7 +11,6 @@ import platform
 
 
 _logger = logging.getLogger(__name__)
-_host_system = platform.system().lower()
 
 
 def resolve_lib(lib, lib_dirs, cwd=os.curdir):
@@ -44,6 +43,13 @@ def path_join(*paths):
 
 def is_absolute(path):
     return Platform.is_absolute(path)
+
+
+def get_host_system_name():
+    name = platform.system().lower()
+    if name not in ("windows", "darwin"):
+        name = "linux"
+    return name
 
 
 def get_program_path_re(name, *alts):
@@ -261,7 +267,15 @@ class Windows:
     def GetFileVersionInfo(cls, path):
         win32 = cls._get_win32_module()
         if win32 is not None:
-            return win32.GetFileVersionInfo(path)
+            version = win32.GetFileVersionInfo(path)
+            if version and version.find(", ") != -1:
+                # reformat "major, minor" to "minor.major"
+                version_parts = version.split(", ")
+                # remove trailing zeros
+                while version_parts[-1] == '0':
+                    version_parts = version_parts[:-2]
+                version = ".".join(version_parts)
+            return version
         else:
             return None
 
@@ -293,7 +307,7 @@ class Windows:
         if cls.is_absolute(paths[1]):
             return cls.path_join(paths[1], *paths[2:])
 
-        if not _host_system == "windows" and not cls.is_absolute(paths[0]):
+        if not get_host_system_name() == "windows" and not cls.is_absolute(paths[0]):
             # Workaround that allows generating for Windows on Unix
             # Treat paths starting with '/' as absolute, but only once per path_join() call
             if Unix.is_absolute(paths[1]):
@@ -436,7 +450,7 @@ class Unix:
         if cls.is_absolute(paths[1]):
             return cls.path_join(paths[1], *paths[2:])
 
-        if _host_system == "windows" and not cls.is_absolute(paths[0]):
+        if get_host_system_name() == "windows" and not cls.is_absolute(paths[0]):
             # Workaround that allows generating for Unix on Windows
             # Treat paths starting with '<letter>:' as absolute, but only once per path_join() call
             if Windows.is_absolute(paths[1]):
@@ -468,8 +482,9 @@ class Darwin(Unix):
 
 def get_platform(name=None):
     if name is None:
-        name = platform.system()
-    name = name.lower()
+        name = get_host_system_name()
+    else:
+        name = name.lower()
     if name.startswith("win"):
         return Windows
     elif name in ["darwin", "mac"]:

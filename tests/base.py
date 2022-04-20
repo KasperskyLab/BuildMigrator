@@ -222,7 +222,7 @@ class TestBase(unittest.TestCase):
                 f.write(bom)
             f.write(content.encode(encoding))
 
-    def _format_template(self, path, platform):
+    def _format_template(self, path, platform, test_data_dir):
         if not path.endswith(".in"):
             return path
         with open(path, "rt") as f_template:
@@ -234,7 +234,7 @@ class TestBase(unittest.TestCase):
                 for line in f_template:
                     f.write(
                         line.replace(
-                            "@cwd@", platform.normalize_path(self.test_method_dir),
+                            "@cwd@", platform.normalize_path(test_data_dir),
                         )
                     )
             return out_path
@@ -247,7 +247,6 @@ class TestBase(unittest.TestCase):
         log_type=None,
         cmakelists_name="CMakeLists.txt",
         max_relpath_level=1,
-        project=None,
         extra_targets=None,
         build_dirs=None,
         source_dir=None,
@@ -257,8 +256,11 @@ class TestBase(unittest.TestCase):
         logs=None,
         source_subdir=None,
         flag_optimizer_ver=None,
+        test_data_dir=None,
         **kwargs
     ):
+        if test_data_dir is None:
+            test_data_dir = self.test_method_dir
         if path_aliases is None:
             path_aliases = []
         if source_subdir is None:
@@ -271,13 +273,13 @@ class TestBase(unittest.TestCase):
             presets = copy.copy(self.default_presets.get(test_platform))
 
         if source_dir is None:
-            source_dir = os.path.join(self.test_method_dir, "source")
+            source_dir = os.path.join(test_data_dir, "source")
 
         if build_dirs is None:
-            build_dir = os.path.join(self.test_method_dir, "build")
+            build_dir = os.path.join(test_data_dir, "build")
             multiple_build_dirs = [
-                os.path.join(self.test_method_dir, "build1"),
-                os.path.join(self.test_method_dir, "build2"),
+                os.path.join(test_data_dir, "build1"),
+                os.path.join(test_data_dir, "build2"),
             ]
 
             if os.path.exists(multiple_build_dirs[0]):
@@ -289,18 +291,20 @@ class TestBase(unittest.TestCase):
         self.makedirs(generator_out_dir)
 
         expected_cmake_template = os.path.join(
-            self.test_method_dir, cmakelists_name + ".in"
+            test_data_dir, cmakelists_name + ".in"
         )
         if os.path.exists(expected_cmake_template):
-            expected_cmake = self._format_template(expected_cmake_template, platform)
+            expected_cmake = self._format_template(
+                expected_cmake_template, platform, test_data_dir=test_data_dir
+            )
         else:
-            expected_cmake = os.path.join(self.test_method_dir, cmakelists_name)
+            expected_cmake = os.path.join(test_data_dir, cmakelists_name)
 
         if logs is None:
-            build_log_template = os.path.join(self.test_method_dir, "build.log.in")
-            multiple_build_logs_first = os.path.join(self.test_method_dir, "build1.log")
+            build_log_template = os.path.join(test_data_dir, "build.log.in")
+            multiple_build_logs_first = os.path.join(test_data_dir, "build1.log")
             multiple_build_logs_first_template = os.path.join(
-                self.test_method_dir, "build1.log.in"
+                test_data_dir, "build1.log.in"
             )
             if os.path.exists(build_log_template):
                 logs = [build_log_template]
@@ -308,7 +312,7 @@ class TestBase(unittest.TestCase):
                 logs = [multiple_build_logs_first]
                 idx = 2
                 while True:
-                    path = os.path.join(self.test_method_dir, "build%d.log" % idx)
+                    path = os.path.join(test_data_dir, "build%d.log" % idx)
                     idx += 1
                     if os.path.exists(path):
                         logs.append(path)
@@ -319,16 +323,16 @@ class TestBase(unittest.TestCase):
                 idx = 1
                 while True:
                     template = os.path.join(
-                        self.test_method_dir, "build%d.log.in" % idx
+                        test_data_dir, "build%d.log.in" % idx
                     )
                     if not os.path.exists(template):
                         break
                     idx += 1
                     logs.append(template)
             else:
-                logs = [os.path.join(self.test_method_dir, "build.log")]
+                logs = [os.path.join(test_data_dir, "build.log")]
 
-        logs = [self._format_template(path, platform) for path in logs]
+        logs = [self._format_template(path, platform, test_data_dir=test_data_dir) for path in logs]
 
         if log_type:
             log_type += ":"
@@ -342,7 +346,6 @@ class TestBase(unittest.TestCase):
                 "logs": [log_type + log for log in logs],
                 "build_dirs": build_dirs,
                 "source_dir": source_dir,
-                "project": project,
                 "out_dir": generator_out_dir,
                 "save": None,
                 "load": None,
@@ -395,6 +398,150 @@ class TestBase(unittest.TestCase):
             result_cmake = os.path.join(generator_out_dir, "CMakeLists.txt")
             self.assertTrue(os.path.exists(result_cmake))
             self.assertFilesEqual(expected_cmake, result_cmake)
+
+    def parse_and_generate_bazel(
+        self,
+        test_platform,
+        presets=None,
+        path_aliases=None,
+        log_type=None,
+        extra_targets=None,
+        build_dirs=None,
+        source_dir=None,
+        commands=None,
+        load=None,
+        save=None,
+        logs=None,
+        test_data_dir=None,
+        **kwargs
+    ):
+        if test_data_dir is None:
+            test_data_dir = self.test_method_dir
+        if path_aliases is None:
+            path_aliases = []
+
+        platform = get_platform(test_platform)
+        if presets is None:
+            presets = copy.copy(self.default_presets.get(test_platform))
+
+        if source_dir is None:
+            source_dir = os.path.join(test_data_dir, "source")
+
+        if build_dirs is None:
+            build_dir = os.path.join(test_data_dir, "build")
+            multiple_build_dirs = [
+                os.path.join(test_data_dir, "build1"),
+                os.path.join(test_data_dir, "build2"),
+            ]
+
+            if os.path.exists(multiple_build_dirs[0]):
+                build_dirs = multiple_build_dirs
+            else:
+                build_dirs = [build_dir]
+
+        generator_out_dir = os.path.join(self.test_method_out_dir, "bazel")
+        self.makedirs(generator_out_dir)
+
+        expected_bazel = os.path.join(test_data_dir, "BUILD.bazel")
+
+        if logs is None:
+            build_log_template = os.path.join(test_data_dir, "build.log.in")
+            multiple_build_logs_first = os.path.join(test_data_dir, "build1.log")
+            multiple_build_logs_first_template = os.path.join(
+                test_data_dir, "build1.log.in"
+            )
+            if os.path.exists(build_log_template):
+                logs = [build_log_template]
+            elif os.path.exists(multiple_build_logs_first):
+                logs = [multiple_build_logs_first]
+                idx = 2
+                while True:
+                    path = os.path.join(test_data_dir, "build%d.log" % idx)
+                    idx += 1
+                    if os.path.exists(path):
+                        logs.append(path)
+                    else:
+                        break
+            elif os.path.exists(multiple_build_logs_first_template):
+                logs = []
+                idx = 1
+                while True:
+                    template = os.path.join(
+                        test_data_dir, "build%d.log.in" % idx
+                    )
+                    if not os.path.exists(template):
+                        break
+                    idx += 1
+                    logs.append(template)
+            else:
+                logs = [os.path.join(test_data_dir, "build.log")]
+
+        logs = [self._format_template(path, platform, test_data_dir=test_data_dir) for path in logs]
+
+        if log_type:
+            log_type += ":"
+        else:
+            log_type = ""
+        kwargs.update(
+            {
+                "platform": test_platform,
+                "path_aliases": path_aliases,
+                "logs": [log_type + log for log in logs],
+                "build_dirs": build_dirs,
+                "source_dir": source_dir,
+                "out_dir": generator_out_dir,
+                "save": None,
+                "load": None,
+            }
+        )
+
+        settings = {}
+        if presets is not None:
+            loader = SettingsLoader()
+            settings = loader.load(presets)
+            settings = loader.merge(settings, kwargs)
+        else:
+            settings = kwargs
+        settings["generators"] = ["bazel"]
+        modules = None
+        if settings is not None:
+            modules = ModuleLoader(settings.get("module_dirs")).load(
+                **get_subdict(
+                    settings,
+                    ModuleGroups.BUILDERS,
+                    ModuleGroups.PARSERS,
+                    ModuleGroups.OPTIMIZERS,
+                    ModuleGroups.GENERATORS,
+                )
+            )
+
+        migrator = BuildMigrator(modules)
+
+        targets = []
+        if load:
+            targets = migrator.load_build_object_model(load)
+
+        if extra_targets:
+            targets.extend(extra_targets)
+
+        if commands is None or "parse" in commands:
+            targets = migrator.parse(targets, **settings)
+
+        if "targets" in settings:
+            del settings["targets"]
+        if commands is None or "optimize" in commands:
+            targets = migrator.optimize(targets, **settings)
+
+        if save:
+            migrator.save_build_object_model(save, targets)
+
+        if commands is None or "generate" in commands:
+            settings["generators"] = "bazel"
+            migrator.generate(targets, **settings)
+            result_bazel = os.path.join(generator_out_dir, "BUILD.bazel")
+            self.assertTrue(os.path.exists(result_bazel))
+            expected_bazel = os.path.join(test_data_dir, "BUILD.bazel")
+            self.assertFilesEqual(expected_bazel, result_bazel)
 
     def call(self, args, **kwargs):
         log_path = os.path.join(

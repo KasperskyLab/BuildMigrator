@@ -35,12 +35,12 @@ class CMakeCmd(Generator):
     def add_arguments(arg_parser):
         pass
 
-    def __init__(self, context, project=None):
+    def __init__(self, context, cmake_project_name=None):
         self.context = context
-        if project is None:
+        if cmake_project_name is None:
             self.var_prefix = ""
         else:
-            self.var_prefix = project.upper() + "_"
+            self.var_prefix = cmake_project_name.upper() + "_"
         self.found_programs = {"cmake": "CMAKE_COMMAND", "objcopy": "CMAKE_OBJCOPY"}
 
     def generate(self, target):

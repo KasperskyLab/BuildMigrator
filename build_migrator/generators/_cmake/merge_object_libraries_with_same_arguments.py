@@ -1,6 +1,7 @@
 import logging
 import itertools
 
+from build_migrator.common.algorithm import flatten_list
 from build_migrator.helpers import (
     get_source_with_inherited_flags,
     get_module_target,
@@ -13,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 def source_object_to_string_without_path(target):
-    return " ".join(target["compile_flags"]) + " ".join(
+    return " ".join(flatten_list(target["compile_flags"])) + " ".join(
         ["-I" + d for d in target["include_dirs"]]
     )
 
@@ -189,7 +190,7 @@ class MergeObjectLibrariesWithSameArguments(Generator):
                 child_target = targets_by_output.get(object)
                 if (
                     not child_target
-                    or child_target["module_type"] != ModuleTypes.object_lib
+                    or child_target.get("module_type") != ModuleTypes.object_lib
                 ):
                     continue
                 post_build_commands = child_target.get("post_build_commands") or []
@@ -217,7 +218,7 @@ class MergeObjectLibrariesWithSameArguments(Generator):
         pending_object_libs = optimize_pending_object_libs(pending_object_libs)
 
         new_targets, deps_to_remove, deps_to_add = build_new_targets(
-            self.context.project, pending_object_libs, targets_by_output
+            self.context.project_name, pending_object_libs, targets_by_output
         )
 
         res = []

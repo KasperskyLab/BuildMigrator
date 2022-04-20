@@ -19,7 +19,6 @@ def get_module_target(
     compile_flags=None,
     dependencies=None,
     libs=None,
-    module_name=None,
     include_dirs=None,
     link_flags=None,
     objects=None,
@@ -52,7 +51,6 @@ def get_module_target(
         "output": output,
         "msvc_import_lib": msvc_import_lib,
         "compile_flags": compile_flags,  # + c_flags, cxx_flags, etc
-        "module_name": module_name,
         "include_dirs": include_dirs,  # + c_includes, cxx_includes, etc
         "link_flags": link_flags,
         "libs": libs,
@@ -68,13 +66,12 @@ def get_module_target(
     return target
 
 
-def get_module_copy(name, source, output, module_name=None, dependencies=None):
+def get_module_copy(name, source, output, dependencies=None):
     if dependencies is None:
         dependencies = []
 
     return {
         "name": name,
-        "module_name": module_name,
         "type": "module_copy",
         "output": output,
         "source": source,
@@ -509,3 +506,9 @@ def get_target_output_dir(target):
         return None
     output = target["output"]
     return os.path.dirname(output)
+
+
+def get_target_outputs(target):
+    if "output" not in target:
+        return []
+    return [target["output"]] + (target.get("msvc_import_lib") or [])

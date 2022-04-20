@@ -1,0 +1,3 @@
+cl.exe   -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I../source   -DU_ATTRIBUTE_DEPRECATED= -DWIN32 -DCYGWINMSVC -DU_IO_IMPLEMENTATION /GL- /W4   -GF -nologo  -c   -Foio.o ../source/io.cpp
+rc.exe -foio.res -DHAVE_DLOPEN=0 -DU_HAVE_ATOMIC=1 -DU_HAVE_MMAP=0 -DU_HAVE_DIRENT_H=0 -DU_HAVE_POPEN=0 -DU_HAVE_TZNAME=0 -DU_HAVE_STRTOD_L=0  -DU_RELEASE=1 -D_CRT_SECURE_NO_DEPRECATE -I../source ../source/io.rc
+LINK.EXE -DLL  -nologo -base:"0x4ab00000" -IMPLIB:lib/icuio.lib -out:lib/icuio58.dll io.o io.res lib/icuuc.lib stubdata/icudt.lib lib/icuin.lib advapi32.lib

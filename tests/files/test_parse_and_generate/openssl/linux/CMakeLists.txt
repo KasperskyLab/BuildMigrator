@@ -56,7 +56,6 @@ target_link_options(openssl_1_1 PRIVATE
     -Wl,--version-script=${CMAKE_CURRENT_BINARY_DIR}/libcrypto.map
 )
 target_link_libraries(openssl_1_1 PRIVATE ${CMAKE_DL_LIBS} Threads::Threads)
-set_target_properties(openssl_1_1 PROPERTIES VERSION 1.1.1)
 
 set_source_files_properties(${OPENSSL_SOURCE_DIR}/apps/asn1pars.c PROPERTIES COMPILE_OPTIONS "-pthread;-Wa,--noexecstack;-fno-rtti;-fno-exceptions")
 set_source_files_properties(${OPENSSL_SOURCE_DIR}/apps/asn1pars.c PROPERTIES INCLUDE_DIRECTORIES
@@ -72,4 +71,3 @@ target_link_options(openssl PRIVATE
 )
 target_link_libraries(openssl PRIVATE apps.static openssl_1_1 ${CMAKE_DL_LIBS} Threads::Threads)
 set_target_output_subdir(openssl RUNTIME_OUTPUT_DIRECTORY apps)
-set_target_properties(openssl PROPERTIES VERSION 1.1.1)

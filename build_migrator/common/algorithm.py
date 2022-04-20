@@ -85,7 +85,7 @@ def find_best_common_set(sets, fitness_func=None):
 
 def join_nested_lists(flags, delim=" "):
     for idx, f in enumerate(flags):
-        if isinstance(f, list):
+        if isinstance(f, list) or isinstance(f, tuple):
             flags[idx] = delim.join(f)
     return flags
 
@@ -93,7 +93,7 @@ def join_nested_lists(flags, delim=" "):
 def flatten_list(lst):
     result = []
     for elem in lst:
-        if isinstance(elem, list):
+        if isinstance(elem, list) or isinstance(elem, tuple):
             result.extend(flatten_list(elem))
         else:
             result.append(elem)

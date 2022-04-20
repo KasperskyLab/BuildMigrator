@@ -1,5 +1,6 @@
 import logging
 import os
+from build_migrator.common.algorithm import flatten_list
 from build_migrator.helpers import (
     get_module_target,
     get_source_file_reference,
@@ -25,7 +26,7 @@ language_specific_properties = set(
 def source_object_to_string(target):
     return (
         target["path"]
-        + " ".join(target["compile_flags"])
+        + " ".join(flatten_list(target["compile_flags"]))
         + " ".join(["-I" + d for d in target["include_dirs"]])
     )
 

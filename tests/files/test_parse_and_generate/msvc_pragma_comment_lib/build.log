@@ -1,0 +1,2 @@
+cl.exe /c /nologo /Fofoo.c.obj ..\source\foo.c /I../source
+link.exe /OUT:foo.dll /DLL /LIBPATH:libs foo.c.obj

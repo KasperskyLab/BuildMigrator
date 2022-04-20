@@ -14,10 +14,6 @@ class ContextWorkingDirWorkaround(Parser):
     def add_arguments(arg_parser):
         pass
 
-    @staticmethod
-    def is_applicable(project=None, log_type=None):
-        return True
-
     def __init__(self, context):
         self.context = context
 

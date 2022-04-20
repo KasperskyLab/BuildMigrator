@@ -1,0 +1,5 @@
+clang ../source/foo.c -dynamiclib -compatibility_version 1.0.0 -current_version 1.2.3  -o lib/liba.1.2.3.dylib
+clang ../source/foo.c -dynamiclib -compatibility_version 4.0 -current_version 4.5  -o lib/libb.4.5.dylib
+clang ../source/foo.c -dynamiclib -compatibility_version 6 -current_version 6  -o lib/libc.6.dylib
+clang ../source/foo.c -dynamiclib -current_version 7 -o lib/libd.7.dylib
+ 

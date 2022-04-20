@@ -1,4 +1,5 @@
 import fnmatch
+import re
 
 
 class WildcardMatcher(object):
@@ -12,18 +13,20 @@ class WildcardMatcher(object):
         self._positive = []
         for p in patterns:
             if p.startswith("!"):
-                self._negative.append(p[1:].lower())
+                re_str = fnmatch.translate(p[1:].lower())
+                self._negative.append(re.compile(re_str))
             else:
-                self._positive.append(p.lower())
+                re_str = fnmatch.translate(p.lower())
+                self._positive.append(re.compile(re_str))
 
     def match(self, s):
         s = s.lower()
         for n in self._negative:
-            if fnmatch.fnmatch(s, n):
+            if n.match(s):
                 return False
 
         for p in self._positive:
-            if fnmatch.fnmatch(s, p):
+            if p.match(s):
                 return True
 
         if self._positive:

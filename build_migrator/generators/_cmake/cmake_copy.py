@@ -11,8 +11,8 @@ class CMakeCopy(CMakeCmd):
     def add_arguments(arg_parser):
         pass
 
-    def __init__(self, context, project=None):
-        CMakeCmd.__init__(self, context, project)
+    def __init__(self, context, cmake_project_name=None):
+        CMakeCmd.__init__(self, context, cmake_project_name)
 
     @staticmethod
     def _create_symlink_cmd(name, source, output):

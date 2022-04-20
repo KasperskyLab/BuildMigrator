@@ -3,6 +3,7 @@
 # https://www.python.org/dev/peps/pep-0328
 from __future__ import absolute_import
 
+import argparse
 import logging
 import os
 from pprint import pformat
@@ -12,7 +13,7 @@ import sys
 import traceback
 
 from build_migrator.common.algorithm import flatten_list
-from build_migrator.common.os_ext import Unix
+from build_migrator.common.os_ext import get_host_system_name, get_platform, Unix
 
 from build_migrator.parsers.build_log_parser import (
     BuildLogParserContext as ParserContext,
@@ -84,11 +85,26 @@ class CMakeContext(EntryPoint, Generator):
 
     @classmethod
     def add_arguments(cls, arg_parser):
+        try:
+            arg_parser.add_argument(
+                "--platform",
+                choices=["linux", "windows", "darwin"],
+                help="Platform under which the build log was obtained. "
+                "Mac and Linux builds can be parsed on any platform. "
+                "Windows build logs can be parsed only on Windows. "
+                "Default: current platform."
+            )
+        except argparse.ArgumentError:
+            # Already added somewhere else
+            # TODO: make a better solution for cases when multiple extensions require the same argument
+            pass
         arg_parser.add_argument(
-            "--project", metavar="NAME", help="Value of project(PROJECT-NAME) argument."
+            "--cmake_project_name",
+            metavar="NAME",
+            help="Value of project(PROJECT-NAME) argument."
         )
         arg_parser.add_argument(
-            "--project_version",
+            "--cmake_project_version",
             metavar="VERSION",
             help="Value of project(VERSION) argument.",
         )
@@ -111,8 +127,8 @@ class CMakeContext(EntryPoint, Generator):
         self,
         build_migrator,
         out_dir,
-        project=None,
-        project_version=None,
+        cmake_project_name=None,
+        cmake_project_version=None,
         prebuilt_subdir=None,
         rename_patterns=None,
         source_subdir=None,
@@ -120,11 +136,14 @@ class CMakeContext(EntryPoint, Generator):
         flat_build_dir=None,
     ):
         assert os.path.exists(out_dir)
+        if platform is None:
+            platform = get_host_system_name()
 
-        self.platform = platform
-        self.project = project
+        self.platform_name = platform
+        self.platform = get_platform(platform)
+        self.project_name = cmake_project_name
         self.out_dir = out_dir
-        self.project_version = project_version
+        self.project_version = cmake_project_version
         if source_subdir is None:
             source_subdir = "source"
         self.source_subdir = source_subdir
@@ -147,8 +166,8 @@ class CMakeContext(EntryPoint, Generator):
         # Replace invalid characters in target names
         self.rename_patterns.append((re.compile(r"[^a-zA-Z0-9_\.+-]"), "_"))
 
-        if self.project:
-            self.source_dir_var = self.project.upper() + "_SOURCE_DIR"
+        if self.project_name:
+            self.source_dir_var = self.project_name.upper() + "_SOURCE_DIR"
         else:
             self.source_dir_var = "SOURCE_DIR"
 
@@ -190,14 +209,19 @@ class CMakeContext(EntryPoint, Generator):
 
     @classmethod
     def quote(cls, s, force=False):
+        skip_slash = False
         if not force:
             if not s:
                 return '""'
-            if s.find(" ") == -1:
-                return cls.escape_special_chars(s)
             if s.startswith('"') and s.endswith('"'):
                 return cls.escape_special_chars(s)
-        s = '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+            s = s.replace("\\", "\\\\")
+            skip_slash = True
+            if s.find(" ") == -1:
+                return cls.escape_special_chars(s)
+        if not skip_slash:
+            s = s.replace("\\", "\\\\")
+        s = '"' + s.replace('"', '\\"') + '"'
         return cls.escape_special_chars(s)
 
     def format_location(self, location, prepend_var=True):
@@ -214,8 +238,6 @@ class CMakeContext(EntryPoint, Generator):
 
         if not isinstance(value, list):
             value = [value]
-
-        value = [self.quote(v) for v in value]
 
         return self.format_call("set", [name], value, suffix_args)
 
@@ -355,7 +377,7 @@ class CMakeContext(EntryPoint, Generator):
             return flags
         if isinstance(flags, str):
             return self.process_compile_flags([flags])[0]
-        if self.platform == "windows" and flags:
+        if self.platform_name == "windows" and flags:
             fixed_flags = []
             for f in flags:
                 if isinstance(f, str):
@@ -363,6 +385,8 @@ class CMakeContext(EntryPoint, Generator):
                         f = "/MT$<$<CONFIG:Debug>:d>"
                     if self.md_re.match(f):
                         f = "/MD$<$<CONFIG:Debug>:d>"
+                if isinstance(f, list) or isinstance(f, tuple):
+                    f = "SHELL:{}".format(" ".join(f))
                 fixed_flags.append(f)
             flags = fixed_flags
         return flags
@@ -388,7 +412,9 @@ class CMakeContext(EntryPoint, Generator):
                 else:
                     tmp = self._remove_link_flag_prefix(f).split(",")
                     if len(tmp) != 2:
-                        continue
+                        tmp = self._remove_link_flag_prefix(f).split("=")
+                        if len(tmp) != 2:
+                            continue
                     flag_name, value = tmp[0], tmp[1]
                 if flag_name == "-soname":
                     descr = Unix.parse_shared_lib(value)
@@ -545,17 +571,17 @@ class CMakeContext(EntryPoint, Generator):
             with self.open(path, "w") as f:
                 f.write("set({}\n".format(argv_from_file_var))
                 for arg in argv:
-                    f.write(self.format(arg) + "\n")
+                    f.write(self.format(arg, escape_slash=False) + "\n")
                 f.write(")\n")
             get_string_from_file = "include({})\n".format(
                 self.format_location(path, False)
             )
             argv_str += "${" + argv_from_file_var + "}"
         else:
-            argv_str += self.format(" ".join(argv))
+            argv_str += self.format(" ".join(argv), escape_slash=False)
 
         if len(argv_str) > 60:
-            argv_str = "\n    " + self.format("\n    ".join(argv)) + "\n"
+            argv_str = "\n    " + self.format("\n    ".join(argv), escape_slash=False) + "\n"
             if end_formal_args:
                 end_str = "   " + end_str + "\n"
 
@@ -621,7 +647,7 @@ class CMakeContext(EntryPoint, Generator):
     ):
         result = "cmake_minimum_required(VERSION 3.13)\n\n"
         project_version = self.project_version
-        project = self.project
+        project_name = self.project_name
         if project_version is not None:
             project_version = " VERSION {}".format(project_version)
         else:
@@ -634,8 +660,8 @@ class CMakeContext(EntryPoint, Generator):
             # This disables C and CXX
             main_languages_str = "LANGUAGES"
         result += self.format(
-            "project({project} {languages}{project_version})\n",
-            project=project or "PROJECT",
+            "project({name} {languages}{project_version})\n",
+            name=project_name or "PROJECT",
             languages=main_languages_str,
             project_version=project_version,
         )

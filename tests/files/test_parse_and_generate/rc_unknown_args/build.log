@@ -1,0 +1,3 @@
+rc /fo app.res /I include ..\source\version.rc /wd4244 /wd4800 /wd4355 /wd4267 /fo app.res
+cl -c ..\source\main.c /Fomain.obj
+link app.res main.obj /OUT:app.exe

@@ -1,0 +1,3 @@
+gcc -fPIC -shared ../source/foo.c -o c/libfoo.so.1.2.3
+gcc -c ../source/main.c -o main.o
+gcc -o c/main main.o c/libfoo.so.1.2.3

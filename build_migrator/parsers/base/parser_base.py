@@ -6,7 +6,7 @@ class ParserBase(Parser):
         self.context = context
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return True
 
     def input_dir(self, state, dest, value):

@@ -1,7 +1,7 @@
-gcc ../source/1.c -shared -Wl,-rpath -Wl,@cwd@/build/1 -o liba.so
-gcc ../source/2.c -shared -Wl,-rpath,@cwd@/build/2 -o libb.so
-gcc ../source/3.c -shared -Wl,--rpath -Wl,@cwd@/build/3 -o libc.so
-gcc ../source/4.c -shared -Wl,--rpath,@cwd@/build/4 -o libd.so
-gcc ../source/5.c -shared -Wl,--rpath=@cwd@/build/5 -o libe.so
-gcc ../source/6.c -shared -Wl,-rpath=@cwd@/build/6 -o f.so
-gcc ../source/7.c -shared -rpath @cwd@/build/7 -o libg.so
+gcc ../source/1.c -shared -Wl,-rpath -Wl,@cwd@/build/1 -Wl,-rpath-link -Wl,@cwd@/build/link -o liba.so
+gcc ../source/2.c -shared -Wl,-rpath-link,@cwd@/build/link -Wl,-rpath,@cwd@/build/2 -o libb.so
+gcc ../source/3.c -shared -Wl,--rpath -Wl,@cwd@/build/3 -Wl,--rpath-link -Wl,@cwd@/build/link -o libc.so
+gcc ../source/4.c -shared -Wl,--rpath,@cwd@/build/4 -Wl,--rpath-link,@cwd@/build/link -o libd.so
+gcc ../source/5.c -shared -Wl,--rpath=@cwd@/build/5 -Wl,--rpath-link=@cwd@/build/link -o libe.so
+gcc ../source/6.c -shared -Wl,-rpath=@cwd@/build/6 -Wl,-rpath-link=@cwd@/build/link -o f.so
+gcc ../source/7.c -shared -rpath @cwd@/build/7 -rpath-link @cwd@/build/link -o libg.so

@@ -135,13 +135,13 @@ def main(argv=None):
     if args.commands is None or "optimize" in args.commands:
         build_object_model = migrator.optimize(build_object_model, **settings)
 
-    if args.commands is None or "generate" in args.commands:
-        migrator.generate(build_object_model, **settings)
-
     if build_object_model is not None:
         if args.save is None:
             args.save = default_bom_path
         migrator.save_build_object_model(args.save, build_object_model)
+
+    if args.commands is None or "generate" in args.commands:
+        migrator.generate(build_object_model, **settings)
 
     migrator.save_settings(persistent_settings_path, settings)
 

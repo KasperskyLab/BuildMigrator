@@ -59,6 +59,7 @@ class MsvcRc(CompilerParser):
             "/i", action="append", dest="include_dirs", raw_dest=None
         )
         self.parser.add_argument("/nologo", action="store_true")
+        self.parser.add_argument("-r", action="store_true")
         self.parser.add_argument(
             "/w", action="store_true", raw_format=ReplacePrefixArg("/w")
         )
@@ -84,7 +85,9 @@ class MsvcRc(CompilerParser):
 
         tokens.pop(0)
 
-        namespace = self.parser.parse_args(tokens)
+        namespace, _ = self.parser.parse_known_args(
+            tokens, unknown_dest="compile_flags"
+        )
 
         dependencies = []
 

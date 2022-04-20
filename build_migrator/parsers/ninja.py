@@ -21,7 +21,7 @@ class NinjaLog(MakeLog):
         pass
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return log_type == "ninja"
 
     def __init__(self, context):

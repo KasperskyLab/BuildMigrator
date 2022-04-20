@@ -25,7 +25,7 @@ class ReplaceLine(Parser):
         self.context = context
 
     @staticmethod
-    def is_applicable(project=None, log_type=None):
+    def is_applicable(log_type=None):
         return log_type in ["make", "ninja", "msbuild"]
 
     def __replace_line__(self, line):

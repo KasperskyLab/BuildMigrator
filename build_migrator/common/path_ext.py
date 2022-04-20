@@ -29,3 +29,13 @@ def relpath_level(path):
         idx += 3
 
     return level
+
+
+def is_subpath(a, b):
+    # Return True if a is subpath b
+    a, b = a.rstrip('/'), b.rstrip('/')
+
+    if b.startswith(a):
+        if len(b) == len(a) or b[len(a)] == "/":
+            return True
+    return False

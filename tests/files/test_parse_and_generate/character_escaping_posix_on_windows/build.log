@@ -1,0 +1,1 @@
+[1/1] C:\BuildTools\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x86\cl.exe /nologo /TC -DHAVE_CONFIG_H=1 -DXERCES_BUILDING_LIBRARY=1 -DASTERISK=\* -DXERCES_DLL_NAME=\"xerces-c_3_2.dll\0\" -DOPENSSL_DIR="\"C:\Program Files (x86)\OpenSSL\"" ..\source\a.c /link /out:test.exe

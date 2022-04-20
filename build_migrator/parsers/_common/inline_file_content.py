@@ -14,9 +14,9 @@ logger = logging.getLogger(__name__)
 class InlineFileContent(Parser):
     priority = 4
 
-    def __init__(self, context, platform=None):
+    def __init__(self, context):
         self.context = context
-        self.platform = platform
+        self.platform = context.platform_name
 
     def parse(self, target):
         tokens = target.get("tokens")

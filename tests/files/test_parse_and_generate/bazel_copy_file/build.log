@@ -1,0 +1,8 @@
+cp ../source/a.c a.c
+cp ../source/include/a.h include/a.h
+
+gcc -c -MD -Iinclude -o a.o a.c
+gcc -shared -o liba.so a.o
+
+gcc -c -o main.o ../source/main.c
+gcc -o build liba.so main.o

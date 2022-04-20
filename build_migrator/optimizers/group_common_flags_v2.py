@@ -69,17 +69,20 @@ class GroupCommonFlagsV2(Optimizer):
     def __init__(
         self,
         context,
-        platform=None,
         flag_optimizer_ver=None,
         aggressive_optimization=None,
-        class_optimization_threshold=None
+        class_optimization_threshold=None,
+        generators=None,
     ):
+        if generators is None:
+            generators = []
+        self.bazel_mode = len(generators) > 0 and "bazel" in generators[0]
         if flag_optimizer_ver is not None:
             flag_optimizer_ver = int(flag_optimizer_ver)
-        self.is_disabled = flag_optimizer_ver != 2
+        self.is_disabled = flag_optimizer_ver != 2 and not self.bazel_mode
         if self.is_disabled:
             return
-        self.platform = platform
+        self.platform = context.platform_name
         self.aggressive_optimization = aggressive_optimization
         self.class_optimization_threshold = class_optimization_threshold
 
@@ -118,6 +121,8 @@ class GroupCommonFlagsV2(Optimizer):
         common_flags = intersect_unique_stable(
             *[src[property] for src in source_targets]
         )
+        if common_flags is None:
+            return None
 
         for flag in common_flags:
             if not isinstance(flag, list):
@@ -133,12 +138,11 @@ class GroupCommonFlagsV2(Optimizer):
 
         if target_property not in target:
             target[target_property] = []
-        if common_flags is not None:
-            if flag_filter:
-                common_flags = [f for f in common_flags if flag_filter(f)]
-            add_unique_stable(target[target_property], *common_flags)
-            for src in source_targets:
-                src[property] = [f for f in src[property] if f not in common_flags]
+        if flag_filter:
+            common_flags = [f for f in common_flags if flag_filter(f)]
+        add_unique_stable(target[target_property], *common_flags)
+        for src in source_targets:
+            src[property] = [f for f in src[property] if f not in common_flags]
         return common_flags
 
     class DefaultSourceFilter(object):
@@ -311,80 +315,84 @@ class GroupCommonFlagsV2(Optimizer):
             ("rc_include_dirs", "RC", "include_dirs"),
         ]
         # Add global flags and include dirs to global class target
-        global_class = get_class_target("#global")
-        for (
-            target_property,
-            source_language,
-            source_property,
-        ) in common_optimization_definitions:
-            flag_filter = None
-            source_filter = None
-            if source_language is not None:
-                source_filter = self.DefaultSourceFilter(source_language)
-            elif (
-                only_definitions_in_global_scope and source_property == "compile_flags"
-            ):
-                flag_filter = self._definitions_only
-            common_values = self._move_common_flags_to_target(
+        class_targets = []
+        if not self.bazel_mode:
+            global_class = get_class_target("#global")
+            for (
+                target_property,
+                source_language,
+                source_property,
+            ) in common_optimization_definitions:
+                flag_filter = None
+                source_filter = None
+                if source_language is not None:
+                    source_filter = self.DefaultSourceFilter(source_language)
+                elif (
+                    only_definitions_in_global_scope and source_property == "compile_flags"
+                ):
+                    flag_filter = self._definitions_only
+                common_values = self._move_common_flags_to_target(
+                    global_class["properties"],
+                    global_class.setdefault("dependencies", []),
+                    src_copies_with_target_flags,
+                    source_property,
+                    target_property=target_property,
+                    source_filter=source_filter,
+                    flag_filter=flag_filter,
+                    threshold=self.class_optimization_threshold
+                )
+                if common_values is None:
+                    continue
+                self._remove_property_values(
+                    compileable_targets, target_property, common_values
+                )
+                if target_property != source_property:
+                    self._remove_property_values(
+                        compileable_targets, source_property, common_values
+                    )
+                self._remove_property_values(
+                    filter(source_filter, compileable_sources),
+                    source_property,
+                    common_values,
+                )
+
+            self._move_common_flags_to_target(
                 global_class["properties"],
                 global_class.setdefault("dependencies", []),
-                src_copies_with_target_flags,
-                source_property,
-                target_property=target_property,
-                source_filter=source_filter,
-                flag_filter=flag_filter,
-                threshold=self.class_optimization_threshold
-            )
-            if common_values is None:
-                continue
-            self._remove_property_values(
-                compileable_targets, target_property, common_values
-            )
-            if target_property != source_property:
-                self._remove_property_values(
-                    compileable_targets, source_property, common_values
-                )
-            self._remove_property_values(
-                filter(source_filter, compileable_sources),
-                source_property,
-                common_values,
-            )
-
-        self._move_common_flags_to_target(
-            global_class["properties"],
-            global_class.setdefault("dependencies", []),
-            linkable_targets,
-            "link_flags",
-            threshold=self.class_optimization_threshold
-        )
-
-        def lib_filter(flag):
-            return flag not in module_target_index
-
-        self._move_common_flags_to_target(
-            global_class["properties"],
-            global_class.setdefault("dependencies", []),
-            nonstatic_linkable_targets,
-            "libs",
-            flag_filter=lib_filter,
-            threshold=self.class_optimization_threshold
-        )
-
-        class_targets = []
-        for module_type in ["executable", "shared_lib", "static_lib"]:
-            class_target = get_class_target(
-                "#" + module_type, conditions={"module_type": module_type}
-            )
-            self._move_common_flags_to_target(
-                class_target["properties"],
-                class_target.setdefault("dependencies", []),
-                filter(lambda t: t["module_type"] == module_type, linkable_targets),
+                linkable_targets,
                 "link_flags",
                 threshold=self.class_optimization_threshold
             )
-            class_targets.append(class_target)
 
-        class_targets.insert(0, global_class)
+            def lib_filter(flag):
+                if isinstance(flag, str):
+                    return flag not in module_target_index
+                else:
+                    return flag['value'] not in module_target_index
+
+            self._move_common_flags_to_target(
+                global_class["properties"],
+                global_class.setdefault("dependencies", []),
+                nonstatic_linkable_targets,
+                "libs",
+                flag_filter=lib_filter,
+                threshold=self.class_optimization_threshold
+            )
+
+            for module_type in ["executable", "shared_lib", "static_lib"]:
+                class_target = get_class_target(
+                    "#" + module_type, conditions={"module_type": module_type}
+                )
+                self._move_common_flags_to_target(
+                    class_target["properties"],
+                    class_target.setdefault("dependencies", []),
+                    filter(lambda t: t["module_type"] == module_type, linkable_targets),
+                    "link_flags",
+                    threshold=self.class_optimization_threshold
+                )
+                class_targets.append(class_target)
+
+            class_targets.insert(0, global_class)
 
         # YASM sources are not natively supported by CMake and
         # current CMake design doesn't let us set target-wide
@@ -416,111 +424,119 @@ class GroupCommonFlagsV2(Optimizer):
                     source_property,
                     target_property=target_property,
                     source_filter=source_filter,
-                    threshold=1,
+                    threshold=0 if self.bazel_mode else 1,
                     flag_filter=flag_filter,
                 )
 
         variable_targets = []
+        if not self.bazel_mode:
 
-        # Aggressive optimizations: group leftover flags in
-        # variables with not vague names like compile_flags_1,
-        # compile_flags_2 etc.
-        if self.aggressive_optimization:
+            # Aggressive optimizations: group leftover flags in
+            # variables with not vague names like compile_flags_1,
+            # compile_flags_2 etc.
+            if self.aggressive_optimization:
 
-            flag_props = [
-                "compile_flags",
-                "c_flags",
-                "cxx_flags",
-                "gasm_flags",
-                "masm_flags",
-                "nasm_flags",
-                "rc_flags",
-                "yasm_flags",
-            ]
-            include_props = [
-                "include_dirs",
-                "c_include_dirs",
-                "cxx_include_dirs",
-                "gasm_include_dirs",
-                "masm_include_dirs",
-                "nasm_include_dirs",
-                "rc_include_dirs",
-                "yasm_include_dirs",
-            ]
-            var_optimization_definitions = [
-                (
-                    flag_props,
-                    compileable_targets + compileable_sources + class_targets,
-                    None,
-                ),
-                (
-                    include_props,
-                    compileable_targets + compileable_sources + class_targets,
-                    None,
-                ),
-                (["link_flags"], compileable_targets + class_targets, None),
-                (["libs"], compileable_targets + class_targets, lib_filter),
-            ]
-            for properties, targets_, flag_filter in var_optimization_definitions:
-                increment = 1
-                flag_sets = []
-                for p in properties:
-                    flag_sets.extend(
-                        [
-                            set(
-                                [
-                                    make_hashable(f)
-                                    for f in (self._get_property_values(t, p) or [])
-                                    if flag_filter is None or flag_filter(f)
-                                ]
-                            )
-                            for t in targets_
-                        ]
-                    )
-                while flag_sets:
-                    flags_length = sum(
-                        [len(s) for s in set(chain.from_iterable(flag_sets))]
-                    )
-                    var_name = "{}_{}".format(properties[0], increment)
-                    placeholder = "@{}@".format(var_name)
-                    common_set, characters_saved = find_best_common_set(
-                        flag_sets,
-                        fitness_func=FitnessByTotalStringLength(len(placeholder)),
-                    )
-                    if characters_saved < 10:
-                        break
-                    ratio = float(characters_saved) / flags_length
-                    # ensure that we save at least 5% text for current flag set
-                    if ratio < 0.05:
-                        break
-                    flags = list(common_set)
-                    flags.sort()
-                    dependencies = []
-                    for f in flags:
-                        if f in variable_target_index:
-                            dependencies.append(f)
-                    var_target = get_variable_target(
-                        var_name, placeholder, flags, dependencies=dependencies
-                    )
-                    for idx, s in enumerate(flag_sets):
-                        if common_set <= s:
-                            s.difference_update(common_set)
-                            t = targets_[idx % len(targets_)]
-                            property = properties[idx // len(targets_)]
-                            self._remove_property_values([t], property, common_set)
-                            values = self._get_property_values(t, property)
-                            values.insert(
-                                self._get_index_for_next_variable(values), placeholder
-                            )
-                            if "language" in t:
-                                # TODO: source objects should support dependencies
-                                #       add dependency to parent target
-                                t = target_by_source[t["_id"]]
-                            if var_target["output"] not in t["dependencies"]:
-                                t["dependencies"].append(var_target["output"])
-                    variable_targets.append(var_target)
-                    variable_target_index[var_target["output"]] = var_target
-                    increment += 1
+                flag_props = [
+                    "compile_flags",
+                    "c_flags",
+                    "cxx_flags",
+                    "gasm_flags",
+                    "masm_flags",
+                    "nasm_flags",
+                    "rc_flags",
+                    "yasm_flags",
+                ]
+                include_props = [
+                    "include_dirs",
+                    "c_include_dirs",
+                    "cxx_include_dirs",
+                    "gasm_include_dirs",
+                    "masm_include_dirs",
+                    "nasm_include_dirs",
+                    "rc_include_dirs",
+                    "yasm_include_dirs",
+                ]
+                var_optimization_definitions = [
+                    (
+                        flag_props,
+                        compileable_targets + compileable_sources + class_targets,
+                        None,
+                    ),
+                    (
+                        include_props,
+                        compileable_targets + compileable_sources + class_targets,
+                        None,
+                    ),
+                    (["link_flags"], compileable_targets + class_targets, None),
+                    (["libs"], compileable_targets + class_targets, lib_filter),
+                ]
+                for properties, targets_, flag_filter in var_optimization_definitions:
+                    increment = 1
+                    flag_sets = []
+                    for p in properties:
+                        flag_sets.extend(
+                            [
+                                set(
+                                    [
+                                        make_hashable(f)
+                                        for f in (self._get_property_values(t, p) or [])
+                                        if flag_filter is None or flag_filter(f)
+                                    ]
+                                )
+                                for t in targets_
+                            ]
+                        )
+                    while flag_sets:
+                        flags_length = sum(
+                            [len(s) for s in set(chain.from_iterable(flag_sets))]
+                        )
+                        var_name = "{}_{}".format(properties[0], increment)
+                        placeholder = "@{}@".format(var_name)
+                        common_set, characters_saved = find_best_common_set(
+                            flag_sets,
+                            fitness_func=FitnessByTotalStringLength(len(placeholder)),
+                        )
+                        if characters_saved < 10:
+                            break
+                        ratio = float(characters_saved) / flags_length
+                        # ensure that we save at least 5% text for current flag set
+                        if ratio < 0.05:
+                            break
+                        flags = sorted(common_set, key=lambda f: f if isinstance(f, str) else " ".join(f))
+                        dependencies = []
+                        for f in flags:
+                            if isinstance(f, str):
+                                args = [f]
+                            else:
+                                args = f
+                            for arg in args:
+                                variable_name = arg
+                                if arg.startswith("@") and not arg.endswith("@"):
+                                    variable_name = arg[:arg.find("@", 1) + 1]
+                                if variable_name in variable_target_index:
+                                    dependencies.append(variable_name)
+                        var_target = get_variable_target(
+                            var_name, placeholder, flags, dependencies=dependencies
+                        )
+                        for idx, s in enumerate(flag_sets):
+                            if common_set <= s:
+                                s.difference_update(common_set)
+                                t = targets_[idx % len(targets_)]
+                                property = properties[idx // len(targets_)]
+                                self._remove_property_values([t], property, common_set)
+                                values = self._get_property_values(t, property)
+                                values.insert(
+                                    self._get_index_for_next_variable(values), placeholder
+                                )
+                                if "language" in t:
+                                    # TODO: source objects should support dependencies
+                                    #       add dependency to parent target
+                                    t = target_by_source[t["_id"]]
+                                if var_target["output"] not in t["dependencies"]:
+                                    t["dependencies"].append(var_target["output"])
+                        variable_targets.append(var_target)
+                        variable_target_index[var_target["output"]] = var_target
+                        increment += 1
 
         # Remove temp identifiers from sources
         for s in compileable_sources:
@@ -532,6 +548,8 @@ class GroupCommonFlagsV2(Optimizer):
     @staticmethod
     def _get_index_for_next_variable(flags):
         for idx, f in enumerate(flags):
+            if not isinstance(f, str):
+                f = f[0]
             if not f.startswith("@"):
                 return idx
         return len(flags)
@@ -548,6 +566,8 @@ class GroupCommonFlagsV2(Optimizer):
         return f.startswith("-D")
 
     def _is_safe_to_merge_nondefinitions(self, targets):
+        if self.bazel_mode:
+            return True
         languages = set([t["language"] for t in targets if "language" in t])
         if self.platform == "windows":
             # Allow merging all flags if only native VS languages are present

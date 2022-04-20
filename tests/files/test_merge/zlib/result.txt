@@ -36,10 +36,48 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i38
         CACHE STRING ""
     )
 endif()
+if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(LIBPNG_ZLIB_TARGET
+        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_arm/externals/zlib/1.2.11/generated/zlib_package/lib/libz.dylib
+        CACHE STRING ""
+    )
+endif()
+if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(LIBPNG_ZLIB_TARGET
+        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_arm64/externals/zlib/1.2.11/generated/zlib_package/lib/libz.dylib
+        CACHE STRING ""
+    )
+endif()
 if((CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
     OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4))
     set(LIBPNG_ZLIB_TARGET
         ${CMAKE_CURRENT_BINARY_DIR}/../.deps_i686/externals/zlib/1.2.11/generated/zlib_package/lib/libz.so
+        CACHE STRING ""
+    )
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(LIBPNG_ZLIB_TARGET
+        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_e2k/externals/zlib/1.2.11/generated/zlib_package/lib/libz.so
+        CACHE STRING ""
+    )
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    set(LIBPNG_ZLIB_TARGET
+        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_x86_64/externals/zlib/1.2.11/generated/zlib_package/lib/libz.so
+        CACHE STRING ""
+    )
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(LIBPNG_ZLIB_TARGET
+        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_arm64/externals/zlib/1.2.11/generated/zlib_package/lib/libz.so
+        CACHE STRING ""
+    )
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    set(LIBPNG_ZLIB_TARGET
+        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_x86_64/externals/zlib/1.2.11/generated/zlib_package/lib/libz.dylib
         CACHE STRING ""
     )
 endif()
@@ -53,17 +91,9 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i38
         CACHE STRING ""
     )
 endif()
-if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
-    set(LIBPNG_ZLIB_TARGET
-        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_x86_64/externals/zlib/1.2.11/generated/zlib_package/lib/libz.dylib
-        CACHE STRING ""
-    )
-endif()
-if((CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
-    set(LIBPNG_ZLIB_TARGET
-        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_x86_64/externals/zlib/1.2.11/generated/zlib_package/lib/libz.so
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(LIBPNG_ZLIB_INCLUDE_DIR
+        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_e2k/externals/zlib/1.2.11/generated/zlib_package/include
         CACHE STRING ""
     )
 endif()
@@ -77,17 +107,21 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86
         CACHE STRING ""
     )
 endif()
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
     set(LIBPNG_ZLIB_TARGET
-        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_arm64/externals/zlib/1.2.11/generated/zlib_package/lib/libz.so
+        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_i686/externals/zlib/1.2.11/generated/zlib_package/lib/zlib.lib
         CACHE STRING ""
     )
 endif()
-if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(LIBPNG_ZLIB_TARGET
-        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_arm64/externals/zlib/1.2.11/generated/zlib_package/lib/libz.dylib
+        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_x86_64/externals/zlib/1.2.11/generated/zlib_package/lib/zlib.lib
         CACHE STRING ""
     )
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    add_compile_options(/GL /GS /fp:precise /fp:except- /Gd /TC)
 endif()
 if((CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
     OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
@@ -96,21 +130,7 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarc
         CACHE STRING ""
     )
 endif()
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(LIBPNG_ZLIB_TARGET
-        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_e2k/externals/zlib/1.2.11/generated/zlib_package/lib/libz.so
-        CACHE STRING ""
-    )
-    set(LIBPNG_ZLIB_INCLUDE_DIR
-        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_e2k/externals/zlib/1.2.11/generated/zlib_package/include
-        CACHE STRING ""
-    )
-endif()
 if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    set(LIBPNG_ZLIB_TARGET
-        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_arm/externals/zlib/1.2.11/generated/zlib_package/lib/libz.dylib
-        CACHE STRING ""
-    )
     set(LIBPNG_ZLIB_INCLUDE_DIR
         ${CMAKE_CURRENT_BINARY_DIR}/../.deps_arm/externals/zlib/1.2.11/generated/zlib_package/include
         CACHE STRING ""
@@ -135,53 +155,70 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i38
         ${LIBPNG_ZLIB_INCLUDE_DIR}
     )
 endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    include_directories(${CMAKE_CURRENT_BINARY_DIR} ${LIBPNG_ZLIB_INCLUDE_DIR})
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    configure_file(${CMAKE_CURRENT_LIST_DIR}/i686-pc-windows-msvc/pnglibconf.h ${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h COPYONLY)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    configure_file(${CMAKE_CURRENT_LIST_DIR}/x86_64-pc-windows-msvc/pnglibconf.h ${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h COPYONLY)
+endif()
 
+if((CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/png.c PROPERTIES COMPILE_OPTIONS /Ycpngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngerror.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngget.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngmem.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngpread.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngread.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngrio.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngrtran.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngrutil.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngset.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngtrans.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngwio.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngwrite.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngwtran.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngwutil.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
+endif()
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
     set(copy_prebuilt_artifacts_DIR i386-apple-darwin/prebuilt)
 endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(copy_prebuilt_artifacts_DIR x86_64-apple-darwin/prebuilt)
-endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    set(copy_prebuilt_artifacts_DIR i686-pc-freebsd/prebuilt)
-endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(copy_prebuilt_artifacts_DIR x86_64-pc-freebsd/prebuilt)
-endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(copy_prebuilt_artifacts_DIR aarch64-pc-linux-gnu/prebuilt)
-endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(copy_prebuilt_artifacts_DIR e2k-linux/prebuilt)
-endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    set(copy_prebuilt_artifacts_DIR i686-pc-linux-gnu/prebuilt)
-endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(copy_prebuilt_artifacts_DIR x86_64-pc-linux-gnu/prebuilt)
-endif()
-
-if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    set(copy_prebuilt_artifacts_DIR arm-apple-darwin_ios/prebuilt)
-endif()
-
-if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(copy_prebuilt_artifacts_DIR arm64-apple-darwin_ios/prebuilt)
-endif()
-
 if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
     set(copy_prebuilt_artifacts_DIR i386-apple-darwin_ios/prebuilt)
 endif()
-
+if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(copy_prebuilt_artifacts_DIR arm-apple-darwin_ios/prebuilt)
+endif()
+if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(copy_prebuilt_artifacts_DIR arm64-apple-darwin_ios/prebuilt)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(copy_prebuilt_artifacts_DIR i686-pc-freebsd/prebuilt)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(copy_prebuilt_artifacts_DIR x86_64-pc-freebsd/prebuilt)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(copy_prebuilt_artifacts_DIR x86_64-apple-darwin/prebuilt)
+endif()
 if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(copy_prebuilt_artifacts_DIR x86_64-apple-darwin_ios/prebuilt)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(copy_prebuilt_artifacts_DIR aarch64-pc-linux-gnu/prebuilt)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(copy_prebuilt_artifacts_DIR i686-pc-linux-gnu/prebuilt)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(copy_prebuilt_artifacts_DIR x86_64-pc-linux-gnu/prebuilt)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(copy_prebuilt_artifacts_DIR e2k-linux/prebuilt)
 endif()
 if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
     OR (CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
@@ -202,74 +239,7 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i38
     endforeach()
 endif()
 
-if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
-    add_library(png16
-        ${LIBPNG_SOURCE_DIR}/png.c
-        ${LIBPNG_SOURCE_DIR}/pngerror.c
-        ${LIBPNG_SOURCE_DIR}/pngget.c
-        ${LIBPNG_SOURCE_DIR}/pngmem.c
-        ${LIBPNG_SOURCE_DIR}/pngpread.c
-        ${LIBPNG_SOURCE_DIR}/pngread.c
-        ${LIBPNG_SOURCE_DIR}/pngrio.c
-        ${LIBPNG_SOURCE_DIR}/pngrtran.c
-        ${LIBPNG_SOURCE_DIR}/pngrutil.c
-        ${LIBPNG_SOURCE_DIR}/pngset.c
-        ${LIBPNG_SOURCE_DIR}/pngtrans.c
-        ${LIBPNG_SOURCE_DIR}/pngwio.c
-        ${LIBPNG_SOURCE_DIR}/pngwrite.c
-        ${LIBPNG_SOURCE_DIR}/pngwtran.c
-        ${LIBPNG_SOURCE_DIR}/pngwutil.c
-        ${LIBPNG_SOURCE_DIR}/mips/mips_init.c
-        ${LIBPNG_SOURCE_DIR}/mips/filter_msa_intrinsics.c
-        ${LIBPNG_SOURCE_DIR}/intel/intel_init.c
-        ${LIBPNG_SOURCE_DIR}/intel/filter_sse2_intrinsics.c
-        ${LIBPNG_SOURCE_DIR}/powerpc/powerpc_init.c
-        ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
-    )
-endif()
-
-if((CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4))
-    add_library(png16
-        ${LIBPNG_SOURCE_DIR}/png.c
-        ${LIBPNG_SOURCE_DIR}/pngerror.c
-        ${LIBPNG_SOURCE_DIR}/pngget.c
-        ${LIBPNG_SOURCE_DIR}/pngmem.c
-        ${LIBPNG_SOURCE_DIR}/pngpread.c
-        ${LIBPNG_SOURCE_DIR}/pngread.c
-        ${LIBPNG_SOURCE_DIR}/pngrio.c
-        ${LIBPNG_SOURCE_DIR}/pngrtran.c
-        ${LIBPNG_SOURCE_DIR}/pngrutil.c
-        ${LIBPNG_SOURCE_DIR}/pngset.c
-        ${LIBPNG_SOURCE_DIR}/pngtrans.c
-        ${LIBPNG_SOURCE_DIR}/pngwio.c
-        ${LIBPNG_SOURCE_DIR}/pngwrite.c
-        ${LIBPNG_SOURCE_DIR}/pngwtran.c
-        ${LIBPNG_SOURCE_DIR}/pngwutil.c
-        ${LIBPNG_SOURCE_DIR}/arm/arm_init.c
-        ${LIBPNG_SOURCE_DIR}/arm/filter_neon.S
-        ${LIBPNG_SOURCE_DIR}/arm/filter_neon_intrinsics.c
-        ${LIBPNG_SOURCE_DIR}/mips/mips_init.c
-        ${LIBPNG_SOURCE_DIR}/mips/filter_msa_intrinsics.c
-        ${LIBPNG_SOURCE_DIR}/powerpc/powerpc_init.c
-        ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
-    )
-endif()
-
-if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4))
-    set_target_properties(png16 PROPERTIES LINK_FLAGS "-Wl,-single_module")
-    target_link_libraries(png16 PRIVATE ${LIBPNG_ZLIB_TARGET})
-    target_compile_options(png16 PRIVATE -fno-common -DPIC)
-endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
     add_library(png16
         ${LIBPNG_SOURCE_DIR}/png.c
         ${LIBPNG_SOURCE_DIR}/pngerror.c
@@ -292,20 +262,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" 
         ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
     )
 endif()
-if((CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
-    set_target_properties(png16 PROPERTIES LINK_FLAGS
-        "-Wl,--version-script=${CMAKE_CURRENT_BINARY_DIR}/libpng.vers"
-    )
-    target_link_libraries(png16 PRIVATE ${LIBPNG_ZLIB_TARGET} m)
-    target_compile_options(png16 PRIVATE -fPIC -DPIC)
-    set_target_properties(png16 PROPERTIES SOVERSION 16)
-endif()
-
 if((IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4) OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
     add_library(png16
         ${LIBPNG_SOURCE_DIR}/png.c
@@ -331,6 +287,137 @@ if((IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL
         ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
     )
 endif()
+if((IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    set_target_properties(png16 PROPERTIES LINK_FLAGS "-Wl,-single_module")
+    target_link_libraries(png16 PRIVATE ${LIBPNG_ZLIB_TARGET})
+    target_compile_options(png16 PRIVATE -fno-common -DPIC)
+endif()
+
+if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    add_library(png16
+        ${LIBPNG_SOURCE_DIR}/png.c
+        ${LIBPNG_SOURCE_DIR}/pngerror.c
+        ${LIBPNG_SOURCE_DIR}/pngget.c
+        ${LIBPNG_SOURCE_DIR}/pngmem.c
+        ${LIBPNG_SOURCE_DIR}/pngpread.c
+        ${LIBPNG_SOURCE_DIR}/pngread.c
+        ${LIBPNG_SOURCE_DIR}/pngrio.c
+        ${LIBPNG_SOURCE_DIR}/pngrtran.c
+        ${LIBPNG_SOURCE_DIR}/pngrutil.c
+        ${LIBPNG_SOURCE_DIR}/pngset.c
+        ${LIBPNG_SOURCE_DIR}/pngtrans.c
+        ${LIBPNG_SOURCE_DIR}/pngwio.c
+        ${LIBPNG_SOURCE_DIR}/pngwrite.c
+        ${LIBPNG_SOURCE_DIR}/pngwtran.c
+        ${LIBPNG_SOURCE_DIR}/pngwutil.c
+        ${LIBPNG_SOURCE_DIR}/mips/mips_init.c
+        ${LIBPNG_SOURCE_DIR}/mips/filter_msa_intrinsics.c
+        ${LIBPNG_SOURCE_DIR}/intel/intel_init.c
+        ${LIBPNG_SOURCE_DIR}/intel/filter_sse2_intrinsics.c
+        ${LIBPNG_SOURCE_DIR}/powerpc/powerpc_init.c
+        ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
+    )
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    add_library(png16
+        ${LIBPNG_SOURCE_DIR}/png.c
+        ${LIBPNG_SOURCE_DIR}/pngerror.c
+        ${LIBPNG_SOURCE_DIR}/pngget.c
+        ${LIBPNG_SOURCE_DIR}/pngmem.c
+        ${LIBPNG_SOURCE_DIR}/pngpread.c
+        ${LIBPNG_SOURCE_DIR}/pngread.c
+        ${LIBPNG_SOURCE_DIR}/pngrio.c
+        ${LIBPNG_SOURCE_DIR}/pngrtran.c
+        ${LIBPNG_SOURCE_DIR}/pngrutil.c
+        ${LIBPNG_SOURCE_DIR}/pngset.c
+        ${LIBPNG_SOURCE_DIR}/pngtrans.c
+        ${LIBPNG_SOURCE_DIR}/pngwio.c
+        ${LIBPNG_SOURCE_DIR}/pngwrite.c
+        ${LIBPNG_SOURCE_DIR}/pngwtran.c
+        ${LIBPNG_SOURCE_DIR}/pngwutil.c
+        ${LIBPNG_SOURCE_DIR}/mips/mips_init.c
+        ${LIBPNG_SOURCE_DIR}/mips/filter_msa_intrinsics.c
+        ${LIBPNG_SOURCE_DIR}/powerpc/powerpc_init.c
+        ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
+    )
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4))
+    add_library(png16
+        ${LIBPNG_SOURCE_DIR}/png.c
+        ${LIBPNG_SOURCE_DIR}/pngerror.c
+        ${LIBPNG_SOURCE_DIR}/pngget.c
+        ${LIBPNG_SOURCE_DIR}/pngmem.c
+        ${LIBPNG_SOURCE_DIR}/pngpread.c
+        ${LIBPNG_SOURCE_DIR}/pngread.c
+        ${LIBPNG_SOURCE_DIR}/pngrio.c
+        ${LIBPNG_SOURCE_DIR}/pngrtran.c
+        ${LIBPNG_SOURCE_DIR}/pngrutil.c
+        ${LIBPNG_SOURCE_DIR}/pngset.c
+        ${LIBPNG_SOURCE_DIR}/pngtrans.c
+        ${LIBPNG_SOURCE_DIR}/pngwio.c
+        ${LIBPNG_SOURCE_DIR}/pngwrite.c
+        ${LIBPNG_SOURCE_DIR}/pngwtran.c
+        ${LIBPNG_SOURCE_DIR}/pngwutil.c
+        ${LIBPNG_SOURCE_DIR}/arm/arm_init.c
+        ${LIBPNG_SOURCE_DIR}/arm/filter_neon.S
+        ${LIBPNG_SOURCE_DIR}/arm/filter_neon_intrinsics.c
+        ${LIBPNG_SOURCE_DIR}/mips/mips_init.c
+        ${LIBPNG_SOURCE_DIR}/mips/filter_msa_intrinsics.c
+        ${LIBPNG_SOURCE_DIR}/powerpc/powerpc_init.c
+        ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
+    )
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4))
+    set_target_properties(png16 PROPERTIES LINK_FLAGS "-Wl,-single_module")
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    set_target_properties(png16 PROPERTIES LINK_FLAGS
+        "-Wl,--version-script=${CMAKE_CURRENT_BINARY_DIR}/libpng.vers"
+    )
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4))
+    target_link_libraries(png16 PRIVATE ${LIBPNG_ZLIB_TARGET})
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    target_link_libraries(png16 PRIVATE ${LIBPNG_ZLIB_TARGET} m)
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4))
+    target_compile_options(png16 PRIVATE -fno-common -DPIC)
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    target_compile_options(png16 PRIVATE -fPIC -DPIC)
+    set_target_properties(png16 PROPERTIES SOVERSION 16)
+endif()
+
 if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
     OR (CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
     OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -363,7 +450,50 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i38
         ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
     )
 endif()
-
+if((CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    add_library(png16.static
+        ${LIBPNG_SOURCE_DIR}/png.c
+        ${LIBPNG_SOURCE_DIR}/pngerror.c
+        ${LIBPNG_SOURCE_DIR}/pngget.c
+        ${LIBPNG_SOURCE_DIR}/pngmem.c
+        ${LIBPNG_SOURCE_DIR}/pngpread.c
+        ${LIBPNG_SOURCE_DIR}/pngread.c
+        ${LIBPNG_SOURCE_DIR}/pngrio.c
+        ${LIBPNG_SOURCE_DIR}/pngrtran.c
+        ${LIBPNG_SOURCE_DIR}/pngrutil.c
+        ${LIBPNG_SOURCE_DIR}/pngset.c
+        ${LIBPNG_SOURCE_DIR}/pngtrans.c
+        ${LIBPNG_SOURCE_DIR}/pngwio.c
+        ${LIBPNG_SOURCE_DIR}/pngwrite.c
+        ${LIBPNG_SOURCE_DIR}/pngwtran.c
+        ${LIBPNG_SOURCE_DIR}/pngwutil.c
+        ${LIBPNG_SOURCE_DIR}/mips/mips_init.c
+        ${LIBPNG_SOURCE_DIR}/mips/filter_msa_intrinsics.c
+        ${LIBPNG_SOURCE_DIR}/powerpc/powerpc_init.c
+        ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
+    )
+endif()
+if((CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+    OR (CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+    add_library(png16.static
+        ${LIBPNG_SOURCE_DIR}/png.c
+        ${LIBPNG_SOURCE_DIR}/pngerror.c
+        ${LIBPNG_SOURCE_DIR}/pngget.c
+        ${LIBPNG_SOURCE_DIR}/pngmem.c
+        ${LIBPNG_SOURCE_DIR}/pngpread.c
+        ${LIBPNG_SOURCE_DIR}/pngread.c
+        ${LIBPNG_SOURCE_DIR}/pngrio.c
+        ${LIBPNG_SOURCE_DIR}/pngrtran.c
+        ${LIBPNG_SOURCE_DIR}/pngrutil.c
+        ${LIBPNG_SOURCE_DIR}/pngset.c
+        ${LIBPNG_SOURCE_DIR}/pngtrans.c
+        ${LIBPNG_SOURCE_DIR}/pngwio.c
+        ${LIBPNG_SOURCE_DIR}/pngwrite.c
+        ${LIBPNG_SOURCE_DIR}/pngwtran.c
+        ${LIBPNG_SOURCE_DIR}/pngwutil.c
+    )
+endif()
 if((CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
     OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm" AND CMAKE_SIZEOF_VOID_P EQUAL 4))
     add_library(png16.static
@@ -391,63 +521,6 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "aarc
         ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
     )
 endif()
-
-if(IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    add_library(png16
-        ${LIBPNG_SOURCE_DIR}/png.c
-        ${LIBPNG_SOURCE_DIR}/pngerror.c
-        ${LIBPNG_SOURCE_DIR}/pngget.c
-        ${LIBPNG_SOURCE_DIR}/pngmem.c
-        ${LIBPNG_SOURCE_DIR}/pngpread.c
-        ${LIBPNG_SOURCE_DIR}/pngread.c
-        ${LIBPNG_SOURCE_DIR}/pngrio.c
-        ${LIBPNG_SOURCE_DIR}/pngrtran.c
-        ${LIBPNG_SOURCE_DIR}/pngrutil.c
-        ${LIBPNG_SOURCE_DIR}/pngset.c
-        ${LIBPNG_SOURCE_DIR}/pngtrans.c
-        ${LIBPNG_SOURCE_DIR}/pngwio.c
-        ${LIBPNG_SOURCE_DIR}/pngwrite.c
-        ${LIBPNG_SOURCE_DIR}/pngwtran.c
-        ${LIBPNG_SOURCE_DIR}/pngwutil.c
-        ${LIBPNG_SOURCE_DIR}/mips/mips_init.c
-        ${LIBPNG_SOURCE_DIR}/mips/filter_msa_intrinsics.c
-        ${LIBPNG_SOURCE_DIR}/powerpc/powerpc_init.c
-        ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
-    )
-endif()
-if((IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
-    set_target_properties(png16 PROPERTIES LINK_FLAGS "-Wl,-single_module")
-    target_link_libraries(png16 PRIVATE ${LIBPNG_ZLIB_TARGET})
-    target_compile_options(png16 PRIVATE -fno-common -DPIC)
-endif()
-
-if((CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "e2k" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
-    add_library(png16.static
-        ${LIBPNG_SOURCE_DIR}/png.c
-        ${LIBPNG_SOURCE_DIR}/pngerror.c
-        ${LIBPNG_SOURCE_DIR}/pngget.c
-        ${LIBPNG_SOURCE_DIR}/pngmem.c
-        ${LIBPNG_SOURCE_DIR}/pngpread.c
-        ${LIBPNG_SOURCE_DIR}/pngread.c
-        ${LIBPNG_SOURCE_DIR}/pngrio.c
-        ${LIBPNG_SOURCE_DIR}/pngrtran.c
-        ${LIBPNG_SOURCE_DIR}/pngrutil.c
-        ${LIBPNG_SOURCE_DIR}/pngset.c
-        ${LIBPNG_SOURCE_DIR}/pngtrans.c
-        ${LIBPNG_SOURCE_DIR}/pngwio.c
-        ${LIBPNG_SOURCE_DIR}/pngwrite.c
-        ${LIBPNG_SOURCE_DIR}/pngwtran.c
-        ${LIBPNG_SOURCE_DIR}/pngwutil.c
-        ${LIBPNG_SOURCE_DIR}/mips/mips_init.c
-        ${LIBPNG_SOURCE_DIR}/mips/filter_msa_intrinsics.c
-        ${LIBPNG_SOURCE_DIR}/powerpc/powerpc_init.c
-        ${LIBPNG_SOURCE_DIR}/powerpc/filter_vsx_intrinsics.c
-    )
-endif()
-
 if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i386" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
     OR (CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
     OR (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i686" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -462,65 +535,8 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "i38
     OR (IOS AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
     set_target_properties(png16.static PROPERTIES OUTPUT_NAME png16)
 endif()
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    set(LIBPNG_ZLIB_TARGET
-        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_i686/externals/zlib/1.2.11/generated/zlib_package/lib/zlib.lib
-        CACHE STRING ""
-    )
-endif()
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(LIBPNG_ZLIB_TARGET
-        ${CMAKE_CURRENT_BINARY_DIR}/../.deps_x86_64/externals/zlib/1.2.11/generated/zlib_package/lib/zlib.lib
-        CACHE STRING ""
-    )
-endif()
 if((CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
     OR (CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
-    add_compile_options(/GL /GS /fp:precise /fp:except- /Gd /TC)
-    include_directories(${CMAKE_CURRENT_BINARY_DIR} ${LIBPNG_ZLIB_INCLUDE_DIR})
-endif()
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    configure_file(${CMAKE_CURRENT_LIST_DIR}/i686-pc-windows-msvc/pnglibconf.h ${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h COPYONLY)
-endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-    configure_file(${CMAKE_CURRENT_LIST_DIR}/x86_64-pc-windows-msvc/pnglibconf.h ${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h COPYONLY)
-endif()
-
-if((CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    OR (CMAKE_SYSTEM_NAME STREQUAL "Windows" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64" AND CMAKE_SIZEOF_VOID_P EQUAL 8))
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/png.c PROPERTIES COMPILE_OPTIONS /Ycpngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngerror.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngget.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngmem.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngpread.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngread.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngrio.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngrtran.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngrutil.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngset.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngtrans.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngwio.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngwrite.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngwtran.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    set_source_files_properties(${LIBPNG_SOURCE_DIR}/pngwutil.c PROPERTIES COMPILE_OPTIONS /Yupngpriv.h)
-    add_library(png16.static
-        ${LIBPNG_SOURCE_DIR}/png.c
-        ${LIBPNG_SOURCE_DIR}/pngerror.c
-        ${LIBPNG_SOURCE_DIR}/pngget.c
-        ${LIBPNG_SOURCE_DIR}/pngmem.c
-        ${LIBPNG_SOURCE_DIR}/pngpread.c
-        ${LIBPNG_SOURCE_DIR}/pngread.c
-        ${LIBPNG_SOURCE_DIR}/pngrio.c
-        ${LIBPNG_SOURCE_DIR}/pngrtran.c
-        ${LIBPNG_SOURCE_DIR}/pngrutil.c
-        ${LIBPNG_SOURCE_DIR}/pngset.c
-        ${LIBPNG_SOURCE_DIR}/pngtrans.c
-        ${LIBPNG_SOURCE_DIR}/pngwio.c
-        ${LIBPNG_SOURCE_DIR}/pngwrite.c
-        ${LIBPNG_SOURCE_DIR}/pngwtran.c
-        ${LIBPNG_SOURCE_DIR}/pngwutil.c
-    )
     set_target_properties(png16.static PROPERTIES OUTPUT_NAME libpng16)
 endif()
 

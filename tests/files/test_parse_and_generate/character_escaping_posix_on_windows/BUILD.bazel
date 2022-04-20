@@ -1,0 +1,20 @@
+cc_binary(
+    linkstatic = False,
+    name = "test",
+    srcs = [
+        "source/a.c",
+    ],
+    copts = [
+        "-DHAVE_CONFIG_H=1",
+        "-DXERCES_BUILDING_LIBRARY=1",
+        "-DASTERISK=*",
+        "-DXERCES_DLL_NAME=\"xerces-c_3_2.dll\\0\"",
+        "-DOPENSSL_DIR=\"C:\\Program Files (x86)\\OpenSSL\"",
+    ],
+    includes = [
+    ],
+    linkopts = [
+    ],
+    deps = [
+    ],
+)

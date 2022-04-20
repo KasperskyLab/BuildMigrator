@@ -1,0 +1,2 @@
+[1/1] gcc -DOPENSSL_DIR="\"/Program Files (x86)/OpenSSL\"" -DASTERISK=\* -DXERCES_DLL_NAME="\"xerces-c_3_2.dll\\0\"" ../source/a.c -o test
+
